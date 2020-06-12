@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //apiURL: 'https://appvirtualrg.com/',
-  apiURL: 'http://ringtelbackend.local/'
+  apiURL: 'https://appvirtualrg.com/',
+  //apiURL: 'http://ringtelbackend.local/'
 };
 
 /*
