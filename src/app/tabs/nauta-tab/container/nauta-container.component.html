@@ -1,0 +1,86 @@
+<form [formGroup]="nautaForm" (ngSubmit)="onSubmit()" *ngIf="appService.opvars.nautaRecharges">
+
+    <ion-card class="shadow-lg">
+        <ion-card-content>
+            <ion-item class="ion-no-padding z-index-0" lines="none">
+                <ion-img src="../../assets/images/services/nauta.png" class="logo_service"></ion-img>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="shadow-lg">
+        <ion-card-content>
+            <div class="form-group">
+                <ion-label class="">Nombre:</ion-label>
+                <input type="text" formControlName="client" maxlength="50" minlength="2"
+                       class="form-control" id="client" aria-describedby="nameHelp" aria-label=""
+                       placeholder="Nombre del cliente" autocomplete="off" matInput [matAutocomplete]="autoName"
+                       [class.error-input]="!formControl.client.valid && (formControl.client.dirty || formControl.client.touched)">
+                <mat-autocomplete #autoName="matAutocomplete">
+                    <mat-option *ngFor="let conctactList of filteredNames | async" [value]="conctactList.name">
+                        {{conctactList.name}}
+                        <b>{{conctactList.phone}}</b>
+                    </mat-option>
+                </mat-autocomplete>
+                <!-- Error messages -->
+                <span class="error"
+                      *ngIf="formControl.client.errors?.minlength && (formControl.client.dirty || formControl.client.touched)">
+                        Nombre del cliente de 2 caracteres mínimo.
+                    </span>
+            </div>
+            <div class="form-group">
+                <ion-label class="required">Cuenta:</ion-label>
+                <div class="input-group">
+                    <ion-input type="text" formControlName="account" minlength="2"
+                               class="form-control" autocomplete="off" required
+                               id="account" aria-describedby="emailHelp" placeholder="Cuenta nauta"
+                               [class.error-input]="!formControl.account.valid && (formControl.account.dirty || formControl.account.touched)"></ion-input>
+                    <div class="input-group-append">
+                        <span class="btn btn-outline-secondary" id="emailHelp">@nauta.com.cu</span>
+                    </div>
+                </div>
+                <!-- Error messages -->
+                <span class="error"
+                      *ngIf="formControl.account.errors?.required && (formControl.account.dirty || formControl.account.touched)">
+                        Cuenta del cliente es obligatorio.
+                    </span>
+                <span class="error"
+                      *ngIf="formControl.account.errors?.minlength && (formControl.account.dirty || formControl.account.touched)">
+                        Cuenta del cliente de 2 caracteres mínimo.
+                    </span>
+                <span class="error" *ngIf="formControl.account.errors?.emailDomain
+                     && (formControl.account.dirty || formControl.account.touched)">
+                        Cuenta del cliente incorrecta.
+                    </span>
+            </div>
+            <div class="form-group">
+                <ion-label class="required">Recargas disponibles:</ion-label>
+                <ion-select placeholder="Seleccione un valor" formControlName="recharge" class="form-control"
+                            aria-describedby="priceHelp" okText="Seleccionar" cancelText="Cancelar"
+                            (keyup.enter)="onSubmit()">
+                    <ion-select-option *ngFor="let item of appService.opvars.nautaRecharges;"
+                                       [value]="item.id">{{item.slug}}</ion-select-option>
+                </ion-select>
+            </div>
+            <div class="form-group">
+                <ion-radio-group value="1">
+                    <ion-item class="ion-no-padding custom-radio-group" lines="none" (click)="setAction(1)">
+                        <ion-radio color="primary" value="1" class="mr-2"></ion-radio>
+                        <ion-label>Recargar ahora</ion-label>
+                    </ion-item>
+                    <ion-item class="ion-no-padding custom-radio-group" lines="none" (click)="setAction(2)">
+                        <ion-radio color="tertiary" value="2" class="mr-2"></ion-radio>
+                        <ion-label>Enviar recarga al carrito</ion-label>
+                    </ion-item>
+                </ion-radio-group>
+            </div>
+            <div class="form-group mb-0">
+                <ion-button type="submit" color="primary" expand="block">
+                    {{buttonSubmitText}}
+                </ion-button>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+</form>
+
+<ion-spinner *ngIf="!appService.opvars.nautaRecharges" color="primary" name="lines" class="loading"></ion-spinner>

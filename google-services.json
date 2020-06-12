@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "308862287382",
+    "firebase_url": "https://ringtelfirebase.firebaseio.com",
+    "project_id": "ringtelfirebase",
+    "storage_bucket": "ringtelfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308862287382:android:2bc199a596d467f738ff37",
+        "android_client_info": {
+          "package_name": "com.ringtel.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308862287382-61emfmpcgechtpieetsfbbehqnfnh3nq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATVcgKF3ZBGOGbFlGaYqn1UaQtFpJZlZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308862287382-61emfmpcgechtpieetsfbbehqnfnh3nq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,87 @@
+<app-toolbar title="Editar precios y ventas" active="sales"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage="{{appService.appRoutes.APP_EDIT_SALES}}"></app-refresh>
+    <ion-card class="shadow-lg">
+        <ion-card-content>
+            <ion-item class="ion-no-padding z-index-0">
+                <ion-avatar slot="start">
+                    <ion-img src="../../assets/images/services/info.svg"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                    <h2>Info</h2>
+                    <p>Costos de servicios proporcionados <br/> en su perfil.</p>
+                </ion-label>
+            </ion-item>
+            <div class="row text-center">
+                <div class="col-6 border-right py-3">
+                    <div class="h4 mb-0 text-primary"> {{appService.secvars.user.sale_price_cubacel|number}}
+                        <sup class="small">$</sup></div>
+                    <span class="small text-gray">Costo Cubacel</span>
+                </div>
+                <div class="col-6 py-3">
+                    <div class="h4 mb-0 text-success"> {{appService.secvars.user.sale_price_nauta|number}}
+                        <sup class="small">$</sup></div>
+                    <span class="small text-gray">Costo Nauta</span>
+                </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="shadow-lg">
+        <ion-card-content>
+            <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                    <ion-label class="required">
+                        Precio de venta cubacel:
+                    </ion-label>
+                    <ion-input type="text" formControlName="sellingCostCubacel" autocomplete="off"
+                               placeholder="Ingrese precio de venta cubacel" required
+                               [class.error-input]="(!formControl.sellingCostCubacel.valid && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)) || appService.agentsVars.errorPath == 'sellingCostCubacel'"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.sellingCostCubacel.errors?.required && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.sellingCostCubacel.errors?.pattern && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)">
+                            Sólo números.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'sellingCostCubacel'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Precio de venta nauta:
+                    </ion-label>
+                    <ion-input type="text" formControlName="sellingCostNauta" autocomplete="off"
+                               placeholder="Ingrese precio de venta nauta" required
+                               [class.error-input]="(!formControl.sellingCostNauta.valid && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)) || appService.agentsVars.errorPath == 'sellingCostNauta'"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.sellingCostNauta.errors?.required && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.sellingCostNauta.errors?.pattern && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)">
+                            Sólo números.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'sellingCostNauta'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+
+                <div class="form-group">
+                    <ion-button color="primary" expand="block" type="submit">
+                        Actualizar datos
+                    </ion-button>
+                </div>
+
+            </form>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

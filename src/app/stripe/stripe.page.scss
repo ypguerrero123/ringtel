@@ -1,0 +1,142 @@
+ion-item {
+  --ion-safe-area-right: 0;
+}
+
+#image_credit_card {
+  padding: 10px;
+}
+
+.form-control {
+  border-radius: 0 !important;
+}
+
+.form-control:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #0d47a1;
+  outline-width: 0
+}
+
+::placeholder {
+  color: #BDBDBD !important;
+}
+
+input, ion-input {
+  padding: 10px 12px 10px 12px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #2C3E50;
+  font-size: 14px;
+  letter-spacing: 1px
+}
+
+#card-errors {
+  color: darkred;
+}
+
+.form-control:invalid {
+  border-color: darkred;
+}
+
+.required:after {
+  content: "*";
+  color: darkred;
+}
+
+.error {
+  color: darkred;
+  font-size: 12px;
+}
+
+.error-input {
+  border-color: darkred !important;
+}
+
+.loading {
+  margin: 60% 50% !important;
+}
+
+.img-finished {
+  width: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 35%;
+}
+
+.message {
+  font-size: 40px;
+  margin: 2rem 0;
+}
+
+.img_footer {
+  width: 50%;
+  margin: 5rem;
+}
+
+.img_footer_2 {
+  width: 40%;
+  margin: 1rem 6rem;
+}
+
+.img_card_saved {
+  width: 10%;
+  margin-right: 1rem;
+}
+
+.form-credit {
+  margin-bottom: 0;
+}
+
+:host ::ng-deep .mat-horizontal-content-container {
+  padding: 0 10px 0 10px !important;
+}
+
+
+/* View card */
+
+
+.card {
+  width: 350px;
+  background-color: #454A50;
+  border-radius: 10px;
+  color: #D4D5DA
+}
+
+.card-image {
+  width: 35px;
+  height: 30px
+}
+
+.fa-ellipsis-v {
+  color: #B7BEC8 !important;
+  font-size: 12px
+}
+
+.card-mid span {
+  color: #70737A !important
+}
+
+.card-mid h6 {
+  letter-spacing: 3px
+}
+
+.card-bottom {
+  margin-top: 30px
+}
+
+.card-bottom h6 {
+  font-size: 13px;
+  letter-spacing: 2px
+}
+
+.z-index-0 {
+  z-index: 0 !important;
+}
+
+
+

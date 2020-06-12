@@ -1,0 +1,36 @@
+<ion-tabs>
+
+    <ion-tab-bar slot="bottom" class="custom-tab-bar">
+
+        <ion-tab-button tab="home">
+            <ion-icon name="home-outline"></ion-icon>
+            <ion-label>Inicio</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="cubacel">
+            <ion-icon name="phone-portrait-outline"></ion-icon>
+            <ion-label>Cubacel</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button *ngIf="!appService.isPostSale()">
+            <button mat-fab color="primary" aria-label=""
+                    (click)="appService.navigateToUrl(appService.appRoutes.APP_STRIPE)">
+                <ion-icon name="wallet-outline"></ion-icon>
+            </button>
+        </ion-tab-button>
+
+        <ion-tab-button tab="nauta">
+            <ion-icon name="mail-outline"></ion-icon>
+            <ion-label>Nauta</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="long-distance" *ngIf="!appService.isPostSale()">
+            <ion-icon name="call-outline"></ion-icon>
+            <ion-label>Llamadas</ion-label>
+        </ion-tab-button>
+
+    </ion-tab-bar>
+
+</ion-tabs>
+
+

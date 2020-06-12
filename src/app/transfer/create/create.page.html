@@ -1,0 +1,70 @@
+<app-toolbar title="Transferir saldo" active="transfer"></app-toolbar>
+
+<ion-content scroll-y="yes">
+    <app-refresh></app-refresh>
+    <ion-card class="shadow-lg">
+        <ion-card-content>
+            <form [formGroup]="creditForm">
+                <ion-input class="form-transfer" name="creditSend" id="creditSend" formControlName="creditSend"
+                           type="number"
+                           [class.error-input]="!formControl.creditSend.valid && (formControl.creditSend.dirty || formControl.creditSend.touched)"></ion-input>
+
+                <ion-text class="ion-text-center">
+                    <!-- Error messages -->
+                    <p class="error"
+                       *ngIf="formControl.creditSend.errors?.required && (formControl.creditSend.dirty || formControl.creditSend.touched)">
+                        Crédito obligatorio
+                    </p>
+                    <p class="error"
+                       *ngIf="formControl.creditSend.errors?.min && (formControl.creditSend.dirty || formControl.creditSend.touched)">
+                        Crédito mínimo para enviar 10.00
+                    </p>
+                    <p class="error"
+                       *ngIf="formControl.creditSend.errors?.max && (formControl.creditSend.dirty || formControl.creditSend.touched)">
+                        Crédito máximo para enviar {{this.appService.secvars.user.balance}}
+                    </p>
+                </ion-text>
+            </form>
+
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="shadow-lg">
+        <ion-card-content>
+            <form method="post" (ngSubmit)="searchAgents()">
+                <div class="form-group">
+                    <div class="input-group">
+                        <ion-input class="form-control" placeholder="Buscar agente" [(ngModel)]="searchValue"
+                                   name="searchValue" id="searchValue"
+                                   aria-describedby="searchHelp"></ion-input>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit" (keyup.enter)="searchAgents()">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <small id="searchHelp" class="form-text text-muted">Puede buscar por nombre, correo o
+                        teléfono.</small>
+                </div>
+            </form>
+            <ion-list *ngIf="agentsFound.length > 0">
+                <ion-list-header class="ion-no-padding">
+                    Agentes encontrados
+                </ion-list-header>
+                <ion-item class="ion-no-padding" *ngFor="let agent of agentsFound">
+                    <ion-avatar slot="start">
+                        <ion-img src="../../assets/images/profile/avatar.svg"></ion-img>
+                    </ion-avatar>
+                    <ion-label>
+                        <h2>{{agent.name}}</h2>
+                        <h3>{{agent.phoneCodeNumber}}{{agent.phone}}</h3>
+                        <p>{{agent.email}}</p>
+                    </ion-label>
+                    <ion-button slot="end" (click)="transferCredit(agent.id)">
+                        Enviar
+                    </ion-button>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

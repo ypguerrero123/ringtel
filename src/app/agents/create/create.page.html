@@ -1,0 +1,171 @@
+<app-toolbar title="Crear usuario" active="agents"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage="{{appService.appRoutes.APP_AGENTS_CREATE}}"></app-refresh>
+    <ion-card class="shadow-lg">
+        <ion-card-content>
+            <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                    <ion-label class="required">
+                        Nombre:
+                    </ion-label>
+                    <ion-input type="text" formControlName="name" autocomplete="off"
+                               placeholder="Entre su nombre" required maxlength="50"
+                               [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || appService.agentsVars.errorPath == 'name'"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.name.errors?.required && (formControl.name.dirty || formControl.name.touched)">
+                            Nombre obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.name.errors?.minlength && (formControl.name.dirty || formControl.name.touched)">
+                            Nombre de 2 caracteres mínimo.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'name'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Correo:
+                    </ion-label>
+                    <ion-input type="email" formControlName="email" autocomplete="off" aria-describedby="emailHelp"
+                               placeholder="Ingrese dirección de correo" required maxlength="50"
+                               [class.error-input]="(!formControl.email.valid && (formControl.email.dirty || formControl.email.touched)) || appService.agentsVars.errorPath == 'email'"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.email.errors?.required && (formControl.email.dirty || formControl.email.touched)">
+                            Correo obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.email.errors?.email && (formControl.email.dirty || formControl.email.touched)">
+                            Correo no válido.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'email'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Teléfono:
+                    </ion-label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button"
+                                    (click)="appService.choicePhoneCode()">
+                                {{appService.profvars.ccodePhoneValue}}</button>
+                        </div>
+                        <ion-input type="tel" formControlName="phone" autocomplete="off"
+                                   placeholder="Ingrese número de celular" required maxlength="13"
+                                   [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || appService.agentsVars.errorPath == 'phone'"></ion-input>
+                    </div>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.phone.errors?.required && (formControl.phone.dirty || formControl.phone.touched)">
+                            Teléfono obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.phone.errors?.pattern && (formControl.phone.dirty || formControl.phone.touched)">
+                            Sólo números.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'phone'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Balance:
+                    </ion-label>
+                    <ion-input type="text" formControlName="balance" autocomplete="off" aria-describedby="balanceHelp"
+                               placeholder="Ingrese el balance" required
+                               [class.error-input]="(!formControl.balance.valid && (formControl.balance.dirty || formControl.balance.touched)) || appService.agentsVars.errorPath == 'balance'"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.balance.errors?.required && (formControl.balance.dirty || formControl.balance.touched)">
+                            Balance obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.balance.errors?.pattern && (formControl.balance.dirty || formControl.balance.touched)">
+                            Sólo números.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'balance'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Costo cubacel:
+                    </ion-label>
+                    <ion-input type="text" formControlName="salePriceCubacel" autocomplete="off"
+                               aria-describedby="balanceHelp"
+                               placeholder="Ingrese costo cubacel" required
+                               [class.error-input]="(!formControl.salePriceCubacel.valid && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)) || appService.agentsVars.errorPath == 'salePriceCubacel'"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.salePriceCubacel.errors?.required && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.salePriceCubacel.errors?.pattern && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)">
+                            Sólo números.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'salePriceCubacel'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Costo nauta:
+                    </ion-label>
+                    <ion-input type="text" formControlName="salePriceNauta" autocomplete="off"
+                               aria-describedby="balanceHelp"
+                               placeholder="Ingrese costo nauta" required
+                               [class.error-input]="(!formControl.salePriceNauta.valid && (formControl.salePriceNauta.dirty || formControl.salePriceNauta.touched)) || appService.agentsVars.errorPath == 'salePriceNauta'"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.salePriceNauta.errors?.required && (formControl.salePriceNauta.dirty || formControl.salePriceNauta.touched)">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.salePriceNauta.errors?.pattern && (formControl.salePriceNauta.dirty || formControl.salePriceNauta.touched)">
+                            Sólo números.
+                        </span>
+                    <span class="error"
+                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'salePriceNauta'">
+                            {{appService.agentsVars.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Contraseña:
+                    </ion-label>
+                    <ion-input type="password" formControlName="password" autocomplete="off" maxlength="20"
+                               placeholder="Entre la contraseña" (keyup.enter)="onSubmit()"
+                               [class.error-input]="!formControl.password.valid && (formControl.password.dirty || formControl.password.touched)"></ion-input>
+                    <!-- Error messages -->
+                    <span class="error"
+                          *ngIf="formControl.password.errors?.required && (formControl.password.dirty || formControl.password.touched)">
+                            Contraseña obligatoria.
+                        </span>
+                    <span class="error"
+                          *ngIf="formControl.password.errors?.minlength && (formControl.password.dirty || formControl.password.touched)">
+                            Contrseña de 8 caracteres mínimo.
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-button color="primary" expand="block" type="submit">
+                        Crear usuario
+                    </ion-button>
+                </div>
+
+            </form>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

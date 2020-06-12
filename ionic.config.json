@@ -1,0 +1,7 @@
+{
+  "name": "ringtel",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
