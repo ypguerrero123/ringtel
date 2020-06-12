@@ -7,6 +7,7 @@ import {Utils} from '../services/utils/utils';
 import {Messages} from '../config/messages';
 import {AppRoutes} from '../config/routes';
 import {Method} from '../model/stripe';
+import {environment} from '../../environments/environment';
 
 declare var Stripe;
 
@@ -69,7 +70,7 @@ export class StripePage implements OnInit {
     /**
      * StripeService vars
      */
-    private pkSecret: string = 'pk_test_OWmj8OkGjUqxLyrgrbHtXR7600FZYXhUa3';
+    private pkSecret: string = environment.stripeKey;
     private stripe = Stripe(this.pkSecret, {
         locale: 'es'
     });
@@ -280,12 +281,7 @@ export class StripePage implements OnInit {
     private showNewPaymentMethod() {
         setTimeout(() => {
             let elements = this.stripe.elements({
-                locale: 'es', //window.__exampleLocale
-                fonts: [
-                    {
-                        cssSrc: 'https://fonts.googleapis.com/css?family=Roboto',
-                    }
-                ]
+                locale: 'es',
             });
 
             this.card = elements.create('card', {

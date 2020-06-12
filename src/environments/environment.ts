@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  stripeKey: 'pk_test_OWmj8OkGjUqxLyrgrbHtXR7600FZYXhUa3',
   apiURL: 'https://appvirtualrg.com/',
   //apiURL: 'http://ringtelbackend.local/'
 };
