@@ -3,11 +3,11 @@ import {SendShoppingResponse, Shopping, ShoppingFormEntity} from '../../model/sh
 import {Constants} from '../../config/constants';
 import {Messages} from '../../config/messages';
 import {Recharge, RechargeEntity} from '../../model/recharge';
-import {Utils} from "../utils/utils";
-import {FormGroup} from "@angular/forms";
-import {map} from "rxjs/operators";
-import {User} from "../../model/user";
-import {Operation} from "../../model/operation";
+import {Utils} from '../utils/utils';
+import {FormGroup} from '@angular/forms';
+import {map} from 'rxjs/operators';
+import {User} from '../../model/user';
+import {Operation} from '../../model/operation';
 
 /**
  * OperationService

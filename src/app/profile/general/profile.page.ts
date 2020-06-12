@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Utils} from "../../services/utils/utils";
-import {Messages} from "../../config/messages";
+import {AppService} from '../../services/app.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Utils} from '../../services/utils/utils';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-profile',
@@ -25,6 +25,13 @@ export class ProfilePage implements OnInit {
     constructor(public appService: AppService, private formBuilder: FormBuilder) {
     }
 
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.profileForm.controls;
+    }
+
     ngOnInit() {
 
         this.appService.profvars.updateCCodePhoneValue(this.appService.secvars.user.phoneCodeNumber);
@@ -40,13 +47,6 @@ export class ProfilePage implements OnInit {
                 [Validators.required, Validators.pattern('[0-9]+')]
             ]
         });
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.profileForm.controls;
     }
 
     /**

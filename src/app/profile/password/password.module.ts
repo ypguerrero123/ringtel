@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {PasswordPageRoutingModule} from './password-routing.module';
 
 import {PasswordPage} from './password.page';
-import {ToolbarModule} from "../../includes/toolbar/toolbar.module";
+import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
 
 @NgModule({
     imports: [

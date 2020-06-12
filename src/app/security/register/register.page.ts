@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../../services/app.service';
-import {Utils} from "../../services/utils/utils";
-import {Messages} from "../../config/messages";
+import {Utils} from '../../services/utils/utils';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-register',
@@ -24,6 +24,13 @@ export class RegisterPage implements OnInit {
     constructor(private formBuilder: FormBuilder, public appService: AppService) {
     }
 
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.registerForm.controls;
+    }
+
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
             name: ['Nombre Apellidos', [Validators.required, Validators.minLength(2)]],
@@ -43,14 +50,6 @@ export class RegisterPage implements OnInit {
             );
         }
         return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
-    }
-
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.registerForm.controls;
     }
 
 }

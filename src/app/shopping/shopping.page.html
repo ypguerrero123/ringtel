@@ -1,24 +1,24 @@
-<app-toolbar title="Mi carrito" active="shopping"></app-toolbar>
+<app-toolbar active="shopping" title="Mi carrito"></app-toolbar>
 
 <ion-content [class.content]="tableDataSource.data.length == 0 && !loadingData">
     <app-refresh routePage="{{appService.appRoutes.APP_SHOPPING_CART}}"></app-refresh>
-    <app-empty loading="{{ loadingData ? '' : loadingData }}"
-               empty="{{ tableDataSource.data.length == 0 }}"></app-empty>
+    <app-empty empty="{{ tableDataSource.data.length == 0 }}"
+               loading="{{ loadingData ? '' : loadingData }}"></app-empty>
 
     <div *ngIf="tableDataSource.data.length > 0 && !loadingData">
         <ion-header class="sticky ion-no-border mt-1">
             <ion-toolbar><!-- Searchbar with cancel button shown on focus -->
-                <ion-searchbar placeholder="Filtrar" animated debounce="500"
-                               (keyup)="applyFilter($event)"></ion-searchbar>
+                <ion-searchbar (keyup)="applyFilter($event)" animated debounce="500"
+                               placeholder="Filtrar"></ion-searchbar>
             </ion-toolbar>
         </ion-header>
-        <div class="mat-elevation-z8 shadow-lg" *ngIf="!loadingData">
-            <table mat-table [dataSource]="tableDataSource" matSort>
+        <div *ngIf="!loadingData" class="mat-elevation-z8 shadow-lg">
+            <table [dataSource]="tableDataSource" mat-table matSort>
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="account">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cuenta</th>
-                    <td mat-cell *matCellDef="let element">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Cuenta</th>
+                    <td *matCellDef="let element" mat-cell>
                         {{element.client}}<br/>
                         {{element.account.length > 10 ? element.account.slice(0, 10) : element.account}}
                     </td>
@@ -26,8 +26,8 @@
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="service">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Servicio</th>
-                    <td mat-cell *matCellDef="let element">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Servicio</th>
+                    <td *matCellDef="let element" mat-cell>
                         {{(element.service) == 'cubacel' ? 'Cubacel' : ((element.service) == 'nauta' ? 'Nauta' : 'Larga')}}
                         <br/>
                         {{element.recharge.slug}}
@@ -36,17 +36,17 @@
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="errorMessage">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element">
-                        <ion-icon name="warning-outline" *ngIf="element.errorMessage" color="danger"
-                                  (click)="showErrorMessage(element)" class="mr-3"></ion-icon>
-                        <ion-icon name="close-circle-outline" color="danger"
-                                  (click)="appService.removeOneShopping(element)"></ion-icon>
+                    <th *matHeaderCellDef mat-header-cell></th>
+                    <td *matCellDef="let element" mat-cell>
+                        <ion-icon (click)="showErrorMessage(element)" *ngIf="element.errorMessage" class="mr-3"
+                                  color="danger" name="warning-outline"></ion-icon>
+                        <ion-icon (click)="appService.removeOneShopping(element)" color="danger"
+                                  name="close-circle-outline"></ion-icon>
                     </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
         </div>
     </div>
@@ -54,7 +54,7 @@
 
 <ion-footer *ngIf="tableDataSource.data.length > 0 && !loadingData">
     <ion-toolbar class="pl-3 pr-3">
-        <ion-button expand="block" (click)="appService.sendAllShopping()">
+        <ion-button (click)="appService.sendAllShopping()" expand="block">
             Pagar recargas ${{totalAmount}}
         </ion-button>
     </ion-toolbar>

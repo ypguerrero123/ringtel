@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../../services/app.service';
-import {IonInput, Platform} from "@ionic/angular";
-import {Utils} from "../../services/utils/utils";
-import {Messages} from "../../config/messages";
+import {IonInput, Platform} from '@ionic/angular';
+import {Utils} from '../../services/utils/utils';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-otp',
@@ -43,6 +43,13 @@ export class OtpPage implements OnInit {
     ) {
     }
 
+    /**
+     * @method phoneFormControl
+     */
+    public get phoneFormControl() {
+        return this.phoneForm.controls;
+    }
+
     ngOnInit() {
         this.appService.profvars.updateCCodePhoneValue(this.appService.secvars.user.phoneCodeNumber);
         this.phoneForm = this.formBuilder.group({
@@ -57,21 +64,6 @@ export class OtpPage implements OnInit {
             four: ['', [Validators.required, Validators.pattern('[0-9]{1}')]]
         });
         this.countDown();
-    }
-
-
-    /**
-     * @method countDown
-     */
-    private countDown() {
-        setInterval(() => {
-            if (this.countdown == 0) {
-                return;
-            }
-
-            this.countdown = --this.countdown;
-
-        }, 1000);
     }
 
     /**
@@ -123,10 +115,17 @@ export class OtpPage implements OnInit {
     }
 
     /**
-     * @method phoneFormControl
+     * @method countDown
      */
-    public get phoneFormControl() {
-        return this.phoneForm.controls;
+    private countDown() {
+        setInterval(() => {
+            if (this.countdown == 0) {
+                return;
+            }
+
+            this.countdown = --this.countdown;
+
+        }, 1000);
     }
 
     /**

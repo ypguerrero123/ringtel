@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../../../services/app.service';
 import {Messages} from '../../../config/messages';
-import {Observable} from "rxjs";
-import {map, startWith} from "rxjs/operators";
-import {Constants} from "../../../config/constants";
-import {ContactInterface} from "../../../model/contact";
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {Constants} from '../../../config/constants';
+import {ContactInterface} from '../../../model/contact';
 
 @Component({
     selector: 'app-cubacel-container',
@@ -17,11 +17,6 @@ export class CubacelContainerComponent implements OnInit {
      * @var FormGroup
      */
     public cubacelForm: FormGroup;
-
-    /**
-     * @var number
-     */
-    private action: number = 1;
     /**
      * @var string
      */
@@ -34,11 +29,14 @@ export class CubacelContainerComponent implements OnInit {
      * @var Observable
      */
     public filteredNames: Observable<ContactInterface[]>;
-
     /**
      * @var string
      */
     public buttonSubmitText: string = Messages.RECHARGE_NOW;
+    /**
+     * @var number
+     */
+    private action: number = 1;
 
     /**
      * Constructor CubacelContainerComponent
@@ -46,6 +44,13 @@ export class CubacelContainerComponent implements OnInit {
      * @param formBuilder
      */
     constructor(public appService: AppService, private formBuilder: FormBuilder) {
+    }
+
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.cubacelForm.controls;
     }
 
     ngOnInit() {
@@ -86,14 +91,7 @@ export class CubacelContainerComponent implements OnInit {
                 this.phoneByContactName = (contact[0].phone).slice(-8);
                 this.formControl.account.markAsDirty();
             }
-        })
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.cubacelForm.controls;
+        });
     }
 
     /**

@@ -1,8 +1,8 @@
-import {AppService} from "../app.service";
-import {Contact} from "@ionic-native/contacts/ngx";
-import {Utils} from "../utils/utils";
-import {Constants} from "../../config/constants";
-import {ContactInterface} from "../../model/contact";
+import {AppService} from '../app.service';
+import {Contact} from '@ionic-native/contacts/ngx';
+import {Utils} from '../utils/utils';
+import {Constants} from '../../config/constants';
+import {ContactInterface} from '../../model/contact';
 
 export class ContactService {
 
@@ -20,7 +20,7 @@ export class ContactService {
     public async contactsList(contactsName: ContactInterface[]) {
         const isMobilWeb = await this.appService.getStorage(Constants.IS_MOBIL_WEB, false);
         if (!isMobilWeb) {
-            this.appService.contacts.find(["*"]).then((res: Contact[]) => {
+            this.appService.contacts.find(['*']).then((res: Contact[]) => {
                 res.forEach((item: Contact, key: number) => {
                     if (item.displayName != null && item.phoneNumbers != null) {
                         contactsName.push({
@@ -30,7 +30,7 @@ export class ContactService {
                         });
                     }
                 });
-            })
+            });
         }
     }
 
@@ -47,7 +47,7 @@ export class ContactService {
 
         const lowerFilterName = value.toLowerCase();
         return contactsName.filter((option: ContactInterface) => {
-            return option.name.toLowerCase().includes(lowerFilterName) || option.phone.toLowerCase().includes(lowerFilterName)
+            return option.name.toLowerCase().includes(lowerFilterName) || option.phone.toLowerCase().includes(lowerFilterName);
         });
     }
 

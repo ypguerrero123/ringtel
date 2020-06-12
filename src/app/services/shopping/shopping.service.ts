@@ -1,9 +1,9 @@
 import {AppService} from '../app.service';
 import {SendShoppingResponse, Shopping, ShoppingResponseEntity} from '../../model/shopping';
-import {Messages} from "../../config/messages";
-import {Utils} from "../utils/utils";
-import {AppRoutes} from "../../config/routes";
-import {map} from "rxjs/operators";
+import {Messages} from '../../config/messages';
+import {Utils} from '../utils/utils';
+import {AppRoutes} from '../../config/routes';
+import {map} from 'rxjs/operators';
 
 /**
  * ShoppingService

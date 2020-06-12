@@ -4,7 +4,7 @@ import {User} from '../../model/user';
 import {Constants} from '../../config/constants';
 import {Messages} from '../../config/messages';
 import {Utils} from '../utils/utils';
-import {AppRoutes} from "../../config/routes";
+import {AppRoutes} from '../../config/routes';
 
 /**
  * SecurityService
@@ -130,7 +130,9 @@ export class SecurityService {
     public async repeatOTP(data: {} = null) {
 
         const user = await this.appService.getStorage(Constants.USER_AUTH_KEY);
-        if (!user) return;
+        if (!user) {
+            return;
+        }
 
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             this.appService.post(`es/api/v1/security/${user.id}/repeat-otp`, data).subscribe(

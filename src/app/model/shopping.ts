@@ -1,6 +1,6 @@
 import {Recharge, RechargeEntity} from './recharge';
-import {Messages} from "../config/messages";
-import {User} from "./user";
+import {Messages} from '../config/messages';
+import {User} from './user';
 
 export interface Shopping {
     id: any;
@@ -55,7 +55,7 @@ export class ShoppingResponseEntity implements Shopping {
                 this[key] = attributes[key];
             }
         }
-        this.recharge = new RechargeEntity(this.recharge, `${this.service}-recharge`, user)
+        this.recharge = new RechargeEntity(this.recharge, `${this.service}-recharge`, user);
     }
 }
 

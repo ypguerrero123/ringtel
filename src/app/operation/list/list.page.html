@@ -1,19 +1,19 @@
-<app-toolbar title="Historial de recargas" active="recharges"></app-toolbar>
+<app-toolbar active="recharges" title="Historial de recargas"></app-toolbar>
 
 <ion-content scroll-y="true">
     <app-refresh routePage="{{appService.appRoutes.APP_RECHARGE_HISTORY}}"></app-refresh>
-    <app-empty loading="{{ loadingData ? '' : loadingData }}"
-               empty="{{ dataSource.data.length == 0 }}"></app-empty>
+    <app-empty empty="{{ dataSource.data.length == 0 }}"
+               loading="{{ loadingData ? '' : loadingData }}"></app-empty>
 
     <div *ngIf="dataSource.data.length > 0 && !loadingData">
-        <ion-searchbar placeholder="Filtrar recargas" animated debounce="500"
-                       (keyup)="applyFilter($event)"></ion-searchbar>
-        <table mat-table [dataSource]="dataSource">
+        <ion-searchbar (keyup)="applyFilter($event)" animated debounce="500"
+                       placeholder="Filtrar recargas"></ion-searchbar>
+        <table [dataSource]="dataSource" mat-table>
 
             <!-- Position Column -->
             <ng-container matColumnDef="data">
-                <th mat-header-cell *matHeaderCellDef> Datos de la recarga</th>
-                <td mat-cell *matCellDef="let element">
+                <th *matHeaderCellDef mat-header-cell> Datos de la recarga</th>
+                <td *matCellDef="let element" mat-cell>
                     Cliente: {{element.client.length > 15 ? element.client.slice(0, 15) : element.client}}<br/>
                     Cuenta: {{element.accountToRecharge.length > 10 ? element.accountToRecharge.slice(0, 10) : element.accountToRecharge}}
                     <br/>
@@ -25,8 +25,8 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> Estado</th>
-                <td mat-cell *matCellDef="let element">
+                <th *matHeaderCellDef mat-header-cell> Estado</th>
+                <td *matCellDef="let element" mat-cell>
                     <ion-badge
                             color="{{element.status == 'COMPLETED' ? 'primary' : (element.status == 'FAILED' ? 'danger' : 'light')}}">
                         {{element.status == 'COMPLETED' ? 'Completado' : (element.status == 'FAILED' ? 'Fallido' : 'Pendiente') }}
@@ -34,12 +34,12 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                (click)="appService.navigateToUrl('/show/' + row.id)"></tr>
+            <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+            <tr (click)="appService.navigateToUrl('/show/' + row.id)" *matRowDef="let row; columns: displayedColumns;"
+                mat-row></tr>
         </table>
 
-        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadPagination($event)">
+        <ion-infinite-scroll (ionInfinite)="loadPagination($event)" threshold="100px">
             <ion-infinite-scroll-content
                     loadingSpinner="bubbles"
                     loadingText="Espere...">
@@ -53,17 +53,17 @@
     <ion-toolbar class="pl-3 pr-3">
         <ion-item class="ion-no-padding">
             <ion-label>Fecha inicio</ion-label>
-            <ion-datetime monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
-                          [pickerOptions]="customPickerOptionsStart" value="{{startDate|date: 'yyyy-MM-dd'}}"
-                          min="1990-04-16" max="{{endDate|date: 'yyyy-MM-dd'}}"
-                          placeholder="Seleccione una fecha"></ion-datetime>
+            <ion-datetime [pickerOptions]="customPickerOptionsStart"
+                          max="{{endDate|date: 'yyyy-MM-dd'}}" min="1990-04-16"
+                          monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic" placeholder="Seleccione una fecha"
+                          value="{{startDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
         </ion-item>
         <ion-item class="ion-no-padding">
             <ion-label>Fecha fin</ion-label>
-            <ion-datetime monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
-                          [pickerOptions]="customPickerOptionsEnd"
-                          value="{{endDate|date: 'yyyy-MM-dd'}}" min="{{startDate|date: 'yyyy-MM-dd'}}"
-                          max="{{today|date: 'yyyy-MM-dd'}}" placeholder="Seleccione una fecha"></ion-datetime>
+            <ion-datetime [pickerOptions]="customPickerOptionsEnd"
+                          max="{{today|date: 'yyyy-MM-dd'}}"
+                          min="{{startDate|date: 'yyyy-MM-dd'}}" monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
+                          placeholder="Seleccione una fecha" value="{{endDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
         </ion-item>
     </ion-toolbar>
 </ion-footer>

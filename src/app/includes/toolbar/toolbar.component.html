@@ -2,17 +2,17 @@
     <ion-toolbar>
         <ion-buttons slot="start">
 
-            <ion-menu-button auto-hide="false" *ngIf="visible(['home'])"
-                             (click)="appService.navigateToUrl(appService.appRoutes.APP_SETTINGS)"></ion-menu-button>
+            <ion-menu-button (click)="appService.navigateToUrl(appService.appRoutes.APP_SETTINGS)" *ngIf="visible(['home'])"
+                             auto-hide="false"></ion-menu-button>
 
             <ion-back-button
-                    defaultHref="{{ visible(['operation-show']) ? appService.appRoutes.APP_RECHARGE_HISTORY : (visible(['agent-show', 'agent-edit']) ? appService.appRoutes.APP_AGENTS_LIST : appService.appRoutes.APP_SETTINGS) }}"
-                    text="" icon="arrow-back-outline" class="ml-3"
-                    *ngIf="visible(['transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"></ion-back-button>
+                    *ngIf="visible(['transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"
+                    class="ml-3" defaultHref="{{ visible(['operation-show']) ? appService.appRoutes.APP_RECHARGE_HISTORY : (visible(['agent-show', 'agent-edit']) ? appService.appRoutes.APP_AGENTS_LIST : appService.appRoutes.APP_SETTINGS) }}" icon="arrow-back-outline"
+                    text=""></ion-back-button>
 
-            <ion-button *ngIf="visible(['shopping', 'settings', 'stripe'])"
-                        (click)="appService.navigateToUrl(appService.appRoutes.APP_HOME_PAGE)">
-                <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+            <ion-button (click)="appService.navigateToUrl(appService.appRoutes.APP_HOME_PAGE)"
+                        *ngIf="visible(['shopping', 'settings', 'stripe'])">
+                <ion-icon name="home-outline" slot="icon-only"></ion-icon>
             </ion-button>
 
         </ion-buttons>
@@ -24,8 +24,8 @@
             <ion-button (click)="appService.navigateToUrl(appService.appRoutes.APP_SHOPPING_CART)"
                         *ngIf="!visible(['shopping'])">
                 <div *ngIf="!readingShooping">
-                    <ion-icon slot="icon-only" name="cart" *ngIf="totalShoppingItems > 0"></ion-icon>
-                    <ion-icon slot="icon-only" name="cart-outline" *ngIf="totalShoppingItems == 0"></ion-icon>
+                    <ion-icon *ngIf="totalShoppingItems > 0" name="cart" slot="icon-only"></ion-icon>
+                    <ion-icon *ngIf="totalShoppingItems == 0" name="cart-outline" slot="icon-only"></ion-icon>
                     <sup *ngIf="totalShoppingItems > 0">{{totalShoppingItems < 10 ? totalShoppingItems : '9+' }}</sup>
                 </div>
                 <div *ngIf="readingShooping">
@@ -33,7 +33,7 @@
                 </div>
             </ion-button>
             <ion-button (click)="appService.logout()">
-                <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+                <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
             </ion-button>
 
         </ion-buttons>

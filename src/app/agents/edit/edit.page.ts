@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {ActivatedRoute} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../model/user";
-import {Utils} from "../../services/utils/utils";
-import {Messages} from "../../config/messages";
+import {AppService} from '../../services/app.service';
+import {ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {User} from '../../model/user';
+import {Utils} from '../../services/utils/utils';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-edit',
@@ -29,6 +29,13 @@ export class EditPage implements OnInit {
      * @param formBuilder
      */
     constructor(public appService: AppService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+    }
+
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.agentForm.controls;
     }
 
     ngOnInit() {
@@ -73,13 +80,6 @@ export class EditPage implements OnInit {
             );
         }
         return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.agentForm.controls;
     }
 
 }

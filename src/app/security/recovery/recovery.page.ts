@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AppService} from "../../services/app.service";
-import {Messages} from "../../config/messages";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AppService} from '../../services/app.service';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-recovery',
@@ -23,17 +23,17 @@ export class RecoveryPage implements OnInit {
     constructor(private formBuilder: FormBuilder, public appService: AppService) {
     }
 
-    ngOnInit() {
-        this.recoveryForm = this.formBuilder.group({
-            email: ['', [Validators.required, Validators.email, Validators.minLength(5)]],
-        });
-    }
-
     /**
      * @method phoneFormControl
      */
     public get formControl() {
         return this.recoveryForm.controls;
+    }
+
+    ngOnInit() {
+        this.recoveryForm = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.email, Validators.minLength(5)]],
+        });
     }
 
     /**

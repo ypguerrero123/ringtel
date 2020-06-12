@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Messages} from "../../../config/messages";
+import {Messages} from '../../../config/messages';
 
 @Component({
     selector: 'app-error',

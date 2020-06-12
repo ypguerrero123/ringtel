@@ -1,42 +1,42 @@
 <ion-content scroll-y="true">
     <div class="p-4">
         <ion-card class="shadow-lg">
-            <ion-img src="../../assets/images/security/icon_logo.png" class="img-gif"></ion-img>
+            <ion-img class="img-gif" src="../../assets/images/security/icon_logo.png"></ion-img>
             <ion-card-content>
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
 
                     <div class="form-group">
                         <ion-label class="required">
                             Correo:
                         </ion-label>
-                        <ion-input type="email" formControlName="username" autocomplete="off"
-                                   placeholder="Entre su dirección de correo"></ion-input>
+                        <ion-input autocomplete="off" formControlName="username" placeholder="Entre su dirección de correo"
+                                   type="email"></ion-input>
                     </div>
 
                     <div class="form-group">
                         <ion-label class="required">
                             Contraseña:
                         </ion-label>
-                        <ion-input type="password" formControlName="password" autocomplete="off"
-                                   placeholder="Entre su contraseña" (keyup.enter)="onSubmit()"></ion-input>
+                        <ion-input (keyup.enter)="onSubmit()" autocomplete="off" formControlName="password"
+                                   placeholder="Entre su contraseña" type="password"></ion-input>
                     </div>
 
                     <ion-text class="ion-text-left">
-                        <p class="underline mt-2" (click)="appService.navigateToUrl(appService.appRoutes.APP_RECOVERY)">
+                        <p (click)="appService.navigateToUrl(appService.appRoutes.APP_RECOVERY)" class="underline mt-2">
                             ¿Olvidó su contraseña?
                         </p>
                     </ion-text>
 
                     <div class="form-group mt-4 mb-4">
-                        <ion-button expand="block" color="primary" type="submit">
+                        <ion-button color="primary" expand="block" type="submit">
                             Acceder
                         </ion-button>
                     </div>
 
                     <ion-text class="ion-text-center">
                         <p>¿Aún no tiene cuenta creada?
-                            <small class="underline underline-small"
-                                   (click)="appService.navigateToUrl(appService.appRoutes.APP_REGISTER)">
+                            <small (click)="appService.navigateToUrl(appService.appRoutes.APP_REGISTER)"
+                                   class="underline underline-small">
                                 Registrarse
                             </small>
                         </p>

@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
-import {User} from "../../model/user";
-import {Transfer} from "../../model/transfer";
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {User} from '../../model/user';
+import {Transfer} from '../../model/transfer';
 
 @Injectable({
     providedIn: 'root'

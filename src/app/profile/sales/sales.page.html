@@ -1,4 +1,4 @@
-<app-toolbar title="Editar precios y ventas" active="sales"></app-toolbar>
+<app-toolbar active="sales" title="Editar precios y ventas"></app-toolbar>
 
 <ion-content scroll-y="true">
     <app-refresh routePage="{{appService.appRoutes.APP_EDIT_SALES}}"></app-refresh>
@@ -29,26 +29,26 @@
     </ion-card>
     <ion-card class="shadow-lg">
         <ion-card-content>
-            <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+            <form (ngSubmit)="onSubmit()" [formGroup]="saleForm">
 
                 <div class="form-group">
                     <ion-label class="required">
                         Precio de venta cubacel:
                     </ion-label>
-                    <ion-input type="text" formControlName="sellingCostCubacel" autocomplete="off"
+                    <ion-input [class.error-input]="(!formControl.sellingCostCubacel.valid && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)) || appService.agentsVars.errorPath == 'sellingCostCubacel'" autocomplete="off" formControlName="sellingCostCubacel"
                                placeholder="Ingrese precio de venta cubacel" required
-                               [class.error-input]="(!formControl.sellingCostCubacel.valid && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)) || appService.agentsVars.errorPath == 'sellingCostCubacel'"></ion-input>
+                               type="text"></ion-input>
                     <!-- Error messages -->
-                    <span class="error"
-                          *ngIf="formControl.sellingCostCubacel.errors?.required && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)">
+                    <span *ngIf="formControl.sellingCostCubacel.errors?.required && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)"
+                          class="error">
                             Precio de venta obligatorio.
                         </span>
-                    <span class="error"
-                          *ngIf="formControl.sellingCostCubacel.errors?.pattern && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)">
+                    <span *ngIf="formControl.sellingCostCubacel.errors?.pattern && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)"
+                          class="error">
                             Sólo números.
                         </span>
-                    <span class="error"
-                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'sellingCostCubacel'">
+                    <span *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'sellingCostCubacel'"
+                          class="error">
                             {{appService.agentsVars.errorMessage}}
                         </span>
                 </div>
@@ -56,20 +56,20 @@
                     <ion-label class="required">
                         Precio de venta nauta:
                     </ion-label>
-                    <ion-input type="text" formControlName="sellingCostNauta" autocomplete="off"
+                    <ion-input [class.error-input]="(!formControl.sellingCostNauta.valid && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)) || appService.agentsVars.errorPath == 'sellingCostNauta'" autocomplete="off" formControlName="sellingCostNauta"
                                placeholder="Ingrese precio de venta nauta" required
-                               [class.error-input]="(!formControl.sellingCostNauta.valid && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)) || appService.agentsVars.errorPath == 'sellingCostNauta'"></ion-input>
+                               type="text"></ion-input>
                     <!-- Error messages -->
-                    <span class="error"
-                          *ngIf="formControl.sellingCostNauta.errors?.required && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)">
+                    <span *ngIf="formControl.sellingCostNauta.errors?.required && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)"
+                          class="error">
                             Precio de venta obligatorio.
                         </span>
-                    <span class="error"
-                          *ngIf="formControl.sellingCostNauta.errors?.pattern && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)">
+                    <span *ngIf="formControl.sellingCostNauta.errors?.pattern && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)"
+                          class="error">
                             Sólo números.
                         </span>
-                    <span class="error"
-                          *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'sellingCostNauta'">
+                    <span *ngIf="appService.agentsVars.errorMessage && appService.agentsVars.errorPath == 'sellingCostNauta'"
+                          class="error">
                             {{appService.agentsVars.errorMessage}}
                         </span>
                 </div>

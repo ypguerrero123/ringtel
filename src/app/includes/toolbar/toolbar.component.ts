@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AppService} from '../../services/app.service';
-import {Shopping} from "../../model/shopping";
+import {Shopping} from '../../model/shopping';
 
 @Component({
     selector: 'app-toolbar',

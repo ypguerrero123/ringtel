@@ -1,7 +1,7 @@
 import {Recharge} from '../../model/recharge';
 import {Injectable} from '@angular/core';
-import {Subject} from "rxjs";
-import {Operation} from "../../model/operation";
+import {Subject} from 'rxjs';
+import {Operation} from '../../model/operation';
 
 @Injectable({
     providedIn: 'root'

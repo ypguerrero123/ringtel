@@ -8,9 +8,9 @@ import {ShoppingRoutingModule} from './shopping-routing.module';
 
 import {ShoppingPage} from './shopping.page';
 import {ToolbarModule} from '../includes/toolbar/toolbar.module';
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
-import {CardsPageModule} from "../creditcards/cards.module";
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {CardsPageModule} from '../creditcards/cards.module';
 
 @NgModule({
     imports: [

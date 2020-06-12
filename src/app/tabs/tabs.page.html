@@ -1,6 +1,6 @@
 <ion-tabs>
 
-    <ion-tab-bar slot="bottom" class="custom-tab-bar">
+    <ion-tab-bar class="custom-tab-bar" slot="bottom">
 
         <ion-tab-button tab="home">
             <ion-icon name="home-outline"></ion-icon>
@@ -13,8 +13,8 @@
         </ion-tab-button>
 
         <ion-tab-button *ngIf="!appService.isPostSale()">
-            <button mat-fab color="primary" aria-label=""
-                    (click)="appService.navigateToUrl(appService.appRoutes.APP_STRIPE)">
+            <button (click)="appService.navigateToUrl(appService.appRoutes.APP_STRIPE)" aria-label="" color="primary"
+                    mat-fab>
                 <ion-icon name="wallet-outline"></ion-icon>
             </button>
         </ion-tab-button>
@@ -24,7 +24,7 @@
             <ion-label>Nauta</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="long-distance" *ngIf="!appService.isPostSale()">
+        <ion-tab-button *ngIf="!appService.isPostSale()" tab="long-distance">
             <ion-icon name="call-outline"></ion-icon>
             <ion-label>Llamadas</ion-label>
         </ion-tab-button>

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../../services/app.service';
-import {UserDataResponse} from "../../../model/user";
-import {DatePipe} from "@angular/common";
-import {Utils} from "../../../services/utils/utils";
-import {Messages} from "../../../config/messages";
+import {UserDataResponse} from '../../../model/user';
+import {DatePipe} from '@angular/common';
+import {Utils} from '../../../services/utils/utils';
+import {Messages} from '../../../config/messages';
 
 @Component({
     selector: 'app-home-container',
@@ -69,7 +69,7 @@ export class HomeContainerComponent implements OnInit {
                 text: Messages.DONE,
                 handler: (e) => {
                     this.startDate = new Date(`${e.year.value}-${e.month.value}-${e.day.value}`);
-                    this.getProfile()
+                    this.getProfile();
                 }
             }, {
                 text: Messages.CANCEL,

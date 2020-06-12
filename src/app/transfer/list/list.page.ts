@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {Transfer} from "../../model/transfer";
+import {AppService} from '../../services/app.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {Transfer} from '../../model/transfer';
 
 @Component({
     selector: 'app-list',

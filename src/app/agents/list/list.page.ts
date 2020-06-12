@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {User} from "../../model/user";
+import {AppService} from '../../services/app.service';
+import {User} from '../../model/user';
 
 @Component({
     selector: 'app-list',
@@ -35,7 +35,7 @@ export class ListPage implements OnInit {
     private searchBarListener() {
 
         const searchbar = document.querySelector('ion-searchbar');
-        const items = Array.from(<HTMLCollection>document.querySelector('ion-list').children);
+        const items = Array.from(<HTMLCollection> document.querySelector('ion-list').children);
 
         if (searchbar) {
             searchbar.addEventListener('ionInput', handleInput);

@@ -1,7 +1,7 @@
-import {AppService} from "../app.service";
-import {User, UserDataResponse} from "../../model/user";
-import {Messages} from "../../config/messages";
-import {AppRoutes} from "../../config/routes";
+import {AppService} from '../app.service';
+import {User, UserDataResponse} from '../../model/user';
+import {Messages} from '../../config/messages';
+import {AppRoutes} from '../../config/routes';
 
 export class AgentsService {
 

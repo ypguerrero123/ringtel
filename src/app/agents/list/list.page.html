@@ -1,29 +1,29 @@
-<app-toolbar title="Listado de agentes" active="agents"></app-toolbar>
+<app-toolbar active="agents" title="Listado de agentes"></app-toolbar>
 
 <ion-content scroll-y="true">
     <app-refresh routePage="{{appService.appRoutes.APP_AGENTS_LIST}}"></app-refresh>
     <ion-toolbar>
-        <ion-searchbar animated debounce="500" showCancelButton="never"
-                       placeholder="Filtrar mis usuarios"></ion-searchbar>
+        <ion-searchbar animated debounce="500" placeholder="Filtrar mis usuarios"
+                       showCancelButton="never"></ion-searchbar>
     </ion-toolbar>
 
     <ion-list>
-        <ion-item class="ion-no-padding" *ngFor="let agent of agents" color="{{agent.enabled ? '' : 'light'}}">
-            <h3 slot="end" class="text-{{ agent.balance > 0 ? 'primary' : 'danger' }}">${{agent.balance|number}}</h3>
+        <ion-item *ngFor="let agent of agents" class="ion-no-padding" color="{{agent.enabled ? '' : 'light'}}">
+            <h3 class="text-{{ agent.balance > 0 ? 'primary' : 'danger' }}" slot="end">${{agent.balance|number}}</h3>
             <ion-label class="mx-3">
                 <h2>{{agent.name}}</h2>
                 <h3>({{agent.phoneCodeNumber}}){{agent.phone}}</h3>
                 <p class="mb-2">{{agent.email}}</p>
-                <ion-badge size="small" color="light"
-                           (click)="appService.navigateToUrl('/agent/edit/' + agent.id)">
+                <ion-badge (click)="appService.navigateToUrl('/agent/edit/' + agent.id)" color="light"
+                           size="small">
                     Editar
                 </ion-badge>
-                <ion-badge size="small" color="light" class="ml-1"
-                           (click)="appService.navigateToUrl('/agent/show/' + agent.id)">
+                <ion-badge (click)="appService.navigateToUrl('/agent/show/' + agent.id)" class="ml-1" color="light"
+                           size="small">
                     Mostrar
                 </ion-badge>
-                <ion-badge size="small" color="light" class="ml-1"
-                           (click)="appService.deleteAgent(agent.id)">
+                <ion-badge (click)="appService.deleteAgent(agent.id)" class="ml-1" color="light"
+                           size="small">
                     {{agent.enabled ? 'Desactivar' : 'Activar'}}
                 </ion-badge>
             </ion-label>

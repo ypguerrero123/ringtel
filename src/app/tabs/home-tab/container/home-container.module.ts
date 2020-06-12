@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 
 import {HomeContainerComponent} from './home-container.component';
-import {MaterialModule} from "../../../material.module";
+import {MaterialModule} from '../../../material.module';
 
 @NgModule({
     imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule, MaterialModule],

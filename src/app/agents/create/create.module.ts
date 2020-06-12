@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {CreatePageRoutingModule} from './create-routing.module';
 
 import {CreatePage} from './create.page';
-import {ToolbarModule} from "../../includes/toolbar/toolbar.module";
+import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
 
 @NgModule({
     imports: [

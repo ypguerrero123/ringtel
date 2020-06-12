@@ -2,10 +2,10 @@
 
     <div class="p-4">
         <ion-card class="shadow-lg">
-            <ion-img src="../../assets/images/security/icon_logo.png" class="img-gif"></ion-img>
+            <ion-img class="img-gif" src="../../assets/images/security/icon_logo.png"></ion-img>
             <ion-card-content>
 
-                <form [formGroup]="otpForm" (ngSubmit)="onSubmitVerifyOTP()" *ngIf="!changePhoneNumber">
+                <form (ngSubmit)="onSubmitVerifyOTP()" *ngIf="!changePhoneNumber" [formGroup]="otpForm">
                     <ion-text class="ion-text-center">
                         <p>Se ha enviado un código de verificación vía SMS a su número de teléfono</p>
                     </ion-text>
@@ -14,22 +14,22 @@
 
                         <ion-row>
                             <ion-col>
-                                <ion-input formControlName="one" type="number" size="1" min="0" max="9"
-                                           class="otp-form" (ionInput)="goToNexInput(two)"></ion-input>
+                                <ion-input (ionInput)="goToNexInput(two)" class="otp-form" formControlName="one" max="9" min="0"
+                                           size="1" type="number"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-input formControlName="two" type="number" size="1" min="0" max="9"
-                                           class="otp-form" #two (ionInput)="goToNexInput(three)"></ion-input>
+                                <ion-input #two (ionInput)="goToNexInput(three)" class="otp-form" formControlName="two" max="9"
+                                           min="0" size="1" type="number"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-input formControlName="three" type="number" size="1" min="0" max="9"
-                                           class="otp-form" #three (ionInput)="goToNexInput(four)"></ion-input>
+                                <ion-input #three (ionInput)="goToNexInput(four)" class="otp-form" formControlName="three" max="9"
+                                           min="0" size="1" type="number"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-input formControlName="four" type="number" size="1" min="0" max="9"
-                                           pattern="[0-9]{1}" class="otp-form" (keyup.enter)="onSubmitVerifyOTP()"
-                                           (ionInput)="onSubmitVerifyOTP(100)"
-                                           style="margin-right: 0!important;" #four></ion-input>
+                                <ion-input #four (ionInput)="onSubmitVerifyOTP(100)" (keyup.enter)="onSubmitVerifyOTP()" class="otp-form" formControlName="four"
+                                           max="9" min="0" pattern="[0-9]{1}"
+                                           size="1"
+                                           style="margin-right: 0!important;" type="number"></ion-input>
                             </ion-col>
                         </ion-row>
 
@@ -45,62 +45,62 @@
                             <p *ngIf="countdown > 0">Repetir código en <span
                                     class="underline">00:00:{{countdown}}</span>
                             </p>
-                            <p *ngIf="countdown == 0" class="underline" (click)="repeatOTP()">Volver a enviar el
+                            <p (click)="repeatOTP()" *ngIf="countdown == 0" class="underline">Volver a enviar el
                                 código</p>
                         </ion-text>
                     </div>
 
                 </form>
 
-                <form [formGroup]="phoneForm" (ngSubmit)="repeatOTP(true)" *ngIf="changePhoneNumber">
+                <form (ngSubmit)="repeatOTP(true)" *ngIf="changePhoneNumber" [formGroup]="phoneForm">
                     <div class="form-group">
                         <ion-label class="required">
                             Teléfono:
                         </ion-label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" type="button"
-                                        (click)="appService.choicePhoneCode()">
+                                <button (click)="appService.choicePhoneCode()" class="btn btn-outline-secondary"
+                                        type="button">
                                     {{appService.profvars.ccodePhoneValue}}</button>
                             </div>
-                            <ion-input type="tel" formControlName="phone" autocomplete="off"
-                                       placeholder="Entre su número de celular" required maxlength="13"
-                                       (keyup.enter)="repeatOTP(true)"
-                                       [class.error-input]="(!phoneFormControl.phone.valid && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)) || appService.secvars.errorPath == 'phone'"></ion-input>
+                            <ion-input (keyup.enter)="repeatOTP(true)" [class.error-input]="(!phoneFormControl.phone.valid && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)) || appService.secvars.errorPath == 'phone'" autocomplete="off"
+                                       formControlName="phone" maxlength="13" placeholder="Entre su número de celular"
+                                       required
+                                       type="tel"></ion-input>
                         </div>
                         <!-- Error messages -->
-                        <span class="error"
-                              *ngIf="phoneFormControl.phone.errors?.required && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)">
+                        <span *ngIf="phoneFormControl.phone.errors?.required && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)"
+                              class="error">
                             Teléfono obligatorio.
                         </span>
-                        <span class="error"
-                              *ngIf="phoneFormControl.phone.errors?.pattern && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)">
+                        <span *ngIf="phoneFormControl.phone.errors?.pattern && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)"
+                              class="error">
                             Sólo números.
                         </span>
-                        <span class="error"
-                              *ngIf="appService.secvars.errorMessage && appService.secvars.errorPath == 'phone'">
+                        <span *ngIf="appService.secvars.errorMessage && appService.secvars.errorPath == 'phone'"
+                              class="error">
                             {{appService.secvars.errorMessage}}
                         </span>
                     </div>
-                    <ion-button type="submit" color="primary" size="block" class="mt-3 mb-3">
+                    <ion-button class="mt-3 mb-3" color="primary" size="block" type="submit">
                         Cambiar teléfono
                     </ion-button>
                 </form>
 
                 <hr/>
 
-                <ion-text class="ion-text-center" *ngIf="!changePhoneNumber">
+                <ion-text *ngIf="!changePhoneNumber" class="ion-text-center">
                     <p> ¿Desea cambiar el número de teléfono?
-                        <small class="underline underline-small" (click)="selectChangePhoneNumber()">
+                        <small (click)="selectChangePhoneNumber()" class="underline underline-small">
                             Actualizar
                         </small>
                     </p>
                 </ion-text>
 
-                <ion-text class="ion-text-center" *ngIf="changePhoneNumber">
+                <ion-text *ngIf="changePhoneNumber" class="ion-text-center">
                     <p>¿Ya tiene el código de verificación?
-                        <small class="underline underline-small"
-                               (click)="selectChangePhoneNumber(false)">Verificar
+                        <small (click)="selectChangePhoneNumber(false)"
+                               class="underline underline-small">Verificar
                         </small>
                     </p>
                 </ion-text>

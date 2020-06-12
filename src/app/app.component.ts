@@ -6,9 +6,9 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
 import {FCM} from '@ionic-native/fcm/ngx';
-import {Router} from "@angular/router";
-import {AppService} from "./services/app.service";
-import {Constants} from "./config/constants";
+import {Router} from '@angular/router';
+import {AppService} from './services/app.service';
+import {Constants} from './config/constants';
 
 @Component({
     selector: 'app-root',

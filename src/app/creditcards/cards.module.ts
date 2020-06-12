@@ -7,9 +7,9 @@ import {IonicModule} from '@ionic/angular';
 import {CardsPageRoutingModule} from './cards-routing.module';
 
 import {CardsPage} from './cards.page';
-import {ToolbarModule} from "../includes/toolbar/toolbar.module";
-import {MaterialModule} from "../material.module";
-import {EmptyComponent} from "../includes/empty/empty.component";
+import {ToolbarModule} from '../includes/toolbar/toolbar.module';
+import {MaterialModule} from '../material.module';
+import {EmptyComponent} from '../includes/empty/empty.component';
 
 @NgModule({
     imports: [

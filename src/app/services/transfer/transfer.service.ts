@@ -1,7 +1,7 @@
-import {AppService} from "../app.service";
-import {Messages} from "../../config/messages";
-import {User} from "../../model/user";
-import {TransferResponse} from "../../model/transfer";
+import {AppService} from '../app.service';
+import {Messages} from '../../config/messages';
+import {User} from '../../model/user';
+import {TransferResponse} from '../../model/transfer';
 
 export class TransferService {
 

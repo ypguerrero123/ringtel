@@ -15,19 +15,19 @@ import {StripeVars} from './stripe/stripe.vars';
 import {ProfileService} from './profile/profile.service';
 import {OperationService} from './operation/operation.service';
 import {ShoppingService} from './shopping/shopping.service';
-import {User} from "../model/user";
-import {Constants} from "../config/constants";
-import {Messages} from "../config/messages";
-import {AppRoutes} from "../config/routes";
-import {ProfileVars} from "./profile/profile.vars";
-import {FormGroup} from "@angular/forms";
-import {Contacts} from "@ionic-native/contacts/ngx";
-import {ContactService} from "./native-plugins/contact.service";
-import {TransferVars} from "./transfer/transfer.vars";
-import {TransferService} from "./transfer/transfer.service";
-import {ContactInterface} from "../model/contact";
-import {AgentsVars} from "./agents/agents.vars";
-import {AgentsService} from "./agents/agents.service";
+import {User} from '../model/user';
+import {Constants} from '../config/constants';
+import {Messages} from '../config/messages';
+import {AppRoutes} from '../config/routes';
+import {ProfileVars} from './profile/profile.vars';
+import {FormGroup} from '@angular/forms';
+import {Contacts} from '@ionic-native/contacts/ngx';
+import {ContactService} from './native-plugins/contact.service';
+import {TransferVars} from './transfer/transfer.vars';
+import {TransferService} from './transfer/transfer.service';
+import {ContactInterface} from '../model/contact';
+import {AgentsVars} from './agents/agents.vars';
+import {AgentsService} from './agents/agents.service';
 
 @Injectable({
     providedIn: 'root'
@@ -238,7 +238,7 @@ export class AppService {
      * @param data
      */
     public async recovery(data: {}) {
-        await (new SecurityService(this)).recovery(data)
+        await (new SecurityService(this)).recovery(data);
     }
 
     /**
@@ -350,7 +350,7 @@ export class AppService {
      * @param service
      */
     public async confirmShoppingData(form: FormGroup, action, service) {
-        await (new OperationService(this)).confirmShoppingData(form, action, service)
+        await (new OperationService(this)).confirmShoppingData(form, action, service);
     }
 
     /**
@@ -464,7 +464,7 @@ export class AppService {
         this.router.navigate([url], {state: {updateInfos: true}}).then(() => {
             if (url == AppRoutes.APP_SUCCESS || url == AppRoutes.APP_ERROR || url == AppRoutes.APP_ERROR_DUPLICATED) {
                 setTimeout(() => {
-                    this.navigateToUrl(AppRoutes.APP_HOME_PAGE)
+                    this.navigateToUrl(AppRoutes.APP_HOME_PAGE);
                 }, 3000);
             }
         });
@@ -479,7 +479,7 @@ export class AppService {
         const toast = await this.toastController.create({
             header: Messages.NOTIFICATION,
             message: message,
-            position: "top",
+            position: 'top',
             color: color,
             translucent: true,
             duration: 2000,
@@ -502,7 +502,9 @@ export class AppService {
      */
     public async presentLoading(show: boolean = true) {
 
-        if (!show) return null;
+        if (!show) {
+            return null;
+        }
 
         const loading = await this.loadingController.create({
             animated: true,
@@ -564,7 +566,7 @@ export class AppService {
                 {
                     text: Messages.DONE,
                     handler: (value: any) => {
-                        this.profvars.updateCCodePhoneValue(value.choice_ccodes.value)
+                        this.profvars.updateCCodePhoneValue(value.choice_ccodes.value);
                     }
                 }
             ]

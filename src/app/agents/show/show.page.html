@@ -1,4 +1,4 @@
-<app-toolbar title="Detalles del usuario" active="agent-show"></app-toolbar>
+<app-toolbar active="agent-show" title="Detalles del usuario"></app-toolbar>
 
 <ion-content scroll-y="true">
     <app-refresh routePage="{{appService.appRoutes.APP_AGENTS_SHOW}}"></app-refresh>
@@ -16,7 +16,7 @@
                     <ion-label>
                         <h2>({{agentToShow.agent.phoneCodeNumber}}){{agentToShow.agent.phone}}</h2>
                     </ion-label>
-                    <h1 slot="end" class="text-primary">${{agentToShow.agent.balance}}</h1>
+                    <h1 class="text-primary" slot="end">${{agentToShow.agent.balance}}</h1>
                 </ion-item>
             </ion-card-content>
         </ion-card>
@@ -58,17 +58,17 @@
     <ion-toolbar class="pl-3 pr-3">
         <ion-item class="ion-no-padding">
             <ion-label>Fecha inicio</ion-label>
-            <ion-datetime monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
-                          [pickerOptions]="customPickerOptionsStart" value="{{startDate|date: 'yyyy-MM-dd'}}"
-                          min="1990-04-16" max="{{endDate|date: 'yyyy-MM-dd'}}"
-                          placeholder="Seleccione una fecha"></ion-datetime>
+            <ion-datetime [pickerOptions]="customPickerOptionsStart"
+                          max="{{endDate|date: 'yyyy-MM-dd'}}" min="1990-04-16"
+                          monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic" placeholder="Seleccione una fecha"
+                          value="{{startDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
         </ion-item>
         <ion-item class="ion-no-padding">
             <ion-label>Fecha fin</ion-label>
-            <ion-datetime monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
-                          [pickerOptions]="customPickerOptionsEnd"
-                          value="{{endDate|date: 'yyyy-MM-dd'}}" min="{{startDate|date: 'yyyy-MM-dd'}}"
-                          max="{{today|date: 'yyyy-MM-dd'}}" placeholder="Seleccione una fecha"></ion-datetime>
+            <ion-datetime [pickerOptions]="customPickerOptionsEnd"
+                          max="{{today|date: 'yyyy-MM-dd'}}"
+                          min="{{startDate|date: 'yyyy-MM-dd'}}" monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
+                          placeholder="Seleccione una fecha" value="{{endDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
         </ion-item>
     </ion-toolbar>
 </ion-footer>

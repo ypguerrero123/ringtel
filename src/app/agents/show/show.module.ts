@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {ShowPageRoutingModule} from './show-routing.module';
 
 import {ShowPage} from './show.page';
-import {ToolbarModule} from "../../includes/toolbar/toolbar.module";
+import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
 
 @NgModule({
     imports: [

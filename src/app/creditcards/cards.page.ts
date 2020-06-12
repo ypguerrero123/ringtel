@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../services/app.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {Charge, Method} from "../model/stripe";
-import {Utils} from "../services/utils/utils";
+import {AppService} from '../services/app.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {Charge, Method} from '../model/stripe';
 
 @Component({
     selector: 'app-cards',
@@ -65,7 +64,7 @@ export class CardsPage implements OnInit {
      * @method detachPaymentMethod
      * @param paymentId
      */
-    public detachPaymentMethod(paymentId){
+    public detachPaymentMethod(paymentId) {
         this.appService.detachPaymentMethod(paymentId).then();
     }
 

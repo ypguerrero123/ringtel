@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {ActivatedRoute} from "@angular/router";
-import {DatePipe} from "@angular/common";
-import {Utils} from "../../services/utils/utils";
-import {Messages} from "../../config/messages";
-import {UserDataResponse} from "../../model/user";
+import {AppService} from '../../services/app.service';
+import {ActivatedRoute} from '@angular/router';
+import {DatePipe} from '@angular/common';
+import {Utils} from '../../services/utils/utils';
+import {Messages} from '../../config/messages';
+import {UserDataResponse} from '../../model/user';
 
 @Component({
     selector: 'app-show',

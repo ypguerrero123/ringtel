@@ -17,7 +17,7 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
-import {DatePipe} from "@angular/common";
+import {DatePipe} from '@angular/common';
 
 @NgModule({
     declarations: [AppComponent],

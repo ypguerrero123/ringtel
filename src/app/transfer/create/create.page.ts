@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {Utils} from "../../services/utils/utils";
-import {User} from "../../model/user";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Messages} from "../../config/messages";
+import {AppService} from '../../services/app.service';
+import {Utils} from '../../services/utils/utils';
+import {User} from '../../model/user';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-transfer',
@@ -31,6 +31,13 @@ export class CreatePage implements OnInit {
      * @param formBuilder
      */
     constructor(public appService: AppService, private formBuilder: FormBuilder) {
+    }
+
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.creditForm.controls;
     }
 
     ngOnInit() {
@@ -63,13 +70,6 @@ export class CreatePage implements OnInit {
             return this.appService.transferCredit(agentTo, Utils.getFormData({'credit': this.creditForm.value.creditSend})).then();
         }
         return this.appService.presentToast(Messages.CREDIT_NOT_VALID, 'dark').then();
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.creditForm.controls;
     }
 
 }

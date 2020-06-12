@@ -3,10 +3,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../../../services/app.service';
 import {Messages} from '../../../config/messages';
 import {Validations} from '../../../config/validations';
-import {map, startWith} from "rxjs/operators";
-import {Observable} from "rxjs";
-import {Constants} from "../../../config/constants";
-import {ContactInterface} from "../../../model/contact";
+import {map, startWith} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {Constants} from '../../../config/constants';
+import {ContactInterface} from '../../../model/contact';
 
 @Component({
     selector: 'app-nauta-container',
@@ -19,25 +19,22 @@ export class NautaContainerComponent implements OnInit {
      * @var FormGroup
      */
     public nautaForm: FormGroup;
-
-    /**
-     * @var number
-     */
-    private action: number = 1;
     /**
      * @var ContactInterface[]
      */
     public contactsName: ContactInterface[] = [];
-
     /**
      * @var Observable
      */
     public filteredNames: Observable<ContactInterface[]>;
-
     /**
      * @var string
      */
     public buttonSubmitText: string = Messages.RECHARGE_NOW;
+    /**
+     * @var number
+     */
+    private action: number = 1;
 
     /**
      * Constructor NautaContainerComponent
@@ -47,6 +44,13 @@ export class NautaContainerComponent implements OnInit {
     constructor(public appService: AppService,
                 private formBuilder: FormBuilder
     ) {
+    }
+
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.nautaForm.controls;
     }
 
     ngOnInit() {
@@ -77,7 +81,6 @@ export class NautaContainerComponent implements OnInit {
         return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
     }
 
-
     /**
      * @method setAction
      * @param value
@@ -96,13 +99,6 @@ export class NautaContainerComponent implements OnInit {
                 this.buttonSubmitText = Messages.RECHARGE_NOW;
                 break;
         }
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.nautaForm.controls;
     }
 
 }

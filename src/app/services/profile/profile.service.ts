@@ -1,8 +1,8 @@
 import {AppService} from '../app.service';
 import {User, UserDataResponse} from '../../model/user';
 import {Messages} from '../../config/messages';
-import {Utils} from "../utils/utils";
-import {Constants} from "../../config/constants";
+import {Utils} from '../utils/utils';
+import {Constants} from '../../config/constants';
 
 /**
  * ProfileService
@@ -76,7 +76,9 @@ export class ProfileService {
     public async updateToken(userHasUpdate: boolean = true) {
         if (this.appService.secvars.user) {
             this.appService.getStorage(Constants.TOKEN_DEVICE_KEY, false).then((token) => {
-                if (!token) return;
+                if (!token) {
+                    return;
+                }
                 this.appService.post(
                     `es/api/v1/profile/${this.appService.userType()}/${this.appService.secvars.user.id}/token-device`, Utils.getFormData({'token': token})
                 ).subscribe((resp: User) => {
@@ -128,7 +130,7 @@ export class ProfileService {
                     () => {
                         this.appService.clearStorage().then(() => {
                             this.appService.router.navigate(['/login']).then();
-                        })
+                        });
                     },
                     (err) => {
                         this.appService.dismissLoading(loading).then(() => {

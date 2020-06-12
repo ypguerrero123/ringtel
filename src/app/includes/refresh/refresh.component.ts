@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {AppRoutes} from "../../config/routes";
-import {Constants} from "../../config/constants";
-import {Utils} from "../../services/utils/utils";
-import {DatePipe} from "@angular/common";
+import {AppService} from '../../services/app.service';
+import {AppRoutes} from '../../config/routes';
+import {Constants} from '../../config/constants';
+import {Utils} from '../../services/utils/utils';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-refresh',
@@ -80,7 +80,7 @@ export class RefreshComponent implements OnInit {
             'date_range': `${this.datePipe.transform(startDate, 'yyyy-MM-dd')} - ${this.datePipe.transform(endDate, 'yyyy-MM-dd')}`
         });
         this.appService.getProfile(data).then(() => {
-            event.target.complete()
+            event.target.complete();
         });
     }
 

@@ -3,7 +3,7 @@ import {Shopping} from '../model/shopping';
 import {AlertController} from '@ionic/angular';
 import {AppService} from '../services/app.service';
 import {Messages} from '../config/messages';
-import {MatTableDataSource} from "@angular/material/table";
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-shopping',
@@ -48,26 +48,6 @@ export class ShoppingPage implements OnInit {
     }
 
     /**
-     * @method readShoppingsData
-     * @param shoppings
-     */
-    private async readShoppingsData(shoppings: Shopping[]) {
-        const user = this.appService.secvars.user;
-        let amount: number = 0.00;
-        await shoppings.forEach((shopping: Shopping) => {
-            if (shopping.service == 'cubacel' && user.sale_price_cubacel) {
-                amount += parseFloat(user.sale_price_cubacel);
-            } else if (shopping.service == 'nauta' && user.sale_price_nauta) {
-                amount += parseFloat(user.sale_price_nauta);
-            } else {
-                amount += parseFloat(shopping.recharge.salePrice);
-            }
-        });
-        this.totalAmount = amount.toFixed(2);
-        this.loadingData = false;
-    }
-
-    /**
      * @method applyFilter
      * @param event
      */
@@ -90,5 +70,25 @@ export class ShoppingPage implements OnInit {
         });
 
         await alert.present();
+    }
+
+    /**
+     * @method readShoppingsData
+     * @param shoppings
+     */
+    private async readShoppingsData(shoppings: Shopping[]) {
+        const user = this.appService.secvars.user;
+        let amount: number = 0.00;
+        await shoppings.forEach((shopping: Shopping) => {
+            if (shopping.service == 'cubacel' && user.sale_price_cubacel) {
+                amount += parseFloat(user.sale_price_cubacel);
+            } else if (shopping.service == 'nauta' && user.sale_price_nauta) {
+                amount += parseFloat(user.sale_price_nauta);
+            } else {
+                amount += parseFloat(shopping.recharge.salePrice);
+            }
+        });
+        this.totalAmount = amount.toFixed(2);
+        this.loadingData = false;
     }
 }

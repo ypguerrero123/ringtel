@@ -1,4 +1,4 @@
-<app-toolbar title="Configuraciones" active="settings"></app-toolbar>
+<app-toolbar active="settings" title="Configuraciones"></app-toolbar>
 
 <ion-content scroll-y="true">
 
@@ -9,22 +9,22 @@
             </ion-item-divider>
 
             <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_EDIT_PROFILE)">
-                <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+                <ion-icon name="person-circle-outline" slot="start"></ion-icon>
                 <ion-label>Datos generales</ion-label>
-                <ion-icon slot="end" name="create-outline"></ion-icon>
+                <ion-icon name="create-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_EDIT_SALES)"
                       *ngIf="appService.isPostSale()">
-                <ion-icon slot="start" name="cash-outline"></ion-icon>
+                <ion-icon name="cash-outline" slot="start"></ion-icon>
                 <ion-label>Precios de costos y ventas</ion-label>
-                <ion-icon slot="end" name="create-outline"></ion-icon>
+                <ion-icon name="create-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item (click)="appService.logout()">
-                <ion-icon slot="start" name="person-outline"></ion-icon>
+                <ion-icon name="person-outline" slot="start"></ion-icon>
                 <ion-label>Cerrar sesión</ion-label>
-                <ion-icon slot="end" name="log-out-outline"></ion-icon>
+                <ion-icon name="log-out-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item-divider>
@@ -32,15 +32,15 @@
             </ion-item-divider>
 
             <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_EDIT_PASSWORD)">
-                <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+                <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
                 <ion-label>Cambiar contraseña</ion-label>
-                <ion-icon slot="end" name="create-outline"></ion-icon>
+                <ion-icon name="create-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item (click)="appService.confirmDisableAccount()">
-                <ion-icon slot="start" name="person-remove-outline"></ion-icon>
+                <ion-icon name="person-remove-outline" slot="start"></ion-icon>
                 <ion-label>Desabilitar mi cuenta</ion-label>
-                <ion-icon slot="end" name="close-circle-outline"></ion-icon>
+                <ion-icon name="close-circle-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item-divider *ngIf="appService.isAdmin()">
@@ -49,14 +49,14 @@
 
             <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_AGENTS_LIST)"
                       *ngIf="appService.isAdmin()">
-                <ion-icon slot="start" name="people-outline"></ion-icon>
+                <ion-icon name="people-outline" slot="start"></ion-icon>
                 <ion-label>Mis usuarios</ion-label>
-                <ion-icon slot="end" name="list-circle-outline"></ion-icon>
+                <ion-icon name="list-circle-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_AGENTS_CREATE)"
                       *ngIf="appService.isAdmin()">
-                <ion-icon slot="start" name="people-outline"></ion-icon>
+                <ion-icon name="people-outline" slot="start"></ion-icon>
                 <ion-label>Crear usuario</ion-label>
                 <ion-icon name="person-add-outline"></ion-icon>
             </ion-item>
@@ -68,21 +68,21 @@
                 </ion-item-divider>
 
                 <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_TRANSFER_CREATE)">
-                    <ion-icon slot="start" name="cash-outline"></ion-icon>
+                    <ion-icon name="cash-outline" slot="start"></ion-icon>
                     <ion-label>Transferir crédito</ion-label>
-                    <ion-icon slot="end" name="send-outline"></ion-icon>
+                    <ion-icon name="send-outline" slot="end"></ion-icon>
                 </ion-item>
 
                 <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_TRANSFER_LIST)">
-                    <ion-icon slot="start" name="list-circle-outline"></ion-icon>
+                    <ion-icon name="list-circle-outline" slot="start"></ion-icon>
                     <ion-label>Historial de transferencias</ion-label>
-                    <ion-icon slot="end" name="eye-outline"></ion-icon>
+                    <ion-icon name="eye-outline" slot="end"></ion-icon>
                 </ion-item>
 
                 <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_CREDIT_CARD_DETAIL)">
-                    <ion-icon slot="start" name="list-circle-outline"></ion-icon>
+                    <ion-icon name="list-circle-outline" slot="start"></ion-icon>
                     <ion-label>Historial crédito comprado</ion-label>
-                    <ion-icon slot="end" name="eye-outline"></ion-icon>
+                    <ion-icon name="eye-outline" slot="end"></ion-icon>
                 </ion-item>
 
             </div>
@@ -92,9 +92,9 @@
             </ion-item-divider>
 
             <ion-item (click)="appService.navigateToUrl(appService.appRoutes.APP_RECHARGE_HISTORY)">
-                <ion-icon slot="start" name="list-circle-outline"></ion-icon>
+                <ion-icon name="list-circle-outline" slot="start"></ion-icon>
                 <ion-label>Historial de recargas</ion-label>
-                <ion-icon slot="end" name="eye-outline"></ion-icon>
+                <ion-icon name="eye-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item-divider>
@@ -102,27 +102,27 @@
             </ion-item-divider>
 
             <ion-item href="https://cubahorizontes.com/" target="_blank">
-                <ion-icon slot="start" name="globe-outline"></ion-icon>
+                <ion-icon name="globe-outline" slot="start"></ion-icon>
                 <ion-label>
                     <ion-label>Sitio web</ion-label>
                 </ion-label>
-                <ion-icon slot="end" name="link-outline"></ion-icon>
+                <ion-icon name="link-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item href="https://cubahorizontes.com/contacto" target="_blank">
-                <ion-icon slot="start" name="send-outline"></ion-icon>
+                <ion-icon name="send-outline" slot="start"></ion-icon>
                 <ion-label>
                     <ion-label>Contacto</ion-label>
                 </ion-label>
-                <ion-icon slot="end" name="link-outline"></ion-icon>
+                <ion-icon name="link-outline" slot="end"></ion-icon>
             </ion-item>
 
-            <ion-item lines="none" href="https://cubahorizontes.com/privacy" target="_blank">
-                <ion-icon slot="start" name="document-text-outline"></ion-icon>
+            <ion-item href="https://cubahorizontes.com/privacy" lines="none" target="_blank">
+                <ion-icon name="document-text-outline" slot="start"></ion-icon>
                 <ion-label>
                     <ion-label>Políticas de seguridad</ion-label>
                 </ion-label>
-                <ion-icon slot="end" name="link-outline"></ion-icon>
+                <ion-icon name="link-outline" slot="end"></ion-icon>
             </ion-item>
 
         </ion-item-group>

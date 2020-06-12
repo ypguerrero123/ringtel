@@ -1,7 +1,7 @@
 /**
  * Utils
  */
-import {Method} from "../../model/stripe";
+import {Method} from '../../model/stripe';
 
 export class Utils {
     /**
@@ -39,7 +39,6 @@ export class Utils {
                 formData.append(value, key.toString());
             });
         }
-
 
 
         return formData;

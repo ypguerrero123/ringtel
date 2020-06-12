@@ -1,6 +1,6 @@
 import {Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {Charge, Method} from "../../model/stripe";
+import {Charge, Method} from '../../model/stripe';
 
 @Injectable({
     providedIn: 'root'

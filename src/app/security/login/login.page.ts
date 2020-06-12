@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../../services/app.service';
-import {Messages} from "../../config/messages";
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-login',

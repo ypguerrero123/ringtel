@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {ProfilePageRoutingModule} from './profile-routing.module';
 
 import {ProfilePage} from './profile.page';
-import {ToolbarModule} from "../../includes/toolbar/toolbar.module";
+import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
 
 @NgModule({
     imports: [

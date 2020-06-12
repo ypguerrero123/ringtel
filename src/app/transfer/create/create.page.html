@@ -1,26 +1,26 @@
-<app-toolbar title="Transferir saldo" active="transfer"></app-toolbar>
+<app-toolbar active="transfer" title="Transferir saldo"></app-toolbar>
 
 <ion-content scroll-y="yes">
     <app-refresh></app-refresh>
     <ion-card class="shadow-lg">
         <ion-card-content>
             <form [formGroup]="creditForm">
-                <ion-input class="form-transfer" name="creditSend" id="creditSend" formControlName="creditSend"
-                           type="number"
-                           [class.error-input]="!formControl.creditSend.valid && (formControl.creditSend.dirty || formControl.creditSend.touched)"></ion-input>
+                <ion-input [class.error-input]="!formControl.creditSend.valid && (formControl.creditSend.dirty || formControl.creditSend.touched)" class="form-transfer" formControlName="creditSend" id="creditSend"
+                           name="creditSend"
+                           type="number"></ion-input>
 
                 <ion-text class="ion-text-center">
                     <!-- Error messages -->
-                    <p class="error"
-                       *ngIf="formControl.creditSend.errors?.required && (formControl.creditSend.dirty || formControl.creditSend.touched)">
+                    <p *ngIf="formControl.creditSend.errors?.required && (formControl.creditSend.dirty || formControl.creditSend.touched)"
+                       class="error">
                         Crédito obligatorio
                     </p>
-                    <p class="error"
-                       *ngIf="formControl.creditSend.errors?.min && (formControl.creditSend.dirty || formControl.creditSend.touched)">
+                    <p *ngIf="formControl.creditSend.errors?.min && (formControl.creditSend.dirty || formControl.creditSend.touched)"
+                       class="error">
                         Crédito mínimo para enviar 10.00
                     </p>
-                    <p class="error"
-                       *ngIf="formControl.creditSend.errors?.max && (formControl.creditSend.dirty || formControl.creditSend.touched)">
+                    <p *ngIf="formControl.creditSend.errors?.max && (formControl.creditSend.dirty || formControl.creditSend.touched)"
+                       class="error">
                         Crédito máximo para enviar {{this.appService.secvars.user.balance}}
                     </p>
                 </ion-text>
@@ -30,19 +30,19 @@
     </ion-card>
     <ion-card class="shadow-lg">
         <ion-card-content>
-            <form method="post" (ngSubmit)="searchAgents()">
+            <form (ngSubmit)="searchAgents()" method="post">
                 <div class="form-group">
                     <div class="input-group">
-                        <ion-input class="form-control" placeholder="Buscar agente" [(ngModel)]="searchValue"
-                                   name="searchValue" id="searchValue"
-                                   aria-describedby="searchHelp"></ion-input>
+                        <ion-input [(ngModel)]="searchValue" aria-describedby="searchHelp" class="form-control"
+                                   id="searchValue" name="searchValue"
+                                   placeholder="Buscar agente"></ion-input>
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit" (keyup.enter)="searchAgents()">
+                            <button (keyup.enter)="searchAgents()" class="btn btn-primary" type="submit">
                                 <ion-icon name="search-outline"></ion-icon>
                             </button>
                         </div>
                     </div>
-                    <small id="searchHelp" class="form-text text-muted">Puede buscar por nombre, correo o
+                    <small class="form-text text-muted" id="searchHelp">Puede buscar por nombre, correo o
                         teléfono.</small>
                 </div>
             </form>
@@ -50,7 +50,7 @@
                 <ion-list-header class="ion-no-padding">
                     Agentes encontrados
                 </ion-list-header>
-                <ion-item class="ion-no-padding" *ngFor="let agent of agentsFound">
+                <ion-item *ngFor="let agent of agentsFound" class="ion-no-padding">
                     <ion-avatar slot="start">
                         <ion-img src="../../assets/images/profile/avatar.svg"></ion-img>
                     </ion-avatar>
@@ -59,7 +59,7 @@
                         <h3>{{agent.phoneCodeNumber}}{{agent.phone}}</h3>
                         <p>{{agent.email}}</p>
                     </ion-label>
-                    <ion-button slot="end" (click)="transferCredit(agent.id)">
+                    <ion-button (click)="transferCredit(agent.id)" slot="end">
                         Enviar
                     </ion-button>
                 </ion-item>

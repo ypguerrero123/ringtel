@@ -1,9 +1,9 @@
-<form [formGroup]="cubacelForm" (ngSubmit)="onSubmit()" *ngIf="appService.opvars.cubacelRecharges">
+<form (ngSubmit)="onSubmit()" *ngIf="appService.opvars.cubacelRecharges" [formGroup]="cubacelForm">
 
     <ion-card class="shadow-lg">
         <ion-card-content>
             <ion-item class="ion-no-padding z-index-0" lines="none">
-                <ion-img src="../../assets/images/services/cubacel_logo.svg" class="logo_service"></ion-img>
+                <ion-img class="logo_service" src="../../assets/images/services/cubacel_logo.svg"></ion-img>
             </ion-item>
         </ion-card-content>
     </ion-card>
@@ -11,10 +11,10 @@
         <ion-card-content>
             <div class="form-group">
                 <ion-label class="">Nombre:</ion-label>
-                <input type="text" formControlName="client" maxlength="50" minlength="2"
-                       class="form-control" id="client" aria-describedby="nameHelp" aria-label=""
-                       placeholder="Nombre del cliente" autocomplete="off" matInput [matAutocomplete]="autoName"
-                       [class.error-input]="!formControl.client.valid && (formControl.client.dirty || formControl.client.touched)">
+                <input [class.error-input]="!formControl.client.valid && (formControl.client.dirty || formControl.client.touched)" [matAutocomplete]="autoName" aria-describedby="nameHelp" aria-label=""
+                       autocomplete="off" class="form-control" formControlName="client" id="client"
+                       matInput maxlength="50" minlength="2" placeholder="Nombre del cliente"
+                       type="text">
                 <mat-autocomplete #autoName="matAutocomplete"
                                   (optionSelected)='optionSelected($event.option.value)'>
                     <mat-option *ngFor="let conctactList of filteredNames | async" [value]="conctactList.name">
@@ -23,8 +23,8 @@
                     </mat-option>
                 </mat-autocomplete>
                 <!-- Error messages -->
-                <span class="error"
-                      *ngIf="formControl.client.errors?.minlength && (formControl.client.dirty || formControl.client.touched)">
+                <span *ngIf="formControl.client.errors?.minlength && (formControl.client.dirty || formControl.client.touched)"
+                      class="error">
                         Nombre del cliente de 2 caracteres mínimo.
                     </span>
             </div>
@@ -36,49 +36,49 @@
                     <div class="input-group-prepend">
                         <span class="btn btn-outline-secondary">+53</span>
                     </div>
-                    <ion-input type="tel" formControlName="account" maxlength="8"
-                               class="form-control" autocomplete="off" required [(ngModel)]="phoneByContactName"
-                               id="account" aria-describedby="telHelp" placeholder="Número del cliente"
-                               [class.error-input]="!formControl.account.valid && (formControl.account.dirty || formControl.account.touched)"></ion-input>
+                    <ion-input [(ngModel)]="phoneByContactName" [class.error-input]="!formControl.account.valid && (formControl.account.dirty || formControl.account.touched)" aria-describedby="telHelp"
+                               autocomplete="off" class="form-control" formControlName="account" id="account"
+                               maxlength="8" placeholder="Número del cliente" required
+                               type="tel"></ion-input>
                 </div>
                 <!-- Error messages -->
-                <span class="error"
-                      *ngIf="formControl.account.errors?.required && (formControl.account.dirty || formControl.account.touched)">
+                <span *ngIf="formControl.account.errors?.required && (formControl.account.dirty || formControl.account.touched)"
+                      class="error">
                         Teléfono del cliente es obligatorio.
                     </span>
-                <span class="error"
-                      *ngIf="formControl.account.errors?.pattern && (formControl.account.dirty || formControl.account.touched)">
+                <span *ngIf="formControl.account.errors?.pattern && (formControl.account.dirty || formControl.account.touched)"
+                      class="error">
                        Número Cubacel no válido
                         </span>
             </div>
             <div class="form-group">
                 <ion-label class="required">Recargas disponibles:</ion-label>
-                <ion-select placeholder="Seleccione un valor" formControlName="recharge" class="form-control"
-                            aria-describedby="priceHelp" okText="Seleccionar" cancelText="Cancelar"
-                            (keyup.enter)="onSubmit()">
+                <ion-select (keyup.enter)="onSubmit()" aria-describedby="priceHelp" cancelText="Cancelar"
+                            class="form-control" formControlName="recharge" okText="Seleccionar"
+                            placeholder="Seleccione un valor">
                     <ion-select-option *ngFor="let item of appService.opvars.cubacelRecharges;"
                                        [value]="item.id">{{item.slug}}</ion-select-option>
                 </ion-select>
             </div>
             <div class="form-group">
                 <ion-radio-group value="1">
-                    <ion-item class="ion-no-padding custom-radio-group" lines="none" (click)="setAction(1)">
-                        <ion-radio color="primary" value="1" class="mr-2"></ion-radio>
+                    <ion-item (click)="setAction(1)" class="ion-no-padding custom-radio-group" lines="none">
+                        <ion-radio class="mr-2" color="primary" value="1"></ion-radio>
                         <ion-label>Recargar ahora</ion-label>
                     </ion-item>
-                    <ion-item class="ion-no-padding custom-radio-group" lines="none"
-                              (click)="setAction(3)" *ngIf="appService.opvars.preSalesActive">
-                        <ion-radio color="success" value="3" class="mr-2"></ion-radio>
+                    <ion-item (click)="setAction(3)" *ngIf="appService.opvars.preSalesActive"
+                              class="ion-no-padding custom-radio-group" lines="none">
+                        <ion-radio class="mr-2" color="success" value="3"></ion-radio>
                         <ion-label>Enviar en preventa</ion-label>
                     </ion-item>
-                    <ion-item class="ion-no-padding custom-radio-group" lines="none" (click)="setAction(2)">
-                        <ion-radio color="tertiary" value="2" class="mr-2"></ion-radio>
+                    <ion-item (click)="setAction(2)" class="ion-no-padding custom-radio-group" lines="none">
+                        <ion-radio class="mr-2" color="tertiary" value="2"></ion-radio>
                         <ion-label>Enviar recarga al carrito</ion-label>
                     </ion-item>
                 </ion-radio-group>
             </div>
             <div class="form-group mb-0">
-                <ion-button type="submit" color="primary" expand="block">
+                <ion-button color="primary" expand="block" type="submit">
                     {{buttonSubmitText}}
                 </ion-button>
             </div>
@@ -87,4 +87,4 @@
 
 </form>
 
-<ion-spinner *ngIf="!appService.opvars.cubacelRecharges" color="primary" name="lines" class="loading"></ion-spinner>
+<ion-spinner *ngIf="!appService.opvars.cubacelRecharges" class="loading" color="primary" name="lines"></ion-spinner>

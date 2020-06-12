@@ -3,10 +3,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActionSheetController, LoadingController} from '@ionic/angular';
 import {MatStepper} from '@angular/material';
 import {AppService} from '../services/app.service';
-import {Utils} from "../services/utils/utils";
-import {Messages} from "../config/messages";
-import {AppRoutes} from "../config/routes";
-import {Method} from "../model/stripe";
+import {Utils} from '../services/utils/utils';
+import {Messages} from '../config/messages';
+import {AppRoutes} from '../config/routes';
+import {Method} from '../model/stripe';
 
 declare var Stripe;
 
@@ -18,10 +18,6 @@ declare var Stripe;
 export class StripePage implements OnInit {
 
     @ViewChild('stepper', {static: false}) stepper: MatStepper;
-    /**
-     * @var string[]
-     */
-    private validBrands: string[] = ['amex', 'visa', 'mastercard', 'discover', 'jcb', 'diners'];
     /**
      * @var string
      */
@@ -39,21 +35,9 @@ export class StripePage implements OnInit {
      */
     public selectCardName: string = '';
     /**
-     * Saved Payment Methods
-     */
-    private savedPaymentMethods: Method[] = [];
-    /**
      * Only form (amount, confirm data, radio saved methods)
      */
     public amountAcceptCardForm: FormGroup;
-    /**
-     * StripeService vars
-     */
-    private pkSecret: string = 'pk_test_OWmj8OkGjUqxLyrgrbHtXR7600FZYXhUa3';
-    private stripe = Stripe(this.pkSecret, {
-        locale: 'es'
-    });
-    private card: any;
     /**
      * Check if StripeService or Saved Payment Methods form are invalid
      */
@@ -66,16 +50,30 @@ export class StripePage implements OnInit {
      * Check if amount form is in (focusin)
      */
     public amountFocusIn: boolean = false;
-
     /**
      * Old Selected Method
      */
     public oldSelectedMethod: Method = null;
-
     /**
      * @var string
      */
     public errorTransaction: string = null;
+    /**
+     * @var string[]
+     */
+    private validBrands: string[] = ['amex', 'visa', 'mastercard', 'discover', 'jcb', 'diners'];
+    /**
+     * Saved Payment Methods
+     */
+    private savedPaymentMethods: Method[] = [];
+    /**
+     * StripeService vars
+     */
+    private pkSecret: string = 'pk_test_OWmj8OkGjUqxLyrgrbHtXR7600FZYXhUa3';
+    private stripe = Stripe(this.pkSecret, {
+        locale: 'es'
+    });
+    private card: any;
 
     /**
      *
@@ -90,6 +88,13 @@ export class StripePage implements OnInit {
                 public actionSheetController: ActionSheetController
     ) {
 
+    }
+
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.amountAcceptCardForm.controls;
     }
 
     ngOnInit() {
@@ -125,12 +130,84 @@ export class StripePage implements OnInit {
     }
 
     /**
+     * @method selectNewPaymentMethod
+     */
+    public selectNewPaymentMethod() {
+        this.invalidFormNewPaymentMethod = true;
+        this.oldSelectedMethod = null;
+
+        this.showNewPaymentMethod();
+
+        setTimeout(() => {
+            this.createPaymentIntent().then();
+        }, 100);
+    }
+
+    /**
+     * @method showOldPaymentMethod
+     */
+    public async showOldPaymentMethod() {
+
+        const buttons: any[] = [];
+        this.savedPaymentMethods.forEach((method: Method) => {
+            let button = {
+                text: `**** ${method.card.last4}  ${method.card.exp_month}/${method.card.exp_year}  ${method.card.brand.toUpperCase()}`,
+                icon: 'card-outline',
+                backdropDismiss: false,
+                keyboardClose: false,
+                handler: () => {
+                    this.selectOldPeymentMethod(method);
+                }
+            };
+            buttons.push(button);
+        });
+
+        let closeButton = {
+            text: Messages.PAY_WITH_NEW_CREDIT_CARD,
+            icon: 'close-circle-outline',
+            role: 'cancel',
+            handler: () => {
+            }
+        };
+        buttons.push(closeButton);
+
+        const actionSheet = await this.actionSheetController.create({
+            header: Messages.MY_CREDIT_CARDS,
+            buttons: buttons
+        });
+
+        await actionSheet.present();
+    }
+
+    /**
+     * @method amountFormFocus
+     * @param focusIn
+     */
+    public amountFormFocus(focusIn: boolean = true) {
+        this.amountFocusIn = focusIn;
+    }
+
+    /**
+     * @method createPaymentIntent
+     */
+    public async createPaymentIntent() {
+        let amount = this.amountAcceptCardForm.value.amount ? this.amountAcceptCardForm.value.amount : 10;
+        if (!amount || amount < 10) {
+            return;
+        }
+        this.appService.createPaymentIntent(
+            amount,
+            this.oldSelectedMethod ? Utils.getFormData({'payment_method': this.oldSelectedMethod.id}) : {}
+        ).then();
+    }
+
+    /**
      * @method formStripeAddEventListener
      */
     private formStripeAddEventListener() {
         setTimeout(() => {
             // Create a token when the form is submitted
-            let form = <HTMLFormElement>document.getElementById('payment-form');
+            let form = <HTMLFormElement> document.getElementById('payment-form');
             if (form) {
                 form.addEventListener('submit', e => {
                     e.preventDefault();
@@ -198,56 +275,6 @@ export class StripePage implements OnInit {
     }
 
     /**
-     * @method selectNewPaymentMethod
-     */
-    public selectNewPaymentMethod() {
-        this.invalidFormNewPaymentMethod = true;
-        this.oldSelectedMethod = null;
-
-        this.showNewPaymentMethod();
-
-        setTimeout(() => {
-            this.createPaymentIntent().then();
-        }, 100);
-    }
-
-    /**
-     * @method showOldPaymentMethod
-     */
-    public async showOldPaymentMethod() {
-
-        const buttons: any[] = [];
-        this.savedPaymentMethods.forEach((method: Method) => {
-            let button = {
-                text: `**** ${method.card.last4}  ${method.card.exp_month}/${method.card.exp_year}  ${method.card.brand.toUpperCase()}`,
-                icon: 'card-outline',
-                backdropDismiss: false,
-                keyboardClose: false,
-                handler: () => {
-                    this.selectOldPeymentMethod(method);
-                }
-            };
-            buttons.push(button);
-        });
-
-        let closeButton = {
-            text: Messages.PAY_WITH_NEW_CREDIT_CARD,
-            icon: 'close-circle-outline',
-            role: 'cancel',
-            handler: () => {
-            }
-        };
-        buttons.push(closeButton);
-
-        const actionSheet = await this.actionSheetController.create({
-            header: Messages.MY_CREDIT_CARDS,
-            buttons: buttons
-        });
-
-        await actionSheet.present();
-    }
-
-    /**
      * @method showNewPaymentMethod
      */
     private showNewPaymentMethod() {
@@ -290,33 +317,6 @@ export class StripePage implements OnInit {
             }, {passive: true});
 
         }, 100);
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.amountAcceptCardForm.controls;
-    }
-
-    /**
-     * @method amountFormFocus
-     * @param focusIn
-     */
-    public amountFormFocus(focusIn: boolean = true) {
-        this.amountFocusIn = focusIn;
-    }
-
-    /**
-     * @method createPaymentIntent
-     */
-    public async createPaymentIntent() {
-        let amount = this.amountAcceptCardForm.value.amount ? this.amountAcceptCardForm.value.amount : 10;
-        if (!amount || amount < 10) return;
-        this.appService.createPaymentIntent(
-            amount,
-            this.oldSelectedMethod ? Utils.getFormData({'payment_method': this.oldSelectedMethod.id}) : {}
-        ).then();
     }
 
     /**

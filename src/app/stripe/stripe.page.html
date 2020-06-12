@@ -1,4 +1,4 @@
-<app-toolbar title="Comprar crédito" active="stripe"></app-toolbar>
+<app-toolbar active="stripe" title="Comprar crédito"></app-toolbar>
 
 <ion-content scroll-y="true">
     <app-refresh routePage="{{appService.appRoutes.APP_STRIPE}}"></app-refresh>
@@ -29,9 +29,9 @@
                 </div>
             </div>
 
-            <form id="payment-form" [formGroup]="amountAcceptCardForm">
+            <form [formGroup]="amountAcceptCardForm" id="payment-form">
 
-                <div class="alert alert-danger" role="alert" *ngIf="errorTransaction != null">
+                <div *ngIf="errorTransaction != null" class="alert alert-danger" role="alert">
                     <h2 class="alert-heading">
                         <ion-icon name="warning-outline"></ion-icon>
                         Información
@@ -39,67 +39,67 @@
                     <p>{{errorTransaction}}</p>
                     <hr>
                     <p class="mb-0">
-                        Click <a href="https://cubahorizontes.com/contacto"
-                                 target="_blank" class="alert-link">aquí</a>
+                        Click <a class="alert-link"
+                                 href="https://cubahorizontes.com/contacto" target="_blank">aquí</a>
                         para contactar al administrador.
                     </p>
                 </div>
 
                 <div class="form-group">
                     <ion-label class="required">Crédito a comprar:</ion-label>
-                    <ion-input class="form-control" formControlName="amount" [min]="10"
-                               [max]="2000" required placeholder="" id="amount" [(ngModel)]="selectCardPrice"
-                               (ionInput)="amountFormFocus()" (ionFocus)="amountFormFocus()"
-                               (ionBlur)="amountFormFocus(false); createPaymentIntent()"
-                               aria-describedby="amounthelp" type="number"
-                               [class.error-input]="!formControl.amount.valid && (formControl.amount.dirty || formControl.amount.touched)"></ion-input>
-                    <span class="error"
-                          *ngIf="formControl.amount.errors?.required && (formControl.amount.dirty || formControl.amount.touched)">
+                    <ion-input (ionBlur)="amountFormFocus(false); createPaymentIntent()" (ionFocus)="amountFormFocus()" (ionInput)="amountFormFocus()"
+                               [(ngModel)]="selectCardPrice" [class.error-input]="!formControl.amount.valid && (formControl.amount.dirty || formControl.amount.touched)" [max]="2000" [min]="10" aria-describedby="amounthelp"
+                               class="form-control" formControlName="amount"
+                               id="amount"
+                               placeholder="" required
+                               type="number"></ion-input>
+                    <span *ngIf="formControl.amount.errors?.required && (formControl.amount.dirty || formControl.amount.touched)"
+                          class="error">
                             Crédito obligatorio.
                             </span>
-                    <span class="error"
-                          *ngIf="(formControl.amount.errors?.min) && (formControl.amount.dirty || formControl.amount.touched)">
+                    <span *ngIf="(formControl.amount.errors?.min) && (formControl.amount.dirty || formControl.amount.touched)"
+                          class="error">
                                 El valor mínimo es de 10 USD.
                             </span>
-                    <span class="error"
-                          *ngIf="(formControl.amount.errors?.max) && (formControl.amount.dirty || formControl.amount.touched)">
+                    <span *ngIf="(formControl.amount.errors?.max) && (formControl.amount.dirty || formControl.amount.touched)"
+                          class="error">
                                 El valor máximo es de 2000 USD.
                             </span>
-                    <span class="error"
-                          *ngIf="(formControl.amount.errors?.pattern) && (formControl.amount.dirty || formControl.amount.touched)">
+                    <span *ngIf="(formControl.amount.errors?.pattern) && (formControl.amount.dirty || formControl.amount.touched)"
+                          class="error">
                                 Sólo números.
                             </span>
                 </div>
                 <div class="form-group">
                     <ion-label class="required">Nombre:</ion-label>
-                    <ion-input type="text" formControlName="name" maxlength="40" minlength="2"
-                               [(ngModel)]="selectCardName"
-                               class="form-control" id="name" aria-describedby="nameHelp"
-                               placeholder="Nombre que aparece en la tarjeta" autocomplete="off"
-                               [class.error-input]="!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)"></ion-input>
+                    <ion-input [(ngModel)]="selectCardName" [class.error-input]="!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)" aria-describedby="nameHelp" autocomplete="off"
+                               class="form-control"
+                               formControlName="name" id="name" maxlength="40"
+                               minlength="2" placeholder="Nombre que aparece en la tarjeta"
+                               type="text"></ion-input>
                     <!-- Error messages -->
-                    <span class="error"
-                          *ngIf="formControl.name.errors?.required && (formControl.name.dirty || formControl.name.touched)">
+                    <span *ngIf="formControl.name.errors?.required && (formControl.name.dirty || formControl.name.touched)"
+                          class="error">
                             Nombre obligatorio.
                         </span>
-                    <span class="error"
-                          *ngIf="formControl.name.errors?.minlength && (formControl.name.dirty || formControl.name.touched)">
+                    <span *ngIf="formControl.name.errors?.minlength && (formControl.name.dirty || formControl.name.touched)"
+                          class="error">
                             Nombre de 2 caracteres mínimo.
                         </span>
                 </div>
 
-                <div class="form-group"
-                     *ngIf="showSavedPaymentMethods && !oldSelectedMethod">
-                    <ion-button size="small" fill="outline"
-                                (click)="showOldPaymentMethod()">
+                <div *ngIf="showSavedPaymentMethods && !oldSelectedMethod"
+                     class="form-group">
+                    <ion-button (click)="showOldPaymentMethod()" fill="outline"
+                                size="small">
                         Mis tarjetas
                     </ion-button>
                 </div>
 
-                <div class="form-group form-credit" *ngIf="!oldSelectedMethod">
+                <div *ngIf="!oldSelectedMethod" class="form-group form-credit">
                     <div *ngIf="!oldSelectedMethod">
-                        <label for="card-element" class="required">Tarjeta: </label>
-                        <div id="card-element" class="form-control">
+                        <label class="required" for="card-element">Tarjeta: </label>
+                        <div class="form-control" id="card-element">
                             <!-- a StripeService Element will be inserted here. -->
                         </div>
                         <!-- Used to display Element errors -->
@@ -107,24 +107,24 @@
                     </div>
                 </div>
 
-                <ion-item class="ion-no-padding" *ngIf="oldSelectedMethod">
-                    <ion-img src="../../assets/images/cards/credit-card-saved.svg"
-                             class="img_card_saved"></ion-img>
+                <ion-item *ngIf="oldSelectedMethod" class="ion-no-padding">
+                    <ion-img class="img_card_saved"
+                             src="../../assets/images/cards/credit-card-saved.svg"></ion-img>
                     <ion-label>**** {{oldSelectedMethod.card.last4}}</ion-label>
                     <ion-badge>{{oldSelectedMethod.card.brand|titlecase}}</ion-badge>
-                    <ion-icon name="close-circle-outline" color="danger" class="ml-2"
-                              (click)="selectNewPaymentMethod()"></ion-icon>
+                    <ion-icon (click)="selectNewPaymentMethod()" class="ml-2" color="danger"
+                              name="close-circle-outline"></ion-icon>
                 </ion-item>
                 <ion-item class="ion-no-padding" lines="none">
                     <mat-checkbox color="primary" formControlName="accept">
-                        <small style="font-size: 13px" class="form-text text-muted">
+                        <small class="form-text text-muted" style="font-size: 13px">
                             Confirmo que los datos son correctos
                         </small>
                     </mat-checkbox>
                 </ion-item>
 
-                <ion-button type="submit" color="primary" class="mt-1" expand="block"
-                            [disabled]="amountAcceptCardForm.invalid || invalidFormNewPaymentMethod || amountFocusIn">
+                <ion-button [disabled]="amountAcceptCardForm.invalid || invalidFormNewPaymentMethod || amountFocusIn" class="mt-1" color="primary" expand="block"
+                            type="submit">
                     Pagar ${{amountAcceptCardForm.value.amount}}
                 </ion-button>
 

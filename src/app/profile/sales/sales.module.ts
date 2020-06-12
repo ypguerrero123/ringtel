@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {SalesPageRoutingModule} from './sales-routing.module';
 
 import {SalesPage} from './sales.page';
-import {ToolbarModule} from "../../includes/toolbar/toolbar.module";
+import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
 
 @NgModule({
     imports: [

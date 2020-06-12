@@ -1,19 +1,19 @@
-<app-toolbar title="Transacciones y tarjetas utilizadas" active="cards"></app-toolbar>
+<app-toolbar active="cards" title="Transacciones y tarjetas utilizadas"></app-toolbar>
 
 <ion-content scroll-y="true">
     <app-refresh routePage="{{appService.appRoutes.APP_CREDIT_CARD_DETAIL}}"></app-refresh>
-    <app-empty loading="{{ (loadingMethods || loadingCharges) ? '' : false }}"
-               empty="{{ chargesTableDataSource.data.length == 0 }}"></app-empty>
+    <app-empty empty="{{ chargesTableDataSource.data.length == 0 }}"
+               loading="{{ (loadingMethods || loadingCharges) ? '' : false }}"></app-empty>
 
     <div *ngIf="!loadingMethods && !loadingCharges && chargesTableDataSource.data.length > 0">
         <mat-tab-group dynamicHeight>
             <mat-tab label="Últimas transacciones">
                 <div class="mat-elevation-z8 shadow-lg">
-                    <table mat-table [dataSource]="chargesTableDataSource">
+                    <table [dataSource]="chargesTableDataSource" mat-table>
 
                         <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef>Datos de transacción</th>
-                            <td mat-cell *matCellDef="let element">
+                            <th *matHeaderCellDef mat-header-cell>Datos de transacción</th>
+                            <td *matCellDef="let element" mat-cell>
                                 {{element.id}}<br/>
                                 Precio: ${{(element.amount / 100)|number}} {{element.currency}}<br/>
                                 Tarjeta:
@@ -24,27 +24,27 @@
                         </ng-container>
 
                         <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef> Estado</th>
-                            <td mat-cell *matCellDef="let element">
+                            <th *matHeaderCellDef mat-header-cell> Estado</th>
+                            <td *matCellDef="let element" mat-cell>
                                 <ion-badge color="{{element.status == 'succeeded' ? 'primary' : 'danger'}}">
                                     {{element.status == 'succeeded' ? 'Completado' : (element.status == 'failed' ? 'Fallido' : element.status)}}
                                 </ion-badge>
                             </td>
                         </ng-container>
 
-                        <tr mat-header-row *matHeaderRowDef="chargesDisplayedColumns; sticky: true"></tr>
-                        <tr mat-row *matRowDef="let row; columns: chargesDisplayedColumns;"></tr>
+                        <tr *matHeaderRowDef="chargesDisplayedColumns; sticky: true" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: chargesDisplayedColumns;" mat-row></tr>
                     </table>
                 </div>
             </mat-tab>
             <mat-tab label="Tarjetas utilizadas">
                 <div class="example-container mat-elevation-z8">
-                    <table mat-table [dataSource]="methodsTableDataSource">
+                    <table [dataSource]="methodsTableDataSource" mat-table>
 
                         <!-- Position Column -->
                         <ng-container matColumnDef="data">
-                            <th mat-header-cell *matHeaderCellDef> Datos de tarjeta</th>
-                            <td mat-cell *matCellDef="let element">
+                            <th *matHeaderCellDef mat-header-cell> Datos de tarjeta</th>
+                            <td *matCellDef="let element" mat-cell>
                                 Nombre: {{element.billing_details.name}}<br/>
                                 Tarjeta: **** {{element.card.last4}} {{element.card.brand}}<br/>
                                 Expira: {{element.card.exp_month}} / {{element.card.exp_year}}<br/>
@@ -54,15 +54,15 @@
 
                         <!-- Symbol Column -->
                         <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                            <td mat-cell *matCellDef="let element">
-                                <ion-icon name="close-circle-outline" color="danger"
-                                          (click)="detachPaymentMethod(element.id)"></ion-icon>
+                            <th *matHeaderCellDef mat-header-cell>Acciones</th>
+                            <td *matCellDef="let element" mat-cell>
+                                <ion-icon (click)="detachPaymentMethod(element.id)" color="danger"
+                                          name="close-circle-outline"></ion-icon>
                             </td>
                         </ng-container>
 
-                        <tr mat-header-row *matHeaderRowDef="methodsDisplayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: methodsDisplayedColumns;"></tr>
+                        <tr *matHeaderRowDef="methodsDisplayedColumns" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: methodsDisplayedColumns;" mat-row></tr>
                     </table>
                 </div>
             </mat-tab>

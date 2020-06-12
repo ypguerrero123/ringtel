@@ -1,6 +1,6 @@
-import {User} from "./user";
-import {Constants} from "../config/constants";
-import {Messages} from "../config/messages";
+import {User} from './user';
+import {Constants} from '../config/constants';
+import {Messages} from '../config/messages';
 
 export interface Recharge {
     id: number;

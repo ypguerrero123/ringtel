@@ -1,6 +1,6 @@
-import {Ccodes} from "../../model/ccodes";
-import * as ccodes from "../../config/ccodes.json";
-import {Injectable} from "@angular/core";
+import {Ccodes} from '../../model/ccodes';
+import * as ccodes from '../../config/ccodes.json';
+import {Injectable} from '@angular/core';
 
 @Injectable({
     providedIn: 'root'

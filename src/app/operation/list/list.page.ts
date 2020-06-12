@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Operation} from '../../model/operation';
 import {AppService} from '../../services/app.service';
 import {Utils} from '../../services/utils/utils';
-import {MatTableDataSource} from "@angular/material/table";
-import {Messages} from "../../config/messages";
+import {MatTableDataSource} from '@angular/material/table';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-history',
@@ -29,15 +29,6 @@ export class ListPage implements OnInit {
      */
     public loadingData: boolean = true;
     /**
-     * @var number
-     */
-    private page = 0;
-    /**
-     * @var bool
-     */
-    private isFilter: boolean = false;
-
-    /**
      * @var any
      */
     public customPickerOptionsStart: any;
@@ -48,6 +39,14 @@ export class ListPage implements OnInit {
     public today: number = Date.now();
     public startDate = new Date(new Date().setDate(new Date().getDate() - 7));
     public endDate = new Date(new Date().setDate(new Date().getDate()));
+    /**
+     * @var number
+     */
+    private page = 0;
+    /**
+     * @var bool
+     */
+    private isFilter: boolean = false;
 
     /**
      * Constructor ListPage
@@ -114,6 +113,17 @@ export class ListPage implements OnInit {
     }
 
     /**
+     * @method loadPagination
+     * @param event
+     */
+    public async loadPagination(event) {
+        await this.loadRechargesHistory();
+        setTimeout(() => {
+            event.target.complete();
+        }, 500);
+    }
+
+    /**
      * @method filterByDate
      */
     private filterByDate() {
@@ -130,17 +140,6 @@ export class ListPage implements OnInit {
     private loadRechargesHistory() {
         this.page = this.page + 1;
         this.appService.getAllOperations(Utils.formatDate(this.startDate), Utils.formatDate(this.endDate), this.page).then();
-    }
-
-    /**
-     * @method loadPagination
-     * @param event
-     */
-    public async loadPagination(event) {
-        await this.loadRechargesHistory();
-        setTimeout(() => {
-            event.target.complete();
-        }, 500);
     }
 
 }

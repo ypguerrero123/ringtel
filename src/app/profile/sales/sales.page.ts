@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "../../services/app.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Utils} from "../../services/utils/utils";
-import {Messages} from "../../config/messages";
+import {AppService} from '../../services/app.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Utils} from '../../services/utils/utils';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-sales',
@@ -22,6 +22,13 @@ export class SalesPage implements OnInit {
      * @param formBuilder
      */
     constructor(public appService: AppService, private formBuilder: FormBuilder) {
+    }
+
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.saleForm.controls;
     }
 
     ngOnInit() {
@@ -47,13 +54,6 @@ export class SalesPage implements OnInit {
             );
         }
         return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.saleForm.controls;
     }
 
 }

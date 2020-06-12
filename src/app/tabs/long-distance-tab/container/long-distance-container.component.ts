@@ -3,11 +3,11 @@ import {Platform} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../../../services/app.service';
 import {Messages} from '../../../config/messages';
-import {Observable} from "rxjs";
-import {map, startWith} from "rxjs/operators";
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import {CallNumber} from '@ionic-native/call-number/ngx';
-import {Constants} from "../../../config/constants";
-import {ContactInterface} from "../../../model/contact";
+import {Constants} from '../../../config/constants';
+import {ContactInterface} from '../../../model/contact';
 
 @Component({
     selector: 'app-long-distance-container',
@@ -20,11 +20,6 @@ export class LongDistanceContainerComponent implements OnInit {
      * @var FormGroup
      */
     public longForm: FormGroup;
-    /**
-     * @var number
-     */
-    private action: number = 1;
-
     /**
      * @var string
      */
@@ -41,6 +36,10 @@ export class LongDistanceContainerComponent implements OnInit {
      * @var string
      */
     public buttonSubmitText: string = Messages.RECHARGE_NOW;
+    /**
+     * @var number
+     */
+    private action: number = 1;
 
     /**
      * Constructor LongDistanceContainerComponent
@@ -54,6 +53,13 @@ export class LongDistanceContainerComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private callNumber: CallNumber
     ) {
+    }
+
+    /**
+     * @method phoneFormControl
+     */
+    public get formControl() {
+        return this.longForm.controls;
     }
 
     ngOnInit() {
@@ -83,7 +89,6 @@ export class LongDistanceContainerComponent implements OnInit {
         return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
     }
 
-
     /**
      * @method optionSelected
      * @param name
@@ -94,7 +99,7 @@ export class LongDistanceContainerComponent implements OnInit {
                 this.phoneByContactName = (contact[0].phone).slice(-10);
                 this.formControl.account.markAsDirty();
             }
-        })
+        });
     }
 
     /**
@@ -123,15 +128,8 @@ export class LongDistanceContainerComponent implements OnInit {
     public async callCenter() {
         const isMobilWeb = await this.appService.getStorage(Constants.IS_MOBIL_WEB, false);
         if (!isMobilWeb) {
-            this.callNumber.callNumber("+13058309700", true).then().catch();
+            this.callNumber.callNumber('+13058309700', true).then().catch();
         }
-    }
-
-    /**
-     * @method phoneFormControl
-     */
-    public get formControl() {
-        return this.longForm.controls;
     }
 
 }

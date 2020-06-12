@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {EditPageRoutingModule} from './edit-routing.module';
 
 import {EditPage} from './edit.page';
-import {ToolbarModule} from "../../includes/toolbar/toolbar.module";
+import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
 
 @NgModule({
     imports: [

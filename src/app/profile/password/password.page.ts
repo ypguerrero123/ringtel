@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AppService} from "../../services/app.service";
-import {Utils} from "../../services/utils/utils";
-import {Validations} from "../../config/validations";
-import {Messages} from "../../config/messages";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AppService} from '../../services/app.service';
+import {Utils} from '../../services/utils/utils';
+import {Validations} from '../../config/validations';
+import {Messages} from '../../config/messages';
 
 @Component({
     selector: 'app-password',
@@ -20,14 +20,6 @@ export class PasswordPage implements OnInit {
     constructor(private formBuilder: FormBuilder, public appService: AppService) {
     }
 
-    ngOnInit() {
-        this.passwordForm = this.formBuilder.group({
-            password: ['', [Validators.required]],
-            newPassword: ['', [Validators.required, Validators.minLength(8)]],
-            confirmPassword: ['', []]
-        }, {validator: Validations.checkPasswords});
-    }
-
     /**
      * @method phoneFormControl
      */
@@ -40,6 +32,14 @@ export class PasswordPage implements OnInit {
      */
     public get formErrors() {
         return this.passwordForm.errors;
+    }
+
+    ngOnInit() {
+        this.passwordForm = this.formBuilder.group({
+            password: ['', [Validators.required]],
+            newPassword: ['', [Validators.required, Validators.minLength(8)]],
+            confirmPassword: ['', []]
+        }, {validator: Validations.checkPasswords});
     }
 
     /**
