@@ -33,7 +33,7 @@ export class AppComponent {
      */
     private initializeApp() {
 
-        //this.appService.verifyInitRedirect().then();
+        this.appService.verifyInitRedirect().then();
 
         this.platform.ready().then(() => {
 
