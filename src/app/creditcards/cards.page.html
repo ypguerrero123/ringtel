@@ -1,0 +1,74 @@
+<app-toolbar title="Transacciones y tarjetas utilizadas" active="cards"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage="{{appService.appRoutes.APP_CREDIT_CARD_DETAIL}}"></app-refresh>
+    <app-empty loading="{{ (loadingMethods || loadingCharges) ? '' : false }}"
+               empty="{{ chargesTableDataSource.data.length == 0 }}"></app-empty>
+
+    <div *ngIf="!loadingMethods && !loadingCharges && chargesTableDataSource.data.length > 0">
+        <mat-tab-group dynamicHeight>
+            <mat-tab label="Últimas transacciones">
+                <div class="mat-elevation-z8 shadow-lg">
+                    <table mat-table [dataSource]="chargesTableDataSource">
+
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef>Datos de transacción</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.id}}<br/>
+                                Precio: ${{(element.amount / 100)|number}} {{element.currency}}<br/>
+                                Tarjeta:
+                                **** {{element.payment_method_details.card.last4}} {{element.payment_method_details.card.brand}}
+                                <br/>
+                                Fecha: {{(element.created * 1000)|date: "dd-MM-yyyy hh:mm:ss a"}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef> Estado</th>
+                            <td mat-cell *matCellDef="let element">
+                                <ion-badge color="{{element.status == 'succeeded' ? 'primary' : 'danger'}}">
+                                    {{element.status == 'succeeded' ? 'Completado' : (element.status == 'failed' ? 'Fallido' : element.status)}}
+                                </ion-badge>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="chargesDisplayedColumns; sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: chargesDisplayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-tab>
+            <mat-tab label="Tarjetas utilizadas">
+                <div class="example-container mat-elevation-z8">
+                    <table mat-table [dataSource]="methodsTableDataSource">
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="data">
+                            <th mat-header-cell *matHeaderCellDef> Datos de tarjeta</th>
+                            <td mat-cell *matCellDef="let element">
+                                Nombre: {{element.billing_details.name}}<br/>
+                                Tarjeta: **** {{element.card.last4}} {{element.card.brand}}<br/>
+                                Expira: {{element.card.exp_month}} / {{element.card.exp_year}}<br/>
+                                Fecha: {{(element.created * 1000)|date: "dd-MM-yyyy hh:mm:ss a"}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let element">
+                                <ion-icon name="close-circle-outline" color="danger"
+                                          (click)="detachPaymentMethod(element.id)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="methodsDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: methodsDisplayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</ion-content>
+
+

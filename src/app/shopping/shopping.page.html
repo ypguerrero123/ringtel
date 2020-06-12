@@ -1,0 +1,63 @@
+<app-toolbar title="Mi carrito" active="shopping"></app-toolbar>
+
+<ion-content [class.content]="tableDataSource.data.length == 0 && !loadingData">
+    <app-refresh routePage="{{appService.appRoutes.APP_SHOPPING_CART}}"></app-refresh>
+    <app-empty loading="{{ loadingData ? '' : loadingData }}"
+               empty="{{ tableDataSource.data.length == 0 }}"></app-empty>
+
+    <div *ngIf="tableDataSource.data.length > 0 && !loadingData">
+        <ion-header class="sticky ion-no-border mt-1">
+            <ion-toolbar><!-- Searchbar with cancel button shown on focus -->
+                <ion-searchbar placeholder="Filtrar" animated debounce="500"
+                               (keyup)="applyFilter($event)"></ion-searchbar>
+            </ion-toolbar>
+        </ion-header>
+        <div class="mat-elevation-z8 shadow-lg" *ngIf="!loadingData">
+            <table mat-table [dataSource]="tableDataSource" matSort>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="account">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cuenta</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.client}}<br/>
+                        {{element.account.length > 10 ? element.account.slice(0, 10) : element.account}}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="service">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Servicio</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{(element.service) == 'cubacel' ? 'Cubacel' : ((element.service) == 'nauta' ? 'Nauta' : 'Larga')}}
+                        <br/>
+                        {{element.recharge.slug}}
+                    </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="errorMessage">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <ion-icon name="warning-outline" *ngIf="element.errorMessage" color="danger"
+                                  (click)="showErrorMessage(element)" class="mr-3"></ion-icon>
+                        <ion-icon name="close-circle-outline" color="danger"
+                                  (click)="appService.removeOneShopping(element)"></ion-icon>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer *ngIf="tableDataSource.data.length > 0 && !loadingData">
+    <ion-toolbar class="pl-3 pr-3">
+        <ion-button expand="block" (click)="appService.sendAllShopping()">
+            Pagar recargas ${{totalAmount}}
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>
+
+

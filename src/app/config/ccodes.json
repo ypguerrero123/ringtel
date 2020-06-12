@@ -1,0 +1,274 @@
+[
+  {
+    "nombre": "Estados Unidos",
+    "name": "Estados Unidos",
+    "nom": "Estados Unidos",
+    "iso2": "US",
+    "iso3": "USA",
+    "phone_code": "1"
+  },
+  {
+    "nombre": "Cuba",
+    "name": "Cuba",
+    "nom": "Cuba",
+    "iso2": "CU",
+    "iso3": "CUB",
+    "phone_code": "53"
+  },
+  {
+    "nombre": "República Dominicana",
+    "name": "República Dominicana",
+    "nom": "República Dominicana",
+    "iso2": "DO",
+    "iso3": "DOM",
+    "phone_code": "1"
+  },
+  {
+    "nombre": "México",
+    "name": "México",
+    "nom": "México",
+    "iso2": "MX",
+    "iso3": "MEX",
+    "phone_code": "52"
+  },
+  {
+    "nombre": "Puerto Rico",
+    "name": "Puerto Rico",
+    "nom": "Puerto Rico",
+    "iso2": "PR",
+    "iso3": "PRI",
+    "phone_code": "1"
+  },
+  {
+    "nombre": "Ecuador",
+    "name": "Ecuador",
+    "nom": "Ecuador",
+    "iso2": "EC",
+    "iso3": "ECU",
+    "phone_code": "593"
+  },
+  {
+    "nombre": "Panamá",
+    "name": "Panamá",
+    "nom": "Panamá",
+    "iso2": "PA",
+    "iso3": "PAN",
+    "phone_code": "507"
+  },
+  {
+    "nombre": "Argentina",
+    "name": "Argentina",
+    "nom": "Argentina",
+    "iso2": "AR",
+    "iso3": "ARG",
+    "phone_code": "54"
+  },
+  {
+    "nombre": "Chile",
+    "name": "Chile",
+    "nom": "Chile",
+    "iso2": "CH",
+    "iso3": "CHL",
+    "phone_code": "56"
+  },
+  {
+    "nombre": "Uruguay",
+    "name": "Uruguay",
+    "nom": "Uruguay",
+    "iso2": "UY",
+    "iso3": "URY",
+    "phone_code": "598"
+  },
+  {
+    "nombre": "Brasil",
+    "name": "Brasil",
+    "nom": "Brasil",
+    "iso2": "BR",
+    "iso3": "BRA",
+    "phone_code": "55"
+  },
+  {
+    "nombre": "Colombia",
+    "name": "Colombia",
+    "nom": "Colombia",
+    "iso2": "CO",
+    "iso3": "COL",
+    "phone_code": "57"
+  },
+  {
+    "nombre": "Venezuela",
+    "name": "Venezuela",
+    "nom": "Venezuela",
+    "iso2": "VE",
+    "iso3": "VEN",
+    "phone_code": "58"
+  },
+  {
+    "nombre": "Paraguay",
+    "name": "Paraguay",
+    "nom": "Paraguay",
+    "iso2": "PY",
+    "iso3": "PRY",
+    "phone_code": "595"
+  },
+  {
+    "nombre": "Bolivia",
+    "name": "Bolivia",
+    "nom": "Bolivia",
+    "iso2": "BO",
+    "iso3": "BOL",
+    "phone_code": "591"
+  },
+  {
+    "nombre": "Perú",
+    "name": "Perú",
+    "nom": "Perú",
+    "iso2": "PE",
+    "iso3": "PER",
+    "phone_code": "51"
+  },
+  {
+    "nombre": "Bahamas",
+    "name": "Bahamas",
+    "nom": "Bahamas",
+    "iso2": "BS",
+    "iso3": "BHS",
+    "phone_code": "1242"
+  },
+  {
+    "nombre": "Costa Rica",
+    "name": "Costa Rica",
+    "nom": "Costa Rica",
+    "iso2": "CR",
+    "iso3": "CRI",
+    "phone_code": "506"
+  },
+  {
+    "nombre": "El Salvador",
+    "name": "El Salvador",
+    "nom": "El Salvador",
+    "iso2": "SV",
+    "iso3": "SLV",
+    "phone_code": "503"
+  },
+  {
+    "nombre": "España",
+    "name": "España",
+    "nom": "España",
+    "iso2": "ES",
+    "iso3": "ESP",
+    "phone_code": "34"
+  },
+  {
+    "nombre": "Italia",
+    "name": "Italia",
+    "nom": "Italia",
+    "iso2": "IT",
+    "iso3": "ITA",
+    "phone_code": "39"
+  },
+  {
+    "nombre": "Canadá",
+    "name": "Canadá",
+    "nom": "Canadá",
+    "iso2": "CA",
+    "iso3": "CAN",
+    "phone_code": "1"
+  },
+  {
+    "nombre": "Alemania",
+    "name": "Alemania",
+    "nom": "Alemania",
+    "iso2": "DE",
+    "iso3": "DEU",
+    "phone_code": "49"
+  },
+  {
+    "nombre": "Francia",
+    "name": "Francia",
+    "nom": "Francia",
+    "iso2": "FR",
+    "iso3": "FRA",
+    "phone_code": "33"
+  },
+  {
+    "nombre": "Suiza",
+    "name": "Suiza",
+    "nom": "Suiza",
+    "iso2": "CH",
+    "iso3": "CHE",
+    "phone_code": "41"
+  },
+  {
+    "nombre": "Suecia",
+    "name": "Suecia",
+    "nom": "Suecia",
+    "iso2": "SE",
+    "iso3": "SWE",
+    "phone_code": "46"
+  },
+  {
+    "nombre": "Sudáfrica",
+    "name": "Sudáfrica",
+    "nom": "Sudáfrica",
+    "iso2": "ZA",
+    "iso3": "ZAF",
+    "phone_code": "27"
+  },
+  {
+    "nombre": "Reino Unido",
+    "name": "Reino Unido",
+    "nom": "Reino Unido",
+    "iso2": "GB",
+    "iso3": "GBR",
+    "phone_code": "44"
+  },
+  {
+    "nombre": "Rusia",
+    "name": "Rusia",
+    "nom": "Rusia",
+    "iso2": "RU",
+    "iso3": "RUS",
+    "phone_code": "7"
+  },
+  {
+    "nombre": "Bélgica",
+    "name": "Bélgica",
+    "nom": "Bélgica",
+    "iso2": "BE",
+    "iso3": "BEL",
+    "phone_code": "32"
+  },
+  {
+    "nombre": "Jamaica",
+    "name": "Jamaica",
+    "nom": "Jamaica",
+    "iso2": "JM",
+    "iso3": "JAM",
+    "phone_code": "1876"
+  },
+  {
+    "nombre": "Países Bajos",
+    "name": "Países Bajos",
+    "nom": "Países Bajos",
+    "iso2": "NL",
+    "iso3": "NLD",
+    "phone_code": "31"
+  },
+  {
+    "nombre": "Haití",
+    "name": "Haití",
+    "nom": "Haití",
+    "iso2": "HT",
+    "iso3": "HTI",
+    "phone_code": "509"
+  },
+  {
+    "nombre": "Noruega",
+    "name": "Noruega",
+    "nom": "Noruega",
+    "iso2": "NO",
+    "iso3": "NOR",
+    "phone_code": "47"
+  }
+]

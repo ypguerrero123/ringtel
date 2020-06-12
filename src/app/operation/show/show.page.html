@@ -1,0 +1,83 @@
+<app-toolbar title="Detalles de la recarga" active="operation-show"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage="{{appService.appRoutes.APP_RECHARGE_DETAIL}}"></app-refresh>
+    <div *ngIf="appService.opvars.loadedOperation">
+        <ion-card class="shadow-lg">
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label>Propietario:</ion-label>
+                        <ion-badge color="light">
+                            {{ appService.opvars.operation.agentFullName }}
+                        </ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Correo:</ion-label>
+                        <ion-badge color="light">
+                            {{ appService.opvars.operation.agentEmail }}
+                        </ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Cliente:</ion-label>
+                        <ion-badge color="light">{{ appService.opvars.operation.client }}</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Cuenta recargada:</ion-label>
+                        <ion-badge color="light">{{ appService.opvars.operation.accountToRecharge }}</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Servicio recargado:</ion-label>
+                        <ion-badge
+                                color="primary">{{(appService.opvars.operation.service|uppercase) == 'CUBACEL_RECHARGE' ? 'Cubacel' : ((appService.opvars.operation.service|uppercase) == 'NAUTA_RECHARGE' ? 'Nauta' : 'Larga')}}</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Valor de la recarga:</ion-label>
+                        <ion-badge color="light">${{ appService.opvars.operation.amount|number }}</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Precio de venta:</ion-label>
+                        <ion-badge color="light">${{ appService.opvars.operation.sellingCost|number }}</ion-badge>
+                    </ion-item>
+                    <ion-item *ngIf="appService.isPostSale()">
+                        <ion-label>Costo de la recarga:</ion-label>
+                        <ion-badge color="light">${{ appService.opvars.operation.salePrice|number }}</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            Estado:
+                        </ion-label>
+                        <ion-badge
+                                color="{{appService.opvars.operation.status == 'COMPLETED' ? 'primary' : (appService.opvars.operation.status == 'FAILED' ? 'danger' : 'light')}}">
+                            {{appService.opvars.operation.status == 'COMPLETED' ? 'Completado' : (appService.opvars.operation.status == 'FAILED'
+                            ? 'Fallido' : 'Pendiente') }}</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Fecha:</ion-label>
+                        <ion-badge color="light">
+                            {{ appService.opvars.operation.dateCreated | date: "dd-MM-yyyy hh:mm:ss a" }}
+                        </ion-badge>
+                    </ion-item>
+                    <ion-item
+                            *ngIf="appService.opvars.operation.soapTid && appService.opvars.operation.soapTid != 'NONE'"
+                            lines="none">
+                        <ion-label>Operación:</ion-label>
+                        <ion-badge color="light">{{appService.opvars.operation.id}}
+                            / {{ appService.opvars.operation.soapTid }}</ion-badge>
+                    </ion-item>
+                    <ion-item
+                            *ngIf="appService.opvars.operation.status != 'COMPLETED'">
+                        <ion-label>Error ID:</ion-label>
+                        <ion-badge color="danger">{{ appService.opvars.operation.errorCodeApi }}</ion-badge>
+                    </ion-item>
+                    <ion-item
+                            *ngIf="appService.opvars.operation.status != 'COMPLETED'"
+                            lines="none">
+                        <ion-label>Mensaje:</ion-label>
+                        <ion-badge color="danger">{{ appService.opvars.operation.errorMessage }}</ion-badge>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

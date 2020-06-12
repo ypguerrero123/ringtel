@@ -1,0 +1,93 @@
+<ion-content scroll-y="true">
+    <div class="p-4">
+        <ion-card class="shadow-lg">
+            <ion-img src="../../assets/images/security/icon_logo.png" class="img-gif"></ion-img>
+            <ion-card-content>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <ion-label class="required">
+                            Correo:
+                        </ion-label>
+                        <ion-input type="email" formControlName="email" autocomplete="off"
+                                   placeholder="Entre su dirección de correo" required maxlength="50"
+                                   [class.error-input]="(!formControl.email.valid && (formControl.email.dirty || formControl.email.touched)) || appService.secvars.errorPath == 'email'"></ion-input>
+                        <!-- Error messages -->
+                        <span class="error"
+                              *ngIf="formControl.email.errors?.required && (formControl.email.dirty || formControl.email.touched)">
+                            Correo obligatorio.
+                        </span>
+                        <span class="error"
+                              *ngIf="formControl.email.errors?.email && (formControl.email.dirty || formControl.email.touched)">
+                            Correo no válido.
+                        </span>
+                        <span class="error"
+                              *ngIf="appService.secvars.errorMessage && appService.secvars.errorPath == 'email'">
+                            {{appService.secvars.errorMessage}}
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <ion-label class="required">
+                            Teléfono:
+                        </ion-label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" type="button"
+                                        (click)="appService.choicePhoneCode()">
+                                    {{appService.profvars.ccodePhoneValue}}</button>
+                            </div>
+                            <ion-input type="tel" formControlName="phone" autocomplete="off"
+                                       placeholder="Entre su número de celular" required maxlength="13"
+                                       (keyup.enter)="onSubmit()"
+                                       [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || appService.secvars.errorPath == 'phone'"></ion-input>
+                        </div>
+                        <!-- Error messages -->
+                        <span class="error"
+                              *ngIf="formControl.phone.errors?.required && (formControl.phone.dirty || formControl.phone.touched)">
+                            Teléfono obligatorio.
+                        </span>
+                        <span class="error"
+                              *ngIf="formControl.phone.errors?.pattern && (formControl.phone.dirty || formControl.phone.touched)">
+                            Sólo números.
+                        </span>
+                        <span class="error"
+                              *ngIf="appService.secvars.errorMessage && appService.secvars.errorPath == 'phone'">
+                            {{appService.secvars.errorMessage}}
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <ion-label class="required">
+                            Contraseña:
+                        </ion-label>
+                        <ion-input type="password" formControlName="password" autocomplete="off" maxlength="20"
+                                   placeholder="Entre su contraseña" (keyup.enter)="onSubmit()"
+                                   [class.error-input]="!formControl.password.valid && (formControl.password.dirty || formControl.password.touched)"></ion-input>
+                        <!-- Error messages -->
+                        <span class="error"
+                              *ngIf="formControl.password.errors?.required && (formControl.password.dirty || formControl.password.touched)">
+                            Contraseña obligatoria.
+                        </span>
+                        <span class="error"
+                              *ngIf="formControl.password.errors?.minlength && (formControl.password.dirty || formControl.password.touched)">
+                            Contrseña de 8 caracteres mínimo.
+                        </span>
+                    </div>
+                    <div class="form-group mt-4 mb-4">
+                        <ion-button color="primary" expand="block" type="submit">
+                            Registrarme
+                        </ion-button>
+                    </div>
+                    <ion-text class="ion-text-left">
+                        <p class="underline mt-2" (click)="appService.navigateToUrl(appService.appRoutes.APP_LOGIN)">
+                            Volver
+                        </p>
+                    </ion-text>
+
+                </form>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>
+
+
+

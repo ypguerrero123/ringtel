@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+
+            <ion-menu-button auto-hide="false" *ngIf="visible(['home'])"
+                             (click)="appService.navigateToUrl(appService.appRoutes.APP_SETTINGS)"></ion-menu-button>
+
+            <ion-back-button
+                    defaultHref="{{ visible(['operation-show']) ? appService.appRoutes.APP_RECHARGE_HISTORY : (visible(['agent-show', 'agent-edit']) ? appService.appRoutes.APP_AGENTS_LIST : appService.appRoutes.APP_SETTINGS) }}"
+                    text="" icon="arrow-back-outline" class="ml-3"
+                    *ngIf="visible(['transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"></ion-back-button>
+
+            <ion-button *ngIf="visible(['shopping', 'settings', 'stripe'])"
+                        (click)="appService.navigateToUrl(appService.appRoutes.APP_HOME_PAGE)">
+                <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+
+        <ion-title>{{title}}</ion-title>
+
+        <ion-buttons slot="primary">
+
+            <ion-button (click)="appService.navigateToUrl(appService.appRoutes.APP_SHOPPING_CART)"
+                        *ngIf="!visible(['shopping'])">
+                <div *ngIf="!readingShooping">
+                    <ion-icon slot="icon-only" name="cart" *ngIf="totalShoppingItems > 0"></ion-icon>
+                    <ion-icon slot="icon-only" name="cart-outline" *ngIf="totalShoppingItems == 0"></ion-icon>
+                    <sup *ngIf="totalShoppingItems > 0">{{totalShoppingItems < 10 ? totalShoppingItems : '9+' }}</sup>
+                </div>
+                <div *ngIf="readingShooping">
+                    <ion-spinner name="lines-small"></ion-spinner>
+                </div>
+            </ion-button>
+            <ion-button (click)="appService.logout()">
+                <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+
+    </ion-toolbar>
+</ion-header>
