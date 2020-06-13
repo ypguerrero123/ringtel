@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ringtel.firebase" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cubahorizontes.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Cuba Horizontes</name>
     <description>Aplicación de recargas</description>
     <author email="ypguerrero123@gmail.com" href="#">Yunior Pantoja Guerrero</author>
