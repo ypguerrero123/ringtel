@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>308862287382-roc0is0mkehk4p2oaq42c32s1ntjv64u.apps.googleusercontent.com</string>
+	<string>53439289325-011j8110n7sac1ajg1f5vu102acc0a8p.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.308862287382-roc0is0mkehk4p2oaq42c32s1ntjv64u</string>
+	<string>com.googleusercontent.apps.53439289325-011j8110n7sac1ajg1f5vu102acc0a8p</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCDDdFgRPf5pj4gdvvTp8PGKvIrJ-aAd3k</string>
+	<string>AIzaSyCkYHVqeSimWAIb9OqVaxphlDoTLM6WXEA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>308862287382</string>
+	<string>53439289325</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.cubahorizontes.app</string>
+	<string>com.cubahorizontes.com</string>
 	<key>PROJECT_ID</key>
-	<string>ringtelfirebase</string>
+	<string>cuba-horizontes-827f1</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ringtelfirebase.appspot.com</string>
+	<string>cuba-horizontes-827f1.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:308862287382:ios:cef0ff95259f684a38ff37</string>
+	<string>1:53439289325:ios:9cb50631a2b89cc8dfb9e4</string>
 	<key>DATABASE_URL</key>
-	<string>https://ringtelfirebase.firebaseio.com</string>
+	<string>https://cuba-horizontes-827f1.firebaseio.com</string>
 </dict>
 </plist>

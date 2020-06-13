@@ -1,78 +1,35 @@
 {
   "project_info": {
-    "project_number": "308862287382",
-    "firebase_url": "https://ringtelfirebase.firebaseio.com",
-    "project_id": "ringtelfirebase",
-    "storage_bucket": "ringtelfirebase.appspot.com"
+    "project_number": "53439289325",
+    "firebase_url": "https://cuba-horizontes-827f1.firebaseio.com",
+    "project_id": "cuba-horizontes-827f1",
+    "storage_bucket": "cuba-horizontes-827f1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:308862287382:android:eb22697cde4812c938ff37",
+        "mobilesdk_app_id": "1:53439289325:android:ad2509ef9881d569dfb9e4",
         "android_client_info": {
           "package_name": "com.cubahorizontes.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "308862287382-61emfmpcgechtpieetsfbbehqnfnh3nq.apps.googleusercontent.com",
+          "client_id": "53439289325-nm9omskdvrfgpoottarl4d0slg5n13t6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyATVcgKF3ZBGOGbFlGaYqn1UaQtFpJZlZY"
+          "current_key": "AIzaSyCi1W2dZtcya63a-SByK2og1muR--x0xJk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "308862287382-61emfmpcgechtpieetsfbbehqnfnh3nq.apps.googleusercontent.com",
+              "client_id": "53439289325-nm9omskdvrfgpoottarl4d0slg5n13t6.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "308862287382-gkvu2oa8dk0uclaog78s48ekeid6b4rk.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.ringtel.firebase"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:308862287382:android:2bc199a596d467f738ff37",
-        "android_client_info": {
-          "package_name": "com.ringtel.firebase"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "308862287382-61emfmpcgechtpieetsfbbehqnfnh3nq.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyATVcgKF3ZBGOGbFlGaYqn1UaQtFpJZlZY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "308862287382-61emfmpcgechtpieetsfbbehqnfnh3nq.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "308862287382-gkvu2oa8dk0uclaog78s48ekeid6b4rk.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.ringtel.firebase"
-              }
             }
           ]
         }
