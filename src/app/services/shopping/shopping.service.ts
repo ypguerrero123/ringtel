@@ -51,10 +51,15 @@ export class ShoppingService {
             ).subscribe(
                 (resp: SendShoppingResponse) => {
                     this.appService.setUser(resp.agent, true).then(() => {
-                        this.appService.shvars.setAllShoppings(resp.shoppings);
+
+                        setTimeout(() => {
+                            this.appService.shvars.setAllShoppings(resp.shoppings);
+                        }, 1000);
+
                         if (resp.shoppings.length == 0) {
                             this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
                         }
+
                     });
                 },
                 (err) => {

@@ -43,7 +43,7 @@ export class CreatePage implements OnInit {
     ngOnInit() {
         const balance = this.appService.secvars.user.balance;
         this.creditForm = this.formBuilder.group({
-            creditSend: [balance,
+            creditSend: [parseFloat(balance).toFixed(2),
                 [Validators.required, Validators.max(Number(balance)), Validators.min(10)]
             ],
         });

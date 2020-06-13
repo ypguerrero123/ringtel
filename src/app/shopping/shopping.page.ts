@@ -61,11 +61,10 @@ export class ShoppingPage implements OnInit {
      * @param item
      */
     public async showErrorMessage(item: Shopping) {
+
         const alert = await this.alertController.create({
             header: item.service.toUpperCase(),
-            message: `<h2 class="mb-1">${item.client}</h2>
-                                <h3 class="mb-1">${item.account}</h3>
-                                <p class="danger">${item.errorMessage}</p>`,
+            message: `<p>Nombre: ${item.client}</p><hr/><p>Cuenta: ${item.account}</p><hr/><p>Recarga: ${item.recharge.slug}</p><hr/>${item.errorMessage}`,
             buttons: [Messages.CLOSE]
         });
 

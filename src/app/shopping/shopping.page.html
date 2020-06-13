@@ -39,9 +39,9 @@
                     <th *matHeaderCellDef mat-header-cell></th>
                     <td *matCellDef="let element" mat-cell>
                         <ion-icon (click)="showErrorMessage(element)" *ngIf="element.errorMessage" class="mr-3"
-                                  color="danger" name="warning-outline"></ion-icon>
-                        <ion-icon (click)="appService.removeOneShopping(element)" color="danger"
-                                  name="close-circle-outline"></ion-icon>
+                                name="alert-circle-outline"></ion-icon>
+                        <ion-icon name="trash-outline" color="danger"
+                                  (click)="appService.removeOneShopping(element)"></ion-icon>
                     </td>
                 </ng-container>
 

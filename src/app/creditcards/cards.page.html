@@ -56,8 +56,8 @@
                         <ng-container matColumnDef="action">
                             <th *matHeaderCellDef mat-header-cell>Acciones</th>
                             <td *matCellDef="let element" mat-cell>
-                                <ion-icon (click)="detachPaymentMethod(element.id)" color="danger"
-                                          name="close-circle-outline"></ion-icon>
+                                <ion-icon name="trash-outline" color="danger"
+                                          (click)="detachPaymentMethod(element.id)"></ion-icon>
                             </td>
                         </ng-container>
 

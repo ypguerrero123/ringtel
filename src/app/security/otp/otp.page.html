@@ -1,6 +1,5 @@
 <ion-content scroll-y="true">
-
-    <div class="p-4">
+    <div class="p-4 mt-5">
         <ion-card class="shadow-lg">
             <ion-img class="img-gif" src="../../assets/images/security/icon_logo.png"></ion-img>
             <ion-card-content>
@@ -54,9 +53,7 @@
 
                 <form (ngSubmit)="repeatOTP(true)" *ngIf="changePhoneNumber" [formGroup]="phoneForm">
                     <div class="form-group">
-                        <ion-label class="required">
-                            Teléfono:
-                        </ion-label>
+                        <ion-label class="required">Teléfono: </ion-label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <button (click)="appService.choicePhoneCode()" class="btn btn-outline-secondary"

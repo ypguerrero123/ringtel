@@ -46,7 +46,7 @@ export class StripePage implements OnInit {
     /**
      * Show saved form methods
      */
-    public showSavedPaymentMethods: boolean = true;
+    public showSavedPaymentMethods: boolean = false;
     /**
      * Check if amount form is in (focusin)
      */

@@ -1,14 +1,12 @@
 <ion-content scroll-y="true">
-    <div class="p-4">
+    <div class="p-4 mt-4">
         <ion-card class="shadow-lg">
             <ion-img class="img-gif" src="../../assets/images/security/icon_logo.png"></ion-img>
             <ion-card-content>
                 <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
 
                     <div class="form-group">
-                        <ion-label class="required">
-                            Correo:
-                        </ion-label>
+                        <ion-label class="required">Correo: </ion-label>
                         <ion-input [class.error-input]="(!formControl.email.valid && (formControl.email.dirty || formControl.email.touched)) || appService.secvars.errorPath == 'email'" autocomplete="off" formControlName="email"
                                    maxlength="50" placeholder="Entre su dirección de correo" required
                                    type="email"></ion-input>
@@ -27,9 +25,7 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <ion-label class="required">
-                            Teléfono:
-                        </ion-label>
+                        <ion-label class="required">Teléfono: </ion-label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <button (click)="appService.choicePhoneCode()" class="btn btn-outline-secondary"
@@ -38,7 +34,6 @@
                             </div>
                             <ion-input (keyup.enter)="onSubmit()" [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || appService.secvars.errorPath == 'phone'" autocomplete="off"
                                        formControlName="phone" maxlength="13" placeholder="Entre su número de celular"
-                                       required
                                        type="tel"></ion-input>
                         </div>
                         <!-- Error messages -->
@@ -56,9 +51,7 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <ion-label class="required">
-                            Contraseña:
-                        </ion-label>
+                        <ion-label class="required">Contraseña: </ion-label>
                         <ion-input (keyup.enter)="onSubmit()" [class.error-input]="!formControl.password.valid && (formControl.password.dirty || formControl.password.touched)" autocomplete="off" formControlName="password"
                                    maxlength="20" placeholder="Entre su contraseña"
                                    type="password"></ion-input>

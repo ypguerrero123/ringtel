@@ -23,20 +23,38 @@
   font-weight: 300
 }
 
-ion-input {
+ion-input, ion-select {
   --placeholder-color: #BDBDBD;
   --placeholder-opacity: 1;
   font-weight: 300
 }
 
-input, ion-input {
-  padding: 0 12px 0 5px !important;
+input {
+  height: 2.7rem;
+}
+
+ion-select {
+  padding-right: 12px;
+  padding-left: 12px;
   border: 1px solid lightgrey;
-  border-radius: 2px;
+  border-radius: 0;
   margin-top: 2px;
   width: 100%;
   box-sizing: border-box;
   color: #2C3E50;
+  font-size: 14px;
+  letter-spacing: 1px
+}
+
+ion-input, input {
+  padding: 0 12px 0 5px !important;
+  border: 1px solid lightgrey;
+  border-radius: 0;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #2C3E50;
+  font-size: 14px;
   letter-spacing: 1px
 }
 
@@ -63,7 +81,7 @@ button:focus, ion-button:focus {
 }
 
 .logo_service {
-  width: 54%;
+  width: 65%;
 }
 
 .error {
@@ -82,12 +100,6 @@ button:focus, ion-button:focus {
 
 .underline-small {
   font-size: 15px;
-}
-
-.call-fab {
-  width: 35px;
-  height: 35px;
-  margin: 0;
 }
 
 ion-label {

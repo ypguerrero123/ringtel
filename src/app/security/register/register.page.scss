@@ -3,16 +3,19 @@
 }
 
 ::placeholder {
+  color: #BDBDBD;
   opacity: 1;
   font-weight: 300
 }
 
 :-ms-input-placeholder {
+  color: #BDBDBD;
   opacity: 1;
   font-weight: 300
 }
 
 ion-input {
+  --placeholder-color: #BDBDBD;
   --placeholder-opacity: 1;
   font-weight: 300
 }

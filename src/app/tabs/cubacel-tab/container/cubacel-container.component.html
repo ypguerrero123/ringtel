@@ -12,7 +12,7 @@
             <div class="form-group">
                 <ion-label class="">Nombre:</ion-label>
                 <input [class.error-input]="!formControl.client.valid && (formControl.client.dirty || formControl.client.touched)" [matAutocomplete]="autoName" aria-describedby="nameHelp" aria-label=""
-                       autocomplete="off" class="form-control" formControlName="client" id="client"
+                       autocomplete="off" formControlName="client" id="client"
                        matInput maxlength="50" minlength="2" placeholder="Nombre del cliente"
                        type="text">
                 <mat-autocomplete #autoName="matAutocomplete"
@@ -29,16 +29,14 @@
                     </span>
             </div>
             <div class="form-group">
-                <ion-label class="required">
-                    Teléfono:
-                </ion-label>
+                <ion-label class="required">Teléfono: </ion-label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="btn btn-outline-secondary">+53</span>
+                        <button class="btn btn-outline-secondary" type="button">+53</button>
                     </div>
                     <ion-input [(ngModel)]="phoneByContactName" [class.error-input]="!formControl.account.valid && (formControl.account.dirty || formControl.account.touched)" aria-describedby="telHelp"
-                               autocomplete="off" class="form-control" formControlName="account" id="account"
-                               maxlength="8" placeholder="Número del cliente" required
+                               autocomplete="off" formControlName="account" id="account"
+                               maxlength="8" placeholder="Número del cliente"
                                type="tel"></ion-input>
                 </div>
                 <!-- Error messages -->
@@ -48,13 +46,13 @@
                     </span>
                 <span *ngIf="formControl.account.errors?.pattern && (formControl.account.dirty || formControl.account.touched)"
                       class="error">
-                       Número Cubacel no válido
+                       Número cubacel no válido
                         </span>
             </div>
             <div class="form-group">
-                <ion-label class="required">Recargas disponibles:</ion-label>
+                <ion-label class="required">Recargas disponibles: </ion-label>
                 <ion-select (keyup.enter)="onSubmit()" aria-describedby="priceHelp" cancelText="Cancelar"
-                            class="form-control" formControlName="recharge" okText="Seleccionar"
+                            formControlName="recharge" okText="Seleccionar"
                             placeholder="Seleccione un valor">
                     <ion-select-option *ngFor="let item of appService.opvars.cubacelRecharges;"
                                        [value]="item.id">{{item.slug}}</ion-select-option>

@@ -46,10 +46,10 @@
                 </div>
 
                 <div class="form-group">
-                    <ion-label class="required">Crédito a comprar:</ion-label>
+                    <ion-label class="required">Crédito a comprar: </ion-label>
                     <ion-input (ionBlur)="amountFormFocus(false); createPaymentIntent()" (ionFocus)="amountFormFocus()" (ionInput)="amountFormFocus()"
                                [(ngModel)]="selectCardPrice" [class.error-input]="!formControl.amount.valid && (formControl.amount.dirty || formControl.amount.touched)" [max]="2000" [min]="10" aria-describedby="amounthelp"
-                               class="form-control" formControlName="amount"
+                               formControlName="amount"
                                id="amount"
                                placeholder="" required
                                type="number"></ion-input>
@@ -71,9 +71,8 @@
                             </span>
                 </div>
                 <div class="form-group">
-                    <ion-label class="required">Nombre:</ion-label>
+                    <ion-label class="required">Nombre: </ion-label>
                     <ion-input [(ngModel)]="selectCardName" [class.error-input]="!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)" aria-describedby="nameHelp" autocomplete="off"
-                               class="form-control"
                                formControlName="name" id="name" maxlength="40"
                                minlength="2" placeholder="Nombre que aparece en la tarjeta"
                                type="text"></ion-input>

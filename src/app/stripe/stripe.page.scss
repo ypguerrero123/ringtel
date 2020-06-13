@@ -10,6 +10,24 @@ ion-item {
   border-radius: 0 !important;
 }
 
+::placeholder {
+  color: #BDBDBD;
+  opacity: 1;
+  font-weight: 300
+}
+
+:-ms-input-placeholder {
+  color: #BDBDBD;
+  opacity: 1;
+  font-weight: 300
+}
+
+ion-input, ion-select {
+  --placeholder-color: #BDBDBD;
+  --placeholder-opacity: 1;
+  font-weight: 300
+}
+
 .form-control:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
