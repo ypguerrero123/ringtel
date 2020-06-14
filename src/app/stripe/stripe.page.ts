@@ -126,8 +126,6 @@ export class StripePage implements OnInit {
 
         /** init New Form StripeService */
         this.showNewPaymentMethod();
-        /** add Form StripeService Listener */
-        this.formStripeAddEventListener();
     }
 
     /**
@@ -203,38 +201,26 @@ export class StripePage implements OnInit {
     }
 
     /**
-     * @method formStripeAddEventListener
+     * @method onSubmit
      */
-    private formStripeAddEventListener() {
-        setTimeout(() => {
-            // Create a token when the form is submitted
-            let form = <HTMLFormElement> document.getElementById('payment-form');
-            if (form) {
-                form.addEventListener('submit', e => {
-                    e.preventDefault();
-
-                    this.errorTransaction = null;
-                    this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
-                        let paymentMethodData = this.getPaymentMethod();
-                        this.stripe.confirmCardPayment(this.appService.stvars.clientSecret, paymentMethodData).then((result) => {
-                            this.appService.dismissLoading(loading).then();
-                            if (result.error) {
-                                // Show error to your customer
-                                this.errorTransaction = result.error.message;
-                            } else {
-                                if (result.paymentIntent.status === 'succeeded') {
-                                    this.appService.updateAgentBalance().then(() => {
-                                        this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
-                                    });
-                                }
-                            }
+    public onSubmit() {
+        this.errorTransaction = null;
+        this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
+            let paymentMethodData = this.getPaymentMethod();
+            this.stripe.confirmCardPayment(this.appService.stvars.clientSecret, paymentMethodData).then((result) => {
+                this.appService.dismissLoading(loading).then();
+                if (result.error) {
+                    // Show error to your customer
+                    this.errorTransaction = result.error.message;
+                } else {
+                    if (result.paymentIntent.status === 'succeeded') {
+                        this.appService.updateAgentBalance().then(() => {
+                            this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
                         });
-                    });
-
-                }, {passive: true});
-            }
-
-        }, 100);
+                    }
+                }
+            });
+        });
     }
 
     /**

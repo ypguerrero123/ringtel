@@ -1,10 +1,8 @@
 <app-toolbar active="stripe" title="Comprar crédito"></app-toolbar>
 
 <ion-content scroll-y="true">
-    <app-refresh routePage="{{appService.appRoutes.APP_STRIPE}}"></app-refresh>
-    <ion-card class="shadow-lg card-size">
+    <ion-card class="shadow-lg card-size" mode="md">
         <ion-card-content>
-
             <div class="d-flex mb-3">
                 <div class="card p-3">
                     <div class="card-top">
@@ -28,7 +26,6 @@
                     </div>
                 </div>
             </div>
-
             <form [formGroup]="amountAcceptCardForm" id="payment-form">
 
                 <div *ngIf="errorTransaction != null" class="alert alert-danger" role="alert">
@@ -48,11 +45,9 @@
                 <div class="form-group">
                     <ion-label class="required">Crédito a comprar: </ion-label>
                     <ion-input (ionBlur)="amountFormFocus(false); createPaymentIntent()" (ionFocus)="amountFormFocus()" (ionInput)="amountFormFocus()"
-                               [(ngModel)]="selectCardPrice" [class.error-input]="!formControl.amount.valid && (formControl.amount.dirty || formControl.amount.touched)" [max]="2000" [min]="10" aria-describedby="amounthelp"
+                               [(ngModel)]="selectCardPrice" [class.error-input]="!formControl.amount.valid && (formControl.amount.dirty || formControl.amount.touched)" [max]="2000" [min]="10"
                                formControlName="amount"
-                               id="amount"
-                               placeholder="" required
-                               type="number"></ion-input>
+                               id="amount"  type="number"></ion-input>
                     <span *ngIf="formControl.amount.errors?.required && (formControl.amount.dirty || formControl.amount.touched)"
                           class="error">
                             Crédito obligatorio.
@@ -123,12 +118,11 @@
                 </ion-item>
 
                 <ion-button [disabled]="amountAcceptCardForm.invalid || invalidFormNewPaymentMethod || amountFocusIn" class="mt-1" color="primary" expand="block"
-                            type="submit">
+                            (click)="onSubmit()">
                     Pagar ${{amountAcceptCardForm.value.amount}}
                 </ion-button>
 
             </form>
         </ion-card-content>
     </ion-card>
-
 </ion-content>

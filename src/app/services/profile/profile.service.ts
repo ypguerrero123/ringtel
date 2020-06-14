@@ -99,7 +99,7 @@ export class ProfileService {
 
         const alert = await this.appService.alertController.create({
             header: Messages.CONFIRM_ACTION,
-            message: '<p>¿Está seguro que desea desabilitar su cuenta?</p>',
+            message: '<hr/><p>¿Está seguro que desea desabilitar su cuenta?</p>',
             buttons: [
                 {
                     text: Messages.CANCEL,

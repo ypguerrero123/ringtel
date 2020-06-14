@@ -3,7 +3,7 @@
 <ion-content scroll-y="true">
     <app-refresh routePage="{{appService.appRoutes.APP_AGENTS_SHOW}}"></app-refresh>
     <div *ngIf="agentToShow">
-        <ion-card class="shadow-lg">
+        <ion-card class="shadow-lg" mode="md">
             <ion-card-content>
                 <ion-item class="ion-no-padding">
                     <ion-label>
@@ -20,7 +20,7 @@
                 </ion-item>
             </ion-card-content>
         </ion-card>
-        <ion-card class="shadow-lg">
+        <ion-card class="shadow-lg" mode="md">
             <ion-card-content>
                 <div class="row text-center">
                     <div class="col-4 border-right border-bottom py-4">

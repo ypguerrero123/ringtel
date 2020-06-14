@@ -1,6 +1,6 @@
-<form (ngSubmit)="onSubmit()" *ngIf="appService.opvars.longDistanceRecharges" [formGroup]="longForm">
+<form *ngIf="appService.opvars.longDistanceRecharges" [formGroup]="longForm">
 
-    <ion-card class="shadow-lg">
+    <ion-card class="shadow-lg" mode="md">
         <ion-card-content>
             <ion-item class="ion-no-padding z-index-0" lines="none">
                 <ion-img class="logo_service" src="../../assets/images/services/long_distance.png"></ion-img>
@@ -12,7 +12,7 @@
             </ion-item>
         </ion-card-content>
     </ion-card>
-    <ion-card class="shadow-lg">
+    <ion-card class="shadow-lg" mode="md">
         <ion-card-content>
             <div class="form-group">
                 <ion-label class="">Nombre:</ion-label>
@@ -82,7 +82,7 @@
                 </ion-radio-group>
             </div>
             <div class="form-group mb-0">
-                <ion-button color="primary" expand="block" type="submit">
+                <ion-button color="primary" expand="block" (click)="onSubmit()">
                     {{buttonSubmitText}}
                 </ion-button>
             </div>

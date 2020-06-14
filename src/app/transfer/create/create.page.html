@@ -2,7 +2,7 @@
 
 <ion-content scroll-y="yes">
     <app-refresh></app-refresh>
-    <ion-card class="shadow-lg">
+    <ion-card class="shadow-lg" mode="md">
         <ion-card-content>
             <form [formGroup]="creditForm">
                 <ion-input [class.error-input]="!formControl.creditSend.valid && (formControl.creditSend.dirty || formControl.creditSend.touched)" class="form-transfer" formControlName="creditSend" id="creditSend"
@@ -28,16 +28,16 @@
 
         </ion-card-content>
     </ion-card>
-    <ion-card class="shadow-lg">
+    <ion-card class="shadow-lg" mode="md">
         <ion-card-content>
-            <form (ngSubmit)="searchAgents()" method="post">
+            <form method="post">
                 <div class="form-group">
                     <div class="input-group">
                         <ion-input [(ngModel)]="searchValue" aria-describedby="searchHelp"
                                    id="searchValue" name="searchValue"
                                    placeholder="Buscar agente"></ion-input>
                         <div class="input-group-append">
-                            <button (keyup.enter)="searchAgents()" class="btn btn-primary" type="submit">
+                            <button (keyup.enter)="searchAgents()" class="btn btn-primary" (click)="searchAgents()">
                                 <ion-icon name="search-outline"></ion-icon>
                             </button>
                         </div>
@@ -66,5 +66,4 @@
             </ion-list>
         </ion-card-content>
     </ion-card>
-
 </ion-content>

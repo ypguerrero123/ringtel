@@ -60,7 +60,6 @@ export class NautaContainerComponent implements OnInit {
             recharge: ['', [Validators.required]],
         });
         this.appService.getAllRechargesByServiceSlug(Constants.NAUTA_SLUG).then();
-
         this.appService.contactsList(this.contactsName).then();
 
         this.filteredNames = this.nautaForm.get('client').valueChanges

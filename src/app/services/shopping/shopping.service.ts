@@ -1,5 +1,5 @@
 import {AppService} from '../app.service';
-import {SendShoppingResponse, Shopping, ShoppingResponseEntity} from '../../model/shopping';
+import {SendShoppingResponse, SendShoppingResponseEntity, Shopping, ShoppingResponseEntity} from '../../model/shopping';
 import {Messages} from '../../config/messages';
 import {Utils} from '../utils/utils';
 import {AppRoutes} from '../../config/routes';
@@ -46,31 +46,33 @@ export class ShoppingService {
      */
     public async sendAllShopping() {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
+            const user = this.appService.secvars.user;
             this.appService.post(
-                `es/api/v1/shopping/${this.appService.userType()}/${this.appService.secvars.user.id}/send-all`
-            ).subscribe(
-                (resp: SendShoppingResponse) => {
-                    this.appService.setUser(resp.agent, true).then(() => {
+                `es/api/v1/shopping/${this.appService.userType()}/${user.id}/send-all`
+            ).pipe(map((resp: SendShoppingResponse) => new SendShoppingResponseEntity(resp, user)))
+                .subscribe(
+                    (resp: SendShoppingResponse) => {
+                        this.appService.setUser(resp.agent, true).then(() => {
 
-                        setTimeout(() => {
-                            this.appService.shvars.setAllShoppings(resp.shoppings);
-                        }, 1000);
+                            setTimeout(() => {
+                                this.appService.shvars.setAllShoppings(resp.shoppings);
+                            }, 1000);
 
-                        if (resp.shoppings.length == 0) {
-                            this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
-                        }
+                            if (resp.shoppings.length == 0) {
+                                this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
+                            }
 
+                        });
+                    },
+                    (err) => {
+                        let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.appService.presentToast(error, 'dark').then();
+                        });
+                    },
+                    () => {
+                        this.appService.dismissLoading(loading).then();
                     });
-                },
-                (err) => {
-                    let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(error, 'dark').then();
-                    });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
-                });
         });
     }
 

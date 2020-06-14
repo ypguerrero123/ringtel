@@ -66,3 +66,24 @@ export interface SendShoppingResponse {
     shoppings: Shopping[];
     agent: User;
 }
+
+export class SendShoppingResponseEntity implements SendShoppingResponse {
+    agent: User;
+    errorMessage: string;
+    operationId: any;
+    shoppings: Shopping[];
+    success: boolean;
+
+    constructor(attributes: any, user: User) {
+        for (let key in attributes) {
+            if (attributes.hasOwnProperty(key)) {
+                this[key] = attributes[key];
+            }
+        }
+
+        this.shoppings.forEach((sh: Shopping, key: number) => {
+            this.shoppings[key] = new ShoppingResponseEntity(sh, user);
+        });
+    }
+
+}

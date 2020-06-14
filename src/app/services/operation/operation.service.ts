@@ -96,8 +96,8 @@ export class OperationService {
         const alert = await this.appService.alertController.create({
             header: Messages.CONFIRM_DATA,
             message: form.value.client
-                ? `<p>Nombre: ${shopping.client}</p><hr/><p>Cuenta: ${shopping.account}</p><hr/><p>Recarga: ${recharge.slug}</p>`
-                : `<p>Cuenta: ${shopping.account}</p><hr/><p>Recarga: ${recharge.slug}</p>`,
+                ? `<hr/><p>Nombre: ${shopping.client}</p><hr/><p>Cuenta: ${shopping.account}</p><hr/><p>Recarga: ${recharge.slug}</p>`
+                : `<hr/><p>Cuenta: ${shopping.account}</p><hr/><p>Recarga: ${recharge.slug}</p>`,
             buttons: [
                 {
                     text: Messages.CANCEL,

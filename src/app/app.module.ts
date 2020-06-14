@@ -17,6 +17,7 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
+import {Network} from '@ionic-native/network/ngx';
 import {DatePipe} from '@angular/common';
 
 @NgModule({
@@ -37,6 +38,7 @@ import {DatePipe} from '@angular/common';
         Contacts,
         CallNumber,
         LocalNotifications,
+        Network,
         Keyboard,
         DatePipe,
         FCM,

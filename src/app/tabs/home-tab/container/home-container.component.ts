@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppService} from '../../../services/app.service';
 import {UserDataResponse} from '../../../model/user';
 import {DatePipe} from '@angular/common';
@@ -10,7 +10,7 @@ import {Messages} from '../../../config/messages';
     templateUrl: './home-container.component.html',
     styleUrls: ['./home-container.component.scss'],
 })
-export class HomeContainerComponent implements OnInit {
+export class HomeContainerComponent implements OnInit, OnDestroy {
 
     /**
      * @var any
@@ -94,6 +94,9 @@ export class HomeContainerComponent implements OnInit {
         };
 
         this.getProfile();
+    }
+
+    ngOnDestroy() {
     }
 
     /**

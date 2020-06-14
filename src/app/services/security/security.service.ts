@@ -38,7 +38,7 @@ export class SecurityService {
                     this.setUser(null, false).then(() => {
                         this.appService.dismissLoading(loading).then(() => {
                             this.appService.presentToast(
-                                err.status === 401 ? Messages.INVALID_CREDENTIAL : Messages.ERROR_PLEASE_TRY_LATER, 'dark'
+                                err.status === 401 ? Messages.INVALID_CREDENTIAL : Messages.ERROR_PLEASE_TRY_LATER
                             ).then();
                         });
                     });

@@ -29,6 +29,9 @@ export class Messages {
     public static readonly PAY_WITH_NEW_CREDIT_CARD = 'Comprar con una nueva tarjeta';
     public static readonly MY_CREDIT_CARDS = 'Mis tarjetas';
 
+    public static readonly ONLINE_NETWORK = 'Conexión de red restrablecida (:';
+    public static readonly OFFLINE_NETWORK = 'Conexión de red perdida ):';
+
     public static readonly SPEND_ALL_CREDIT = 'Debe gastar todo el crédito antes de poder desabilitar la cuenta';
 
 

@@ -60,7 +60,6 @@ export class CubacelContainerComponent implements OnInit {
             recharge: ['', [Validators.required]],
         });
         this.appService.getAllRechargesByServiceSlug(Constants.CUBACEL_SLUG).then();
-
         this.appService.contactsList(this.contactsName).then();
 
         this.filteredNames = this.cubacelForm.get('client').valueChanges
@@ -68,7 +67,6 @@ export class CubacelContainerComponent implements OnInit {
                 startWith(''),
                 map(value => this.appService.filterContactName(this.contactsName, value))
             );
-
     }
 
     /**

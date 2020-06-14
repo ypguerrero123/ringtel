@@ -6,10 +6,6 @@ ion-item {
   padding: 10px;
 }
 
-.form-control {
-  border-radius: 0 !important;
-}
-
 ::placeholder {
   color: #BDBDBD;
   opacity: 1;
@@ -22,26 +18,14 @@ ion-item {
   font-weight: 300
 }
 
-ion-input, ion-select {
+ion-input {
   --placeholder-color: #BDBDBD;
   --placeholder-opacity: 1;
   font-weight: 300
 }
 
-.form-control:focus {
-  -moz-box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  border: 1px solid #0d47a1;
-  outline-width: 0
-}
-
-::placeholder {
-  color: #BDBDBD !important;
-}
-
 input, ion-input {
-  padding: 10px 12px 10px 12px;
+  padding: 0 12px 0 5px !important;
   border: 1px solid lightgrey;
   border-radius: 2px;
   margin-top: 2px;
@@ -50,6 +34,14 @@ input, ion-input {
   color: #2C3E50;
   font-size: 14px;
   letter-spacing: 1px
+}
+
+input:focus, ion-input:focus, {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #0d47a1;
+  outline-width: 0
 }
 
 #card-errors {

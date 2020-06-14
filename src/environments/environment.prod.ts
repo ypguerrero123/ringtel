@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  stripeKey: 'pk_test_OWmj8OkGjUqxLyrgrbHtXR7600FZYXhUa3',
+  stripeKey: 'pk_live_WyOFBm9pnkQiT6XNT9jrQjUp00reXHLLzf',
   apiURL: 'https://appvirtualrg.com/',
 };

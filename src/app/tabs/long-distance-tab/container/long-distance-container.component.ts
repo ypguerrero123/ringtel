@@ -69,7 +69,6 @@ export class LongDistanceContainerComponent implements OnInit {
             recharge: ['', [Validators.required]],
         });
         this.appService.getAllRechargesByServiceSlug(Constants.LONG_DISTANCE_SLUG).then();
-
         this.appService.contactsList(this.contactsName).then();
 
         this.filteredNames = this.longForm.get('client').valueChanges
@@ -108,7 +107,6 @@ export class LongDistanceContainerComponent implements OnInit {
      */
     public setAction(value: number) {
         this.action = value;
-
         switch (value) {
             case 3:
                 this.buttonSubmitText = Messages.RECHARGE_IN_PROMOTION;

@@ -17,15 +17,15 @@ export class ContactService {
      * @method contactsList
      * @method contactsName
      */
-    public async contactsList(contactsName: ContactInterface[]) {
+    public async contactsList(contactsName: ContactInterface[] = []) {
         const isMobilWeb = await this.appService.getStorage(Constants.IS_MOBIL_WEB, false);
         if (!isMobilWeb) {
             this.appService.contacts.find(['*']).then((res: Contact[]) => {
                 res.forEach((item: Contact, key: number) => {
-                    if (item.displayName != null && item.phoneNumbers != null) {
+                    if ((item.displayName != null || item.name != null) && item.phoneNumbers != null) {
                         contactsName.push({
                             id: key,
-                            name: item.displayName,
+                            name: item.displayName ? item.displayName : item.name.formatted,
                             phone: Utils.strFixPhoneNumber(item.phoneNumbers[0].value)
                         });
                     }

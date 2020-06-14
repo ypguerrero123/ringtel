@@ -1,9 +1,9 @@
 <ion-content scroll-y="true">
-    <div class="p-4 mt-5">
-        <ion-card class="shadow-lg">
+    <div class="p-4 mt-4">
+        <ion-card class="shadow-lg" mode="md">
             <ion-img class="img-gif" src="../../assets/images/security/icon_logo.png"></ion-img>
             <ion-card-content>
-                <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                <form [formGroup]="loginForm">
 
                     <div class="form-group">
                         <ion-label class="required">
@@ -28,7 +28,7 @@
                     </ion-text>
 
                     <div class="form-group mt-4 mb-4">
-                        <ion-button color="primary" expand="block" type="submit">
+                        <ion-button color="primary" expand="block" (click)="onSubmit()">
                             Acceder
                         </ion-button>
                     </div>
@@ -48,6 +48,5 @@
             </ion-card-content>
         </ion-card>
     </div>
-
 </ion-content>
 

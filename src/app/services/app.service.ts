@@ -28,6 +28,7 @@ import {TransferService} from './transfer/transfer.service';
 import {ContactInterface} from '../model/contact';
 import {AgentsVars} from './agents/agents.vars';
 import {AgentsService} from './agents/agents.service';
+import {ContactVars} from './native-plugins/contact.vars';
 
 @Injectable({
     providedIn: 'root'
@@ -37,25 +38,6 @@ export class AppService {
     //------------COMMON VARS-----------------------//
     public appRoutes = AppRoutes;
 
-    /**
-     * Constructor AppService
-     * @param toastController
-     * @param loadingController
-     * @param localNotifications
-     * @param pickerController
-     * @param alertController
-     * @param contacts
-     * @param http
-     * @param storage
-     * @param router
-     * @param secvars
-     * @param shvars
-     * @param opvars
-     * @param stvars
-     * @param profvars
-     * @param transfvars
-     * @param agentsVars
-     */
     constructor(public toastController: ToastController,
                 public loadingController: LoadingController,
                 public localNotifications: LocalNotifications,
@@ -71,7 +53,8 @@ export class AppService {
                 public stvars: StripeVars,
                 public profvars: ProfileVars,
                 public transfvars: TransferVars,
-                public agentsVars: AgentsVars
+                public agentsVars: AgentsVars,
+                public contactVars: ContactVars
     ) {
     }
 
@@ -160,7 +143,7 @@ export class AppService {
      * @method contactsList
      * @param contactsName
      */
-    public async contactsList(contactsName: ContactInterface[]) {
+    public async contactsList(contactsName: ContactInterface[] = []) {
         await (new ContactService(this)).contactsList(contactsName);
     }
 
@@ -475,15 +458,13 @@ export class AppService {
      * @param message
      * @param color
      */
-    public async presentToast(message: string, color: string = 'primary') {
+    public async presentToast(message: string, color: string = 'dark') {
         const toast = await this.toastController.create({
             header: Messages.NOTIFICATION,
             message: message,
             position: 'top',
             color: color,
-            translucent: true,
             duration: 2000,
-            keyboardClose: true,
             buttons: [
                 {
                     text: Messages.DONE,
