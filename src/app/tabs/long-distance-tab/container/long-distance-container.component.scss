@@ -80,6 +80,13 @@ button:focus, ion-button:focus {
   outline: none!important;
 }
 
+.btn {
+  border: 1px solid lightgrey !important;
+  border-radius: 2px !important;
+  margin: 2px 0 0 !important;
+  font-weight: 300 !important;
+}
+
 .logo_service {
   width: 65%;
 }
