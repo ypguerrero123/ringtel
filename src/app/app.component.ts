@@ -61,9 +61,7 @@ export class AppComponent {
                     this.appService.presentToast(Messages.OFFLINE_NETWORK).then();
                 });
 
-                this.network.onConnect().subscribe(() => {
-                    this.appService.presentToast(Messages.ONLINE_NETWORK, 'primary').then();
-                });
+                this.network.onConnect().subscribe(() => {});
 
                 setTimeout(() => {
 
