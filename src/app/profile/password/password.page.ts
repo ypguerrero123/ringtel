@@ -49,7 +49,7 @@ export class PasswordPage implements OnInit {
         if (this.passwordForm.valid) {
             return await this.appService.updateProfile('password', Utils.getFormData(this.passwordForm.value));
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
 }

@@ -30,7 +30,7 @@ export class ProfileService {
                     });
                 },
                 () => {
-                    this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                    this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                 },
                 () => {
                 });
@@ -55,7 +55,7 @@ export class ProfileService {
                             if (err.status == 400) {
                                 this.appService.secvars.setRegisterErrorVars(err);
                             } else {
-                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                             }
                         });
                     },
@@ -94,7 +94,7 @@ export class ProfileService {
     public async confirmDisableAccount() {
 
         if (parseInt(this.appService.secvars.user.balance) >= 1) {
-            return this.appService.presentToast(Messages.SPEND_ALL_CREDIT, 'dark').then();
+            return this.appService.presentToast(Messages.SPEND_ALL_CREDIT).then();
         }
 
         const alert = await this.appService.alertController.create({
@@ -134,7 +134,7 @@ export class ProfileService {
                     },
                     (err) => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER, 'dark').then();
+                            this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
                     },
                     () => {

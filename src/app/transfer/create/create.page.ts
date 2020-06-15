@@ -69,7 +69,7 @@ export class CreatePage implements OnInit {
         if (this.creditForm.valid) {
             return this.appService.transferCredit(agentTo, Utils.getFormData({'credit': this.creditForm.value.creditSend})).then();
         }
-        return this.appService.presentToast(Messages.CREDIT_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.CREDIT_NOT_VALID).then();
     }
 
 }

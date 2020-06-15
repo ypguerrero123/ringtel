@@ -27,7 +27,7 @@ export class StripeService {
                     },
                     () => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark').then();
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
                     },
                     () => {
@@ -68,7 +68,7 @@ export class StripeService {
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark').then();
+                        this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
                 },
                 () => {

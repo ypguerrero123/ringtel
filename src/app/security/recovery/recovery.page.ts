@@ -43,7 +43,7 @@ export class RecoveryPage implements OnInit {
         if (this.recoveryForm.valid) {
             return await this.appService.recovery(this.recoveryForm.value);
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
 }

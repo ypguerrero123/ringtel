@@ -53,7 +53,7 @@ export class SalesPage implements OnInit {
                 'sales-update', Utils.getFormData(this.saleForm.value)
             );
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
 }

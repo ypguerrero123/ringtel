@@ -85,7 +85,7 @@ export class LongDistanceContainerComponent implements OnInit {
         if (this.longForm.valid) {
             return this.appService.confirmShoppingData(this.longForm, this.action, Messages.LONG_DISTANCE_LOWER).then();
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**

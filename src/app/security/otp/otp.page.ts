@@ -79,7 +79,7 @@ export class OtpPage implements OnInit {
                     `${this.otpFormValue().one}${this.otpFormValue().two}${this.otpFormValue().three}${this.otpFormValue().four}`
                 ).then();
             }
-            return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+            return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
 
         }, timeWait);
 
@@ -99,7 +99,7 @@ export class OtpPage implements OnInit {
             );
             return this.selectChangePhoneNumber(false);
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     public goToNexInput(next: IonInput) {

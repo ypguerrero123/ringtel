@@ -33,8 +33,7 @@ export class OperationService {
                     },
                     err => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER,
-                                'dark').then();
+                            this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
 
                     },
@@ -62,8 +61,7 @@ export class OperationService {
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER,
-                            'dark').then();
+                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
                 },
                 () => {
@@ -152,7 +150,7 @@ export class OperationService {
                                 ? Messages.PLEASE_WAIT_TWO_MINUTES
                                 : Messages.ERROR_PLEASE_TRY_LATER);
 
-                        this.appService.presentToast(message, resp.success == true ? 'primary' : 'dark').then(() => {
+                        this.appService.presentToast(message).then(() => {
                             if (resp.success == true) {
                                 this.appService.pushLocalNotification(`Cuenta ${shopping.account} ${shopping.recharge.slug} recargada correctamente.`).then();
                             }
@@ -161,7 +159,7 @@ export class OperationService {
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER, 'dark').then();
+                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
                 },
                 () => {
@@ -192,12 +190,12 @@ export class OperationService {
                 err => {
                     let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(error, 'dark').then();
+                        this.appService.presentToast(error).then();
                     });
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION, 'primary').then();
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                     });
                 });
         });
@@ -226,7 +224,7 @@ export class OperationService {
                     }
                     this.appService.opvars.hasLoadRecharges = true;
                 }, () => {
-                    this.appService.presentToast(Messages.NOT_AVAILABLE, 'dark').then();
+                    this.appService.presentToast(Messages.NOT_AVAILABLE).then();
                 }, () => {
                     this.appService.opvars.hasLoadRecharges = true;
                 }

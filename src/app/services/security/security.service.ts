@@ -80,7 +80,7 @@ export class SecurityService {
                         if (err.status == 400) {
                             this.appService.secvars.setRegisterErrorVars(err);
                         } else {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                         }
                     });
                 },
@@ -112,7 +112,7 @@ export class SecurityService {
                         if (err.status == 400) {
                             this.appService.secvars.setRegisterErrorVars(err);
                         } else {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                         }
                     });
                 },
@@ -144,13 +144,13 @@ export class SecurityService {
                         if (err.status == 400) {
                             this.appService.secvars.setRegisterErrorVars(err);
                         } else {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                         }
                     });
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION, 'light');
+                        this.appService.presentToast(Messages.SUCCESS_ACTION);
                     });
                 });
         });
@@ -177,8 +177,7 @@ export class SecurityService {
                     err => {
                         this.appService.dismissLoading(loading).then(() => {
                             this.appService.presentToast(
-                                err.status == 400 ? err.error.error : Messages.ERROR_PLEASE_TRY_LATER,
-                                'dark'
+                                err.status == 400 ? err.error.error : Messages.ERROR_PLEASE_TRY_LATER
                             );
                         });
                     },

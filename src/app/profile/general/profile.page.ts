@@ -58,7 +58,7 @@ export class ProfilePage implements OnInit {
                 'general', Utils.getFormData(this.profileForm.value, {'phone_code': this.appService.profvars.ccodePhoneValue})
             );
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
 }

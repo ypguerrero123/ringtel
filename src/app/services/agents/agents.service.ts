@@ -25,7 +25,7 @@ export class AgentsService {
                     },
                     () => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark').then();
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
                     },
                     () => {
@@ -48,7 +48,7 @@ export class AgentsService {
                     },
                     () => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
                     },
                     () => {
@@ -77,7 +77,7 @@ export class AgentsService {
                             if (err.status == 400) {
                                 this.appService.agentsVars.setAgentErrorVars(err);
                             } else {
-                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                             }
                         });
                     },
@@ -109,7 +109,7 @@ export class AgentsService {
                             if (err.status == 400) {
                                 this.appService.agentsVars.setAgentErrorVars(err);
                             } else {
-                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark');
+                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                             }
                         });
                     },
@@ -137,7 +137,7 @@ export class AgentsService {
                     },
                     () => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark').then();
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
                     },
                     () => {
@@ -163,7 +163,7 @@ export class AgentsService {
                     },
                     () => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER, 'dark').then();
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
                     },
                     () => {

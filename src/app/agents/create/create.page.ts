@@ -56,7 +56,7 @@ export class CreatePage implements OnInit {
                 Utils.getFormData(this.agentForm.value, {'phone_code': this.appService.profvars.ccodePhoneValue})
             );
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
 }

@@ -76,7 +76,7 @@ export class CubacelContainerComponent implements OnInit {
         if (this.cubacelForm.valid) {
             return this.appService.confirmShoppingData(this.cubacelForm, this.action, Messages.CUBACEl_LOWER).then();
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**

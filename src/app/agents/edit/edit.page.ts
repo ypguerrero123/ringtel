@@ -79,7 +79,7 @@ export class EditPage implements OnInit {
                 this.agentToEdit.id, Utils.getFormData(this.agentForm.value, {'phone_code': this.appService.profvars.ccodePhoneValue})
             );
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
 }

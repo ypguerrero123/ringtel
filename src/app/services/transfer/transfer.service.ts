@@ -32,8 +32,7 @@ export class TransferService {
                 err => {
                     let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(error,
-                            'dark').then();
+                        this.appService.presentToast(error).then();
                     });
                 },
                 () => {
@@ -55,7 +54,7 @@ export class TransferService {
                 (err) => {
                     let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(error, 'dark').then();
+                        this.appService.presentToast(error).then();
                     });
                 },
                 () => {
@@ -83,12 +82,12 @@ export class TransferService {
                 err => {
                     let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(error, 'dark').then();
+                        this.appService.presentToast(error).then();
                     });
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION, 'primary').then();
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                     });
                 }
             );

@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
         if (this.loginForm.valid) {
             return await this.appService.login(JSON.stringify(this.loginForm.value));
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
 }

@@ -77,7 +77,7 @@ export class NautaContainerComponent implements OnInit {
         if (this.nautaForm.valid) {
             return this.appService.confirmShoppingData(this.nautaForm, this.action, Messages.NAUTA_LOWER).then();
         }
-        return this.appService.presentToast(Messages.FORM_NOT_VALID, 'dark').then();
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**
