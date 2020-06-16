@@ -97,24 +97,4 @@ export class StripeService {
         });
     }
 
-    /**
-     * @method createPaymentIntentv
-     * @param amount
-     * @param data
-     */
-    public async createPaymentIntent(amount, data = {}) {
-        this.appService.post(
-            `es/api/v1/stripe/${this.appService.userType()}/${this.appService.secvars.user.id}/credit/${amount}/payment-intent`, data
-        ).subscribe(
-            (resp: any) => {
-                this.appService.stvars.clientSecret = resp.client_secret;
-            },
-            () => {
-                this.appService.stvars.clientSecret = null;
-
-            }, () => {
-
-            });
-    }
-
 }

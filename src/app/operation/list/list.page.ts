@@ -77,7 +77,7 @@ export class ListPage implements OnInit {
             buttons: [{
                 text: Messages.DONE,
                 handler: (e) => {
-                    this.startDate = new Date(`${e.year.value}-${e.month.value}-${e.day.value}`);
+                    this.startDate = new Date(Utils.transformDate(e));
                     this.filterByDate();
                 }
             }, {
@@ -91,7 +91,7 @@ export class ListPage implements OnInit {
             buttons: [{
                 text: Messages.DONE,
                 handler: (e) => {
-                    this.endDate = new Date(`${e.year.value}-${e.month.value}-${e.day.value}`);
+                    this.endDate = new Date(Utils.transformDate(e));
                     this.filterByDate();
                 }
             }, {

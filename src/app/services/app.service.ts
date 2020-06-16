@@ -103,10 +103,11 @@ export class AppService {
     /**
      * @method getAgentOperationData
      * @param agentId
-     * @param data
+     * @param start
+     * @param end
      */
-    public async getAgentOperationData(agentId, data) {
-        await (new AgentsService(this)).getAgentOperationData(agentId, data);
+    public async getAgentOperationData(agentId, start, end) {
+        await (new AgentsService(this)).getAgentOperationData(agentId, start, end);
     }
 
     //------------------TRANSFER CREDIT API--------//
@@ -169,10 +170,11 @@ export class AppService {
 
     /**
      * @method getProfile
-     * @param data
+     * @param start
+     * @param end
      */
-    public async getProfile(data) {
-        await (new ProfileService(this)).getProfile(data);
+    public async getProfile(start, end) {
+        await (new ProfileService(this)).getProfile(start, end);
     }
 
     /**
@@ -294,16 +296,6 @@ export class AppService {
     public async getAllCustomerCharges() {
         await (new StripeService(this)).getAllCustomerCharges();
     }
-
-    /**
-     * @method createPaymentIntentv
-     * @param amount
-     * @param data
-     */
-    public async createPaymentIntent(amount, data = {}) {
-        await (new StripeService(this)).createPaymentIntent(amount, data);
-    }
-
 
     //------------------SHOPPING AND RECHARGE API----------------//
 

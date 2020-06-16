@@ -151,12 +151,13 @@ export class AgentsService {
     /**
      * @method getAgentData
      * @param agentId
-     * @param data
+     * @param start
+     * @param end
      */
-    public async getAgentOperationData(agentId, data) {
+    public async getAgentOperationData(agentId, start, end) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             this.appService.post(
-                `es/api/v1/administrator/${this.appService.secvars.user.id}/get/${agentId}/agent/data`, data)
+                `es/api/v1/administrator/${this.appService.secvars.user.id}/get/${agentId}/agent/${start}/${end}/data`)
                 .subscribe(
                     (resp: UserDataResponse) => {
                         this.appService.agentsVars.setAgentOperationData(resp);

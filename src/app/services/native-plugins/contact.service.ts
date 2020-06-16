@@ -20,15 +20,20 @@ export class ContactService {
     public async contactsList(contactsName: ContactInterface[] = []) {
         const isMobilWeb = await this.appService.getStorage(Constants.IS_MOBIL_WEB, false);
         if (!isMobilWeb) {
-            this.appService.contacts.find(['*']).then((res: Contact[]) => {
+
+            const options = {
+                filter: '',
+                multiple: true,
+                hasPhoneNumber: true
+            };
+
+            this.appService.contacts.find(['*'], options).then((res: Contact[]) => {
                 res.forEach((item: Contact, key: number) => {
-                    if ((item.displayName != null || item.name != null) && item.phoneNumbers != null) {
-                        contactsName.push({
-                            id: key,
-                            name: item.displayName ? item.displayName : item.name.formatted,
-                            phone: Utils.strFixPhoneNumber(item.phoneNumbers[0].value)
-                        });
-                    }
+                    contactsName.push({
+                        id: key,
+                        name: item.displayName ? item.displayName : (item.name && item.name.formatted ? item.name.formatted : ''),
+                        phone: Utils.strFixPhoneNumber(item.phoneNumbers[0].value)
+                    });
                 });
             });
         }

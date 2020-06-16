@@ -18,11 +18,12 @@ export class ProfileService {
 
     /**
      * @method getProfile
-     * @param data
+     * @param start
+     * @param end
      */
-    public async getProfile(data) {
+    public async getProfile(start, end) {
         this.appService.post(
-            `es/api/v1/profile/${this.appService.userType()}/${this.appService.secvars.user.id}/get-profile`, data)
+            `es/api/v1/profile/${this.appService.userType()}/${this.appService.secvars.user.id}/${start}/${end}/get-profile`)
             .subscribe(
                 (resp: UserDataResponse) => {
                     this.appService.setUser(resp.agent, false).then(() => {

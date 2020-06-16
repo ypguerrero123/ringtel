@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                     <ion-label class="required">Crédito a comprar: </ion-label>
-                    <ion-input (ionBlur)="amountFormFocus(false); createPaymentIntent()" (ionFocus)="amountFormFocus()" (ionInput)="amountFormFocus()"
+                    <ion-input (ionBlur)="amountFormFocus(false);" (ionFocus)="amountFormFocus()" (ionInput)="amountFormFocus()"
                                [(ngModel)]="selectCardPrice" [class.error-input]="!formControl.amount.valid && (formControl.amount.dirty || formControl.amount.touched)" [max]="2000" [min]="10"
                                formControlName="amount"
                                id="amount"  type="number"></ion-input>

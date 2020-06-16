@@ -10,7 +10,6 @@ export class StripeVars {
     //-------------STRIPE VARs-----------------------//
     public savedPaymentMethods: Subject<Method[]> = new Subject<Method[]>();
     public customerCharges: Subject<Charge[]> = new Subject<Charge[]>();
-    public clientSecret: any = null;
 
     /**
      * @method updateOldPaymentMethods

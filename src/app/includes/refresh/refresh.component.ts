@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AppService} from '../../services/app.service';
 import {AppRoutes} from '../../config/routes';
 import {Constants} from '../../config/constants';
-import {Utils} from '../../services/utils/utils';
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -73,13 +72,10 @@ export class RefreshComponent implements OnInit {
      */
     public getProfile(event) {
 
-        let startDate = new Date(new Date().setDate(new Date().getDate() - 7));
-        let endDate = new Date(new Date().setDate(new Date().getDate()));
+        const startDate = new Date(new Date().setDate(new Date().getDate() - 7));
+        const endDate = new Date(new Date().setDate(new Date().getDate()));
 
-        const data = Utils.getFormData({
-            'date_range': `${this.datePipe.transform(startDate, 'yyyy-MM-dd')} - ${this.datePipe.transform(endDate, 'yyyy-MM-dd')}`
-        });
-        this.appService.getProfile(data).then(() => {
+        this.appService.getProfile(this.datePipe.transform(startDate, 'yyyy-MM-dd'), this.datePipe.transform(endDate, 'yyyy-MM-dd')).then(() => {
             event.target.complete();
         });
     }

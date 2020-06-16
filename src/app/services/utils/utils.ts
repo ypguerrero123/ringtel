@@ -71,4 +71,17 @@ export class Utils {
 
         return strFinal;
     }
+
+
+    /**
+     * @method transformDate
+     * @param e
+     */
+    public static transformDate(e) {
+
+        const MM = e.month.value <= 9 ? `0${e.month.value}` : e.month.value;
+        const dd = e.day.value <= 9 ? `0${e.day.value}` : e.day.value;
+
+        return `${e.year.value}-${MM}-${dd}`;
+    }
 }

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../services/app.service';
 import {ActivatedRoute} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {Utils} from '../../services/utils/utils';
 import {Messages} from '../../config/messages';
 import {UserDataResponse} from '../../model/user';
+import {Utils} from '../../services/utils/utils';
 
 @Component({
     selector: 'app-show',
@@ -37,6 +37,10 @@ export class ShowPage implements OnInit {
     public totalEarnings: any = 0.00;
     public totalSellingCost: any = 0.00;
     public totalSalePrice: any = 0.00;
+    /**
+     * @var number
+     */
+    private id: number = null;
 
     /**
      * Constructor
@@ -62,17 +66,19 @@ export class ShowPage implements OnInit {
                 : 0.00;
         });
 
-        const rangeDate = `${this.datePipe.transform(this.startDate, 'yyyy-MM-dd')} - ${this.datePipe.transform(this.endDate, 'yyyy-MM-dd')}`;
         this.route.params.subscribe(params => {
-            this.appService.getAgentOperationData(params['id'], Utils.getFormData({'date_range': rangeDate})).then();
+            this.id = params['id'];
+            this.appService.getAgentOperationData(params['id'], this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
         });
 
         this.customPickerOptionsStart = {
             buttons: [{
                 text: Messages.DONE,
                 handler: (e) => {
-                    this.startDate = new Date(`${e.year.value}-${e.month.value}-${e.day.value}`);
-
+                    this.startDate = new Date(Utils.transformDate(e));
+                    if (this.id) {
+                        this.appService.getAgentOperationData(this.id, this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
+                    }
                 }
             }, {
                 text: Messages.CANCEL,
@@ -85,8 +91,10 @@ export class ShowPage implements OnInit {
             buttons: [{
                 text: Messages.DONE,
                 handler: (e) => {
-                    this.endDate = new Date(`${e.year.value}-${e.month.value}-${e.day.value}`);
-
+                    this.endDate = new Date(Utils.transformDate(e));
+                    if (this.id) {
+                        this.appService.getAgentOperationData(this.id, this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
+                    }
                 }
             }, {
                 text: Messages.CANCEL,

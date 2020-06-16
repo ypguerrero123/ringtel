@@ -1,16 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../../services/app.service';
 import {UserDataResponse} from '../../../model/user';
 import {DatePipe} from '@angular/common';
-import {Utils} from '../../../services/utils/utils';
 import {Messages} from '../../../config/messages';
+import {Utils} from '../../../services/utils/utils';
 
 @Component({
     selector: 'app-home-container',
     templateUrl: './home-container.component.html',
     styleUrls: ['./home-container.component.scss'],
 })
-export class HomeContainerComponent implements OnInit, OnDestroy {
+export class HomeContainerComponent implements OnInit {
 
     /**
      * @var any
@@ -68,7 +68,7 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
             buttons: [{
                 text: Messages.DONE,
                 handler: (e) => {
-                    this.startDate = new Date(`${e.year.value}-${e.month.value}-${e.day.value}`);
+                    this.startDate = new Date(Utils.transformDate(e));
                     this.getProfile();
                 }
             }, {
@@ -82,7 +82,7 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
             buttons: [{
                 text: Messages.DONE,
                 handler: (e) => {
-                    this.endDate = new Date(`${e.year.value}-${e.month.value}-${e.day.value}`);
+                    this.endDate = new Date(Utils.transformDate(e));
                     this.getProfile();
                 }
             }, {
@@ -96,18 +96,11 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
         this.getProfile();
     }
 
-    ngOnDestroy() {
-    }
-
     /**
      * @method getProfile
      */
     public getProfile() {
-        const data = Utils.getFormData({
-            'date_range': `${this.datePipe.transform(this.startDate, 'yyyy-MM-dd')} - ${this.datePipe.transform(this.endDate, 'yyyy-MM-dd')}`
-        });
-        this.appService.getProfile(data).then();
+        this.appService.getProfile(this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
     }
-
 
 }

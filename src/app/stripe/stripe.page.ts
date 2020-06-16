@@ -5,9 +5,9 @@ import {MatStepper} from '@angular/material';
 import {AppService} from '../services/app.service';
 import {Utils} from '../services/utils/utils';
 import {Messages} from '../config/messages';
-import {AppRoutes} from '../config/routes';
 import {Method} from '../model/stripe';
 import {environment} from '../../environments/environment';
+import {AppRoutes} from '../config/routes';
 
 declare var Stripe;
 
@@ -119,10 +119,7 @@ export class StripePage implements OnInit {
             accept: [false, [Validators.requiredTrue]],
         });
         /* list All Payments Method */
-        this.appService.getAllPaymentMethods().then(() => {
-            /** init Default Payment Intent */
-            this.createPaymentIntent().then();
-        });
+        this.appService.getAllPaymentMethods().then();
 
         /** init New Form StripeService */
         this.showNewPaymentMethod();
@@ -136,10 +133,6 @@ export class StripePage implements OnInit {
         this.oldSelectedMethod = null;
 
         this.showNewPaymentMethod();
-
-        setTimeout(() => {
-            this.createPaymentIntent().then();
-        }, 100);
     }
 
     /**
@@ -187,39 +180,44 @@ export class StripePage implements OnInit {
     }
 
     /**
-     * @method createPaymentIntent
-     */
-    public async createPaymentIntent() {
-        let amount = this.amountAcceptCardForm.value.amount ? this.amountAcceptCardForm.value.amount : 10;
-        if (!amount || amount < 10) {
-            return;
-        }
-        this.appService.createPaymentIntent(
-            amount,
-            this.oldSelectedMethod ? Utils.getFormData({'payment_method': this.oldSelectedMethod.id}) : {}
-        ).then();
-    }
-
-    /**
      * @method onSubmit
      */
     public onSubmit() {
         this.errorTransaction = null;
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             let paymentMethodData = this.getPaymentMethod();
-            this.stripe.confirmCardPayment(this.appService.stvars.clientSecret, paymentMethodData).then((result) => {
-                this.appService.dismissLoading(loading).then();
-                if (result.error) {
-                    // Show error to your customer
-                    this.errorTransaction = result.error.message;
-                } else {
-                    if (result.paymentIntent.status === 'succeeded') {
-                        this.appService.updateAgentBalance().then(() => {
-                            this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
+
+            let amount = this.amountAcceptCardForm.value.amount ? this.amountAcceptCardForm.value.amount : 10;
+            if (!amount || amount < 10) {
+                return this.appService.presentToast(Messages.FORM_NOT_VALID);
+            }
+
+            const data = this.oldSelectedMethod ? Utils.getFormData({'payment_method': this.oldSelectedMethod.id}) : {};
+
+            this.appService.post(
+                `es/api/v1/stripe/${this.appService.userType()}/${this.appService.secvars.user.id}/credit/${amount}/payment-intent`, data
+            ).subscribe(
+                (resp: any) => {
+                    this.stripe.confirmCardPayment(resp.client_secret, paymentMethodData).then((result) => {
+                        this.appService.dismissLoading(loading).then(() => {
+
+                            if (result.error) {
+                                // Show error to your customer
+                                this.errorTransaction = result.error.message;
+                            } else {
+                                if (result.paymentIntent.status === 'succeeded') {
+                                    this.appService.updateAgentBalance().then(() => {
+                                        this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
+                                    });
+                                }
+                            }
+
                         });
-                    }
-                }
-            });
+                    });
+                },
+                () => {
+                    return this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
+                });
         });
     }
 
@@ -255,10 +253,6 @@ export class StripePage implements OnInit {
         this.selectCardName = method.billing_details.name;
 
         this.card.unmount();
-
-        setTimeout(() => {
-            this.createPaymentIntent().then();
-        }, 100);
     }
 
     /**
