@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>53439289325-011j8110n7sac1ajg1f5vu102acc0a8p.apps.googleusercontent.com</string>
+	<string>53439289325-2c0o3gqpitph37vea3jgn331ijv794g1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.53439289325-011j8110n7sac1ajg1f5vu102acc0a8p</string>
+	<string>com.googleusercontent.apps.53439289325-2c0o3gqpitph37vea3jgn331ijv794g1</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCkYHVqeSimWAIb9OqVaxphlDoTLM6WXEA</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.cubahorizontes.com</string>
+	<string>com.cubahorizontes.app</string>
 	<key>PROJECT_ID</key>
 	<string>cuba-horizontes-827f1</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:53439289325:ios:9cb50631a2b89cc8dfb9e4</string>
+	<string>1:53439289325:ios:d4d77445fc08f5fedfb9e4</string>
 	<key>DATABASE_URL</key>
 	<string>https://cuba-horizontes-827f1.firebaseio.com</string>
 </dict>

@@ -150,11 +150,7 @@ export class OperationService {
                                 ? Messages.PLEASE_WAIT_TWO_MINUTES
                                 : Messages.ERROR_PLEASE_TRY_LATER);
 
-                        this.appService.presentToast(message).then(() => {
-                            if (resp.success == true) {
-                                this.appService.pushLocalNotification(`Cuenta ${shopping.account} ${shopping.recharge.slug} recargada correctamente.`).then();
-                            }
-                        });
+                        this.appService.presentToast(message).then();
                     });
                 },
                 err => {
