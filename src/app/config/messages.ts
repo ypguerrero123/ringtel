@@ -30,6 +30,7 @@ export class Messages {
     public static readonly MY_CREDIT_CARDS = 'Mis tarjetas';
 
     public static readonly OFFLINE_NETWORK = 'No tiene acceso a la red ):';
+    public static readonly ON_PUSH_NOTIFICATION = 'Nuevo mensaje recibido';
 
     public static readonly SPEND_ALL_CREDIT = 'Debe gastar todo el crédito antes de poder desabilitar la cuenta';
 

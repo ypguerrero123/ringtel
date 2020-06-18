@@ -5,7 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {Network} from '@ionic-native/network/ngx';
-import {FCM} from '@ionic-native/fcm/ngx';
+import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Router} from '@angular/router';
 import {AppService} from './services/app.service';
 import {Constants} from './config/constants';
@@ -24,7 +24,7 @@ export class AppComponent {
         private statusBar: StatusBar,
         private screenOrientation: ScreenOrientation,
         private appService: AppService,
-        private fcm: FCM,
+        private firebase: FirebaseX,
         private network: Network
     ) {
         this.initializeApp();
@@ -48,20 +48,24 @@ export class AppComponent {
                 this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
                 this.statusBar.styleDefault();
 
-                this.fcm.getToken().then(token => {
-                    this.appService.saveTokenDevice(token);
-                });
-
-                this.fcm.onTokenRefresh().subscribe(token => {
-                    this.appService.saveTokenDevice(token);
-                });
+                if (this.platform.is('ios')) {
+                    this.firebase.hasPermission().then(data => {
+                        if (!data) {
+                            this.firebase.grantPermission().then(data => {
+                                this.getTokenPush();
+                            });
+                        } else {
+                            this.getTokenPush();
+                        }
+                    });
+                } else {
+                    this.getTokenPush();
+                }
 
                 // watch network for a disconnection
                 this.network.onDisconnect().subscribe(() => {
                     this.appService.presentToast(Messages.OFFLINE_NETWORK).then();
                 });
-
-                this.network.onConnect().subscribe(() => {});
 
                 setTimeout(() => {
 
@@ -75,6 +79,18 @@ export class AppComponent {
 
             }
 
+        });
+    }
+
+    /**
+     * @method getTokenPush
+     */
+    private getTokenPush() {
+        this.firebase.getToken().then(token => {
+            this.appService.saveTokenDevice(token);
+        });
+        this.firebase.onTokenRefresh().subscribe((token: string) => {
+            this.appService.saveTokenDevice(token);
         });
     }
 
