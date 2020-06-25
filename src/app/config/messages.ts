@@ -17,6 +17,9 @@ export class Messages {
 
     public static readonly CREDIT_NOT_VALID = 'Crédito insuficiente.';
     public static readonly FORM_NOT_VALID = 'Fomulario incompleto.';
+    public static readonly FORM_FILE_NOT_VALID = 'El archivo contiene datos no válidos.';
+    public static readonly FORM_FILE_EMPTY = 'El archivo esta vacío.';
+    public static readonly FORM_MAX_FILE_100 = 'El archivo no puede contener mas de 100 elementos';
 
     public static readonly SEND_TO_SHOPPING_CART = 'Enviar al carrito';
     public static readonly CONFIRM_DATA = 'Confirmar datos';
@@ -30,9 +33,9 @@ export class Messages {
     public static readonly MY_CREDIT_CARDS = 'Mis tarjetas';
 
     public static readonly OFFLINE_NETWORK = 'No tiene acceso a la red ):';
-    public static readonly ON_PUSH_NOTIFICATION = 'Nuevo mensaje recibido';
+    public static readonly ON_PUSH_NOTIFICATION = 'Nuevo mensaje recibido.';
 
-    public static readonly SPEND_ALL_CREDIT = 'Debe gastar todo el crédito antes de poder desabilitar la cuenta';
+    public static readonly SPEND_ALL_CREDIT = 'Debe gastar todo el crédito antes de poder desabilitar la cuenta.';
 
 
 }

@@ -126,6 +126,42 @@ export class OperationService {
     }
 
     /**
+     * @method confirmShoppingDataFile
+     * @param form
+     * @param action
+     * @param service
+     */
+    public async confirmShoppingDataFile(form: FormGroup, action, service) {
+
+        let reader: FileReader = new FileReader();
+        reader.readAsText(form.value.inputFile._files[0]);
+
+        reader.onload = async (e: ProgressEvent) => {
+
+            let csv: string = reader.result as string;
+            let allData = csv.split(/\r\n|\n/);
+
+            if (allData.length == 0 || allData.length > 100) {
+                return this.appService.presentToast(
+                    allData.length == 0 ? Messages.FORM_FILE_EMPTY : Messages.FORM_MAX_FILE_100
+                ).then();
+            }
+
+            let reg = new RegExp('[5]{1}[0-9]{7}');
+            await csv.split(/\r\n|\n/).forEach((value: string) => {
+                if (!reg.test(value)) {
+                    return this.appService.presentToast(Messages.FORM_FILE_NOT_VALID).then();
+                }
+            });
+
+        };
+        reader.onerror = () => {
+            return this.appService.presentToast(Messages.FORM_FILE_NOT_VALID).then();
+        };
+
+    }
+
+    /**
      * @method sendOneShopping
      * @param shopping
      */

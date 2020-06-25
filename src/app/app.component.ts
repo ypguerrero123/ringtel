@@ -35,7 +35,7 @@ export class AppComponent {
      */
     private initializeApp() {
 
-        this.appService.verifyInitRedirect().then();
+        //this.appService.verifyInitRedirect().then();
 
         this.platform.ready().then(() => {
 
@@ -74,7 +74,9 @@ export class AppComponent {
                 }, 2000);
 
                 setTimeout(() => {
+
                     this.appService.contactsList().then();
+
                 }, 5000);
 
             }

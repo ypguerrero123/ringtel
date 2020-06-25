@@ -6,6 +6,8 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {Constants} from '../../../config/constants';
 import {ContactInterface} from '../../../model/contact';
+import {FileValidator} from 'ngx-material-file-input';
+import {Validations} from '../../../config/validations';
 
 @Component({
     selector: 'app-cubacel-container',
@@ -17,6 +19,12 @@ export class CubacelContainerComponent implements OnInit {
      * @var FormGroup
      */
     public cubacelForm: FormGroup;
+    public cubacelFormFile: FormGroup;
+
+    /**
+     * In this example, it's 100 MB (=100 * 2 ** 20).
+     */
+    readonly maxSizeFile = 104857600;
     /**
      * @var string
      */
@@ -53,12 +61,28 @@ export class CubacelContainerComponent implements OnInit {
         return this.cubacelForm.controls;
     }
 
+    /**
+     * @method formControlFile
+     */
+    public get formControlFile() {
+        return this.cubacelFormFile.controls;
+    }
+
     ngOnInit() {
         this.cubacelForm = this.formBuilder.group({
             client: ['', [Validators.minLength(2)]],
             account: ['', [Validators.required, Validators.pattern('[5]{1}[0-9]{7}')]],
             recharge: ['', [Validators.required]],
         });
+        this.cubacelFormFile = this.formBuilder.group({
+            inputFile: ['', [
+                Validators.required,
+                FileValidator.maxContentSize(this.maxSizeFile),
+                Validations.fileExtensionValidator('txt,csv')]
+            ],
+            recharge: ['', [Validators.required]],
+        });
+
         this.appService.getAllRechargesByServiceSlug(Constants.CUBACEL_SLUG).then();
         this.appService.contactsList(this.contactsName).then();
 
@@ -70,11 +94,21 @@ export class CubacelContainerComponent implements OnInit {
     }
 
     /**
-     * @method onSubmitVerifyOTP
+     * @method onSubmit
      */
     public async onSubmit() {
         if (this.cubacelForm.valid) {
             return this.appService.confirmShoppingData(this.cubacelForm, this.action, Messages.CUBACEl_LOWER).then();
+        }
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
+    }
+
+    /**
+     * @method onSubmitFile
+     */
+    public async onSubmitFile() {
+        if (this.cubacelFormFile.valid) {
+            return this.appService.confirmShoppingDataFile(this.cubacelFormFile, this.action, Messages.CUBACEl_LOWER).then();
         }
         return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }

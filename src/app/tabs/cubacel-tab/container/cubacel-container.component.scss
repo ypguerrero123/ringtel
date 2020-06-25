@@ -3,6 +3,37 @@
   color: darkred;
 }
 
+.custom-file-label::after {
+  content: "Elegir";
+}
+
+mat-form-field {
+  height: 3.5em;
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: 1px solid lightgrey !important;
+  border-radius: 0;
+}
+
+$custom-file-text: (
+        en: "Browse",
+        es: "Elegir"
+);
+
+.custom-file-input {
+  border-radius: 0 !important;
+}
+
 .loading {
   margin: 60% 50% !important;
 }
@@ -27,49 +58,49 @@ ion-input, ion-select {
 
 input {
   height: 2.7rem;
-  background-color: #fff!important;
+  background-color: #fff !important;
 }
 
 ion-select {
-  padding-right: 12px!important;
-  padding-left: 12px!important;
-  border: 1px solid lightgrey!important;
-  border-radius: 0!important;
-  margin-top: 2px!important;
-  width: 100%!important;
-  box-sizing: border-box!important;
-  color: #2C3E50!important;
-  font-size: 14px!important;
-  letter-spacing: 1px!important
+  padding-right: 12px !important;
+  padding-left: 12px !important;
+  border: 1px solid lightgrey !important;
+  border-radius: 0 !important;
+  margin-top: 2px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  color: #2C3E50 !important;
+  font-size: 14px !important;
+  letter-spacing: 1px !important
 }
 
 ion-input, input {
   padding: 0 12px 0 5px !important;
-  border: 1px solid lightgrey!important;
-  border-radius: 0!important;
-  margin-top: 2px!important;
-  width: 100%!important;
-  box-sizing: border-box!important;
-  color: #2C3E50!important;
-  font-size: 14px!important;
-  letter-spacing: 1px!important;
+  border: 1px solid lightgrey !important;
+  border-radius: 0 !important;
+  margin-top: 2px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  color: #2C3E50 !important;
+  font-size: 14px !important;
+  letter-spacing: 1px !important;
 }
 
 input:focus, ion-input:focus, input[type='text']:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border: 1px solid lightgrey!important;
-  outline-width: 0!important;
-  outline: none!important
+  border: 1px solid lightgrey !important;
+  outline-width: 0 !important;
+  outline: none !important
 }
 
 button:focus, ion-button:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  outline-width: 0!important;
-  outline: none!important;
+  outline-width: 0 !important;
+  outline: none !important;
 }
 
 .btn {
@@ -79,10 +110,6 @@ button:focus, ion-button:focus {
   font-weight: 300 !important;
 }
 
-.logo_service {
-  width: 65%;
-}
-
 .error {
   color: darkred;
   font-size: 12px;
@@ -90,6 +117,14 @@ button:focus, ion-button:focus {
 
 .error-input {
   border-color: darkred !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+  color: darkred;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.5em 0 1em 0;
 }
 
 .underline {

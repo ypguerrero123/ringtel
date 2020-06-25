@@ -59,6 +59,7 @@
     "jquery": "^3.5.0",
     "mx.ferreyra.callnumber": "0.0.2",
     "ngx-card": "^0.2.4",
+    "ngx-material-file-input": "^2.1.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

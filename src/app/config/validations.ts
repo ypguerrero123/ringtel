@@ -1,6 +1,25 @@
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 
 export class Validations {
+
+    /**
+     * @method fileExtensionValidator
+     * @param validExt
+     */
+    public static fileExtensionValidator(validExt: string): ValidatorFn {
+        return (control: FormControl): { [key: string]: any } | null => {
+            let forbidden = true;
+            if (control.value && control.value._fileNames) {
+                const fileExt = control.value._fileNames.split('.').pop();
+                validExt.split(',').forEach(ext => {
+                    if (ext.trim() == fileExt) {
+                        forbidden = false;
+                    }
+                });
+            }
+            return forbidden ? {'inValidExt': true} : null;
+        };
+    }
 
     /**
      * @method emailDomainValidator

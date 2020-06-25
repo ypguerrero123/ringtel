@@ -27,22 +27,7 @@ export class RechargeEntity implements Recharge {
                 this[key] = attributes[key];
             }
         }
-        if (user.broker_post_sale) {
-            switch (slug) {
-                case Constants.NAUTA_SLUG:
-                case Messages.NAUTA_LOWER:
-                    if (user.sale_price_nauta) {
-                        this.slug = `$${user.sale_price_nauta} = ${this.amount} CUC`;
-                    }
-                    break;
-                case Constants.CUBACEL_SLUG:
-                case Messages.CUBACEl_LOWER:
-                    if (user.sale_price_cubacel) {
-                        this.slug = `$${user.sale_price_cubacel} = ${this.amount} CUC`;
-                    }
-                    break;
-            }
-        }
+        this.slug = `${this.amount} CUC`;
     }
 }
 

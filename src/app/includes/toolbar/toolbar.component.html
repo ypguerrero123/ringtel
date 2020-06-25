@@ -2,12 +2,15 @@
     <ion-toolbar>
         <ion-buttons slot="start">
 
-            <ion-menu-button (click)="appService.navigateToUrl(appService.appRoutes.APP_SETTINGS)" *ngIf="visible(['home'])"
+            <ion-menu-button (click)="appService.navigateToUrl(appService.appRoutes.APP_SETTINGS)"
+                             *ngIf="visible(['home'])"
                              auto-hide="false"></ion-menu-button>
 
             <ion-back-button
                     *ngIf="visible(['transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"
-                    class="ml-3" defaultHref="{{ visible(['operation-show']) ? appService.appRoutes.APP_RECHARGE_HISTORY : (visible(['agent-show', 'agent-edit']) ? appService.appRoutes.APP_AGENTS_LIST : appService.appRoutes.APP_SETTINGS) }}" icon="arrow-back-outline"
+                    class="ml-3"
+                    defaultHref="{{ visible(['operation-show']) ? appService.appRoutes.APP_RECHARGE_HISTORY : (visible(['agent-show', 'agent-edit']) ? appService.appRoutes.APP_AGENTS_LIST : appService.appRoutes.APP_SETTINGS) }}"
+                    icon="arrow-back-outline"
                     text=""></ion-back-button>
 
             <ion-button (click)="appService.navigateToUrl(appService.appRoutes.APP_HOME_PAGE)"
@@ -17,7 +20,13 @@
 
         </ion-buttons>
 
-        <ion-title>{{title}}</ion-title>
+        <ion-title *ngIf="title != 'Cubacel' && title != 'Nauta'">{{title}}</ion-title>
+        <ion-title *ngIf="title == 'Cubacel'">
+            <ion-img class="logo_service" src="../../assets/images/services/cubacel_logo.svg"></ion-img>
+        </ion-title>
+        <ion-title *ngIf="title == 'Nauta'">
+            <ion-img class="logo_service" src="../../assets/images/services/nauta.png"></ion-img>
+        </ion-title>
 
         <ion-buttons slot="primary">
 

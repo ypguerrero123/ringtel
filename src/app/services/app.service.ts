@@ -317,7 +317,6 @@ export class AppService {
         await (new OperationService(this)).getAllOperations(start, end, page);
     }
 
-
     /**
      * @method confirmShoppingData
      * @param form
@@ -326,6 +325,16 @@ export class AppService {
      */
     public async confirmShoppingData(form: FormGroup, action, service) {
         await (new OperationService(this)).confirmShoppingData(form, action, service);
+    }
+
+    /**
+     * @method confirmShoppingData
+     * @param form
+     * @param action
+     * @param service
+     */
+    public async confirmShoppingDataFile(form: FormGroup, action, service) {
+        await (new OperationService(this)).confirmShoppingDataFile(form, action, service);
     }
 
     /**
