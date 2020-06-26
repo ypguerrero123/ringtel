@@ -7,6 +7,7 @@ import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {Constants} from '../../../config/constants';
 import {ContactInterface} from '../../../model/contact';
+import {FileValidator} from 'ngx-material-file-input';
 
 @Component({
     selector: 'app-nauta-container',
@@ -19,6 +20,12 @@ export class NautaContainerComponent implements OnInit {
      * @var FormGroup
      */
     public nautaForm: FormGroup;
+    public nautaFormFile: FormGroup;
+
+    /**
+     * In this example, it's 100 MB (=100 * 2 ** 20).
+     */
+    readonly maxSizeFile = 104857600;
     /**
      * @var ContactInterface[]
      */
@@ -34,7 +41,7 @@ export class NautaContainerComponent implements OnInit {
     /**
      * @var number
      */
-    private action: number = 1;
+    public action: number = 1;
 
     /**
      * Constructor NautaContainerComponent
@@ -53,10 +60,25 @@ export class NautaContainerComponent implements OnInit {
         return this.nautaForm.controls;
     }
 
+    /**
+     * @method formControlFile
+     */
+    public get formControlFile() {
+        return this.nautaFormFile.controls;
+    }
+
     ngOnInit() {
         this.nautaForm = this.formBuilder.group({
             client: ['', [Validators.minLength(2)]],
             account: ['', [Validators.required, Validators.minLength(2), Validations.emailDomainValidator]],
+            recharge: ['', [Validators.required]],
+        });
+        this.nautaFormFile = this.formBuilder.group({
+            inputFile: ['', [
+                Validators.required,
+                FileValidator.maxContentSize(this.maxSizeFile),
+                Validations.fileExtensionValidator('txt,csv')]
+            ],
             recharge: ['', [Validators.required]],
         });
         this.appService.getAllRechargesByServiceSlug(Constants.NAUTA_SLUG).then();
@@ -76,6 +98,16 @@ export class NautaContainerComponent implements OnInit {
     public async onSubmit() {
         if (this.nautaForm.valid) {
             return this.appService.confirmShoppingData(this.nautaForm, this.action, Messages.NAUTA_LOWER).then();
+        }
+        return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
+    }
+
+    /**
+     * @method onSubmitFile
+     */
+    public async onSubmitFile() {
+        if (this.nautaFormFile.valid) {
+            return this.appService.confirmShoppingDataFile(this.nautaFormFile, this.action, Messages.NAUTA_LOWER).then();
         }
         return this.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }

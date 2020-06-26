@@ -2,8 +2,45 @@
  * Utils
  */
 import {Method} from '../../model/stripe';
+import {Messages} from '../../config/messages';
 
 export class Utils {
+
+    /**
+     * @method validDatFile
+     * @param allData
+     * @param service
+     */
+    public static async validDataFile(allData: string[], service: string) {
+
+        let reg;
+        switch (service) {
+            case Messages.NAUTA_LOWER:
+                reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+                break;
+            default:
+                reg = new RegExp('[5]{1}[0-9]{7}');
+                break;
+        }
+
+        for (let i = 0; i < allData.length; i++) {
+            if (service == Messages.CUBACEl_LOWER && !reg.test(allData[i])) {
+
+                return allData[i];
+
+            } else if (service == Messages.NAUTA_LOWER) {
+
+                let nauta = allData[i].split('@');
+                if (!reg.test(String(allData[i]).toLowerCase()) || (nauta.length != 2 || nauta[1] != 'nauta.com.cu')) {
+                    return allData[i];
+                }
+
+            }
+
+        }
+        return true;
+    }
+
     /**
      * @method parseMethods
      * @param resp

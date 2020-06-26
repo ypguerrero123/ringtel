@@ -83,11 +83,11 @@ export class OperationService {
         const recharge: Recharge = await this.appService.getOneRechargeByIdAndService(form.value.recharge, service, user);
         const shopping: Shopping = new ShoppingFormEntity(form.value, recharge, service, ccodPhoneValue);
 
-        if (parseInt(user.balance) == 0) {
+        if (parseInt(user.balance) == 0 || parseInt(user.balance) < recharge.amount) {
             if (!this.appService.isPostSale()) {
                 return this.appService.navigateToUrl(this.appService.appRoutes.APP_STRIPE);
             } else {
-                return this.appService.presentToast(Messages.CREDIT_NOT_VALID);
+                return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseInt(user.balance).toFixed(2)} < $${(recharge.amount).toFixed(2)}`);
             }
         }
 
@@ -108,13 +108,13 @@ export class OperationService {
                     handler: () => {
                         switch (action) {
                             case 2:
-                                this.appService.addOneShoppingToCart(shopping).then();
+                                this.addOneShoppingToCart(shopping).then();
                                 break;
                             case 3:
-                                this.appService.sendOneShoppingToPreSale(shopping).then();
+                                this.sendOneShoppingToPreSale(shopping).then();
                                 break;
                             default:
-                                this.appService.sendOneShopping(shopping).then();
+                                this.sendOneShopping(shopping).then();
                                 break;
                         }
                     }
@@ -136,22 +136,63 @@ export class OperationService {
         let reader: FileReader = new FileReader();
         reader.readAsText(form.value.inputFile._files[0]);
 
-        reader.onload = async (e: ProgressEvent) => {
+        reader.onload = async () => {
 
             let csv: string = reader.result as string;
             let allData = csv.split(/\r\n|\n/);
 
-            if (allData.length == 0 || allData.length > 100) {
-                return this.appService.presentToast(
-                    allData.length == 0 ? Messages.FORM_FILE_EMPTY : Messages.FORM_MAX_FILE_100
-                ).then();
-            }
+            const user: User = this.appService.secvars.user;
+            const recharge: Recharge = await this.appService.getOneRechargeByIdAndService(form.value.recharge, service, user);
 
-            let reg = new RegExp('[5]{1}[0-9]{7}');
-            await csv.split(/\r\n|\n/).forEach((value: string) => {
-                if (!reg.test(value)) {
-                    return this.appService.presentToast(Messages.FORM_FILE_NOT_VALID).then();
+            if (allData.length == 0 || (allData.length > 0 && allData[0] == '') || allData.length > 100) {
+
+                return this.appService.presentToast(
+                    allData.length == 0 || (allData.length > 0 && allData[0] == '')
+                        ? Messages.FORM_FILE_EMPTY : Messages.FORM_MAX_FILE_100
+                ).then();
+
+            } else if (parseInt(user.balance) == 0 || parseInt(user.balance) < (allData.length * recharge.amount)) {
+
+                if (!this.appService.isPostSale()) {
+                    return this.appService.navigateToUrl(this.appService.appRoutes.APP_STRIPE);
+                } else {
+                    return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseInt(user.balance).toFixed(2)} < $${(allData.length * recharge.amount).toFixed(2)}`);
                 }
+
+            }
+            Utils.validDataFile(allData, service).then(async (valid: any) => {
+                if (valid !== true) {
+                    return this.appService.presentToast(`${Messages.FORM_FILE_NOT_VALID} ${valid}`).then();
+                }
+                const alert = await this.appService.alertController.create({
+                    header: Messages.CONFIRM_DATA,
+                    message: `<hr/><p>No. de cuentas: ${allData.length}</p><hr/><p>Recarga: ${recharge.slug}</p><hr/><p>Precio: $${(allData.length * recharge.amount).toFixed(2)}</p>`,
+                    buttons: [
+                        {
+                            text: Messages.CANCEL,
+                            role: 'cancel',
+                            cssClass: 'secondary',
+                            handler: () => {
+                            }
+                        }, {
+                            text: `${action == 1 ? Messages.RECHARGE_NOW : (action == 2 ? Messages.SEND_TO_SHOPPING_CART : Messages.RECHARGE_IN_PROMOTION)}`,
+                            handler: () => {
+                                switch (action) {
+                                    case 2:
+                                        this.addOneShoppingToCartFile(recharge, allData, service).then();
+                                        break;
+                                    case 3:
+                                        this.sendOneShoppingToPreSaleFile(recharge, allData).then();
+                                        break;
+                                    default:
+                                        this.sendOneShoppingFile(recharge, allData).then();
+                                        break;
+                                }
+                            }
+                        }
+                    ]
+                });
+                await alert.present();
             });
 
         };
@@ -165,7 +206,7 @@ export class OperationService {
      * @method sendOneShopping
      * @param shopping
      */
-    public async sendOneShopping(shopping: Shopping) {
+    private async sendOneShopping(shopping: Shopping) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
 
             const data = Utils.getFormData({
@@ -201,10 +242,46 @@ export class OperationService {
     }
 
     /**
-     * @method sendOneShoppingToPreSale
+     * @method sendOneShoppingFile
+     * @param recharge
+     * @param allData
+     */
+    private async sendOneShoppingFile(recharge: Recharge, allData: string[]) {
+        this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
+            const data = Utils.getFormData({
+                'all_data': allData
+            });
+
+            this.appService.post(
+                `es/api/v1/recharge-file/${this.appService.userType()}/${this.appService.secvars.user.id}/code/${recharge.id}/index`, data
+            ).subscribe(
+                (resp: SendShoppingResponse) => {
+                    this.appService.setUser(resp.agent, true).then(() => {
+
+                        const message = resp.success == true
+                            ? Messages.SUCCESS_ACTION
+                            : Messages.ERROR_PLEASE_TRY_LATER;
+
+                        this.appService.presentToast(message).then();
+                    });
+                },
+                err => {
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
+                    });
+                },
+                () => {
+                    this.appService.dismissLoading(loading).then();
+                });
+
+        });
+    }
+
+    /**
+     * @method addOneShoppingToCart
      * @param shopping
      */
-    public async sendOneShoppingToPreSale(shopping: Shopping) {
+    private async addOneShoppingToCart(shopping: Shopping) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
 
             const data = Utils.getFormData({
@@ -214,7 +291,105 @@ export class OperationService {
             });
 
             this.appService.post(
+                `es/api/v1/shopping/${this.appService.userType()}/${this.appService.secvars.user.id}/recharge/${shopping.recharge.id}/create`, data
+            ).subscribe(
+                (resp: Shopping[]) => {
+                    this.appService.shvars.setAllShoppings(resp);
+                },
+                (err) => {
+                    let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(error).then();
+                    });
+                },
+                () => {
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
+                    });
+                });
+        });
+    }
+
+    /**
+     * @method addOneShoppingToCartFile
+     * @param recharge
+     * @param allData
+     * @param service
+     */
+    private async addOneShoppingToCartFile(recharge: Recharge, allData: string[], service) {
+        this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
+
+            const data = Utils.getFormData({
+                'all_data': allData,
+                'service': service
+            });
+
+            this.appService.post(
+                `es/api/v1/recharge-file/${this.appService.userType()}/${this.appService.secvars.user.id}/code-recharge/${recharge.id}/send-to-shopping`, data
+            ).subscribe(
+                (resp: Shopping[]) => {
+                    this.appService.shvars.setAllShoppings(resp);
+                },
+                (err) => {
+                    let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(error).then();
+                    });
+                },
+                () => {
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
+                    });
+                });
+        });
+    }
+
+    /**
+     * @method sendOneShoppingToPreSale
+     * @param shopping
+     */
+    private async sendOneShoppingToPreSale(shopping: Shopping) {
+        this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
+
+            const data = Utils.getFormData({
+                'account': shopping.account,
+                'client': shopping.client,
+            });
+
+            this.appService.post(
                 `es/api/v1/recharge/${this.appService.userType()}/${this.appService.secvars.user.id}/code/${shopping.recharge.id}/pre/sale`, data
+            ).subscribe(
+                (resp: SendShoppingResponse) => {
+                    this.appService.setUser(resp.agent, true).then();
+                },
+                err => {
+                    let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(error).then();
+                    });
+                },
+                () => {
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
+                    });
+                });
+        });
+    }
+
+    /**
+     * @method sendOneShoppingToPreSaleFile
+     * @param recharge
+     * @param allData
+     */
+    private async sendOneShoppingToPreSaleFile(recharge: Recharge, allData: string[]) {
+        this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
+
+            const data = Utils.getFormData({
+                'all_data': allData
+            });
+
+            this.appService.post(
+                `es/api/v1/recharge-file/${this.appService.userType()}/${this.appService.secvars.user.id}/code/${recharge.id}/pre/sale`, data
             ).subscribe(
                 (resp: SendShoppingResponse) => {
                     this.appService.setUser(resp.agent, true).then();

@@ -19,7 +19,7 @@ export class Messages {
     public static readonly FORM_NOT_VALID = 'Fomulario incompleto.';
     public static readonly FORM_FILE_NOT_VALID = 'El archivo contiene datos no válidos.';
     public static readonly FORM_FILE_EMPTY = 'El archivo esta vacío.';
-    public static readonly FORM_MAX_FILE_100 = 'El archivo no puede contener mas de 100 elementos';
+    public static readonly FORM_MAX_FILE_100 = 'El archivo no puede contener mas de 100 elementos.';
 
     public static readonly SEND_TO_SHOPPING_CART = 'Enviar al carrito';
     public static readonly CONFIRM_DATA = 'Confirmar datos';

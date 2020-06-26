@@ -2,8 +2,8 @@
 
     <ion-card class="shadow-lg" mode="md">
 
-        <mat-tab-group dynamicHeight>
-            <mat-tab label="Formulario">
+        <mat-tab-group dynamicHeight selectedIndex="0">
+            <mat-tab label="Recarga simple">
                 <ion-card-content>
 
                     <form [formGroup]="cubacelForm">
@@ -63,7 +63,7 @@
                             </ion-select>
                         </div>
                         <div class="form-group">
-                            <ion-radio-group value="1">
+                            <ion-radio-group value="{{action}}">
                                 <ion-item (click)="setAction(1)" class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="primary" value="1"></ion-radio>
                                     <ion-label>Recargar ahora</ion-label>
@@ -89,15 +89,16 @@
 
                 </ion-card-content>
             </mat-tab>
-            <mat-tab label="Cargar archivo">
+            <mat-tab label="Recarga por lotes" *ngIf="appService.isPostSale()">
                 <ion-card-content>
 
                     <form [formGroup]="cubacelFormFile">
 
                         <div class="form-group">
-                            <ion-label class="required">Seleccionar archivo:</ion-label>
+                            <ion-label class="required">Seleccionar lote:</ion-label>
                             <mat-form-field appearance="outline">
-                                <ngx-mat-file-input #inputFile formControlName="inputFile" valuePlaceholder="*.txt, *.csv"
+                                <ngx-mat-file-input #inputFile formControlName="inputFile"
+                                                    valuePlaceholder="*.txt, *.csv"
                                                     [accept]="'.txt'"></ngx-mat-file-input>
                                 <mat-icon matSuffix *ngIf="inputFile.empty">folder</mat-icon>
                                 <button mat-icon-button matSuffix *ngIf="!inputFile.empty"
@@ -108,7 +109,7 @@
                             <!-- Error messages -->
                             <span *ngIf="formControlFile.inputFile.errors?.required && (!inputFile.empty)"
                                   class="error">
-                                Debe seleccionar un archivo.
+                                Debe seleccionar un lote.
                             </span>
                             <span *ngIf="formControlFile.inputFile.errors?.maxContentSize">
                                 No puede exceder {{formControlFile.inputFile.errors?.maxContentSize.maxSize | byteFormat}}
@@ -116,7 +117,7 @@
                             </span>
                             <span *ngIf="formControlFile.inputFile.errors?.inValidExt && (!inputFile.empty)"
                                   class="error">
-                                Extensión no válida.
+                                Extensión de lote no válida.
                             </span>
                         </div>
                         <div class="form-group">
@@ -130,7 +131,7 @@
                             </ion-select>
                         </div>
                         <div class="form-group">
-                            <ion-radio-group value="1">
+                            <ion-radio-group value="{{action}}">
                                 <ion-item (click)="setAction(1)" class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="primary" value="1"></ion-radio>
                                     <ion-label>Recargar ahora</ion-label>

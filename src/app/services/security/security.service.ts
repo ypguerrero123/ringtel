@@ -206,9 +206,6 @@ export class SecurityService {
      */
     public async setUser(resp: User = null, userHasUpdate: boolean = true) {
         this.appService.secvars.setUser(resp, userHasUpdate);
-        if (userHasUpdate) {
-            await this.appService.setStorage(Constants.USER_AUTH_KEY, resp);
-        }
-
+        await this.appService.setStorage(Constants.USER_AUTH_KEY, resp);
     }
 }

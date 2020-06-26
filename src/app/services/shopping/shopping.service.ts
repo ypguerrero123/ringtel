@@ -1,7 +1,6 @@
 import {AppService} from '../app.service';
 import {SendShoppingResponse, SendShoppingResponseEntity, Shopping, ShoppingResponseEntity} from '../../model/shopping';
 import {Messages} from '../../config/messages';
-import {Utils} from '../utils/utils';
 import {AppRoutes} from '../../config/routes';
 import {map} from 'rxjs/operators';
 
@@ -72,39 +71,6 @@ export class ShoppingService {
                     () => {
                         this.appService.dismissLoading(loading).then();
                     });
-        });
-    }
-
-    /**
-     * @method addOneShoppingToCart
-     * @param shopping
-     */
-    public async addOneShoppingToCart(shopping: Shopping) {
-        this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
-
-            const data = Utils.getFormData({
-                'account': shopping.account,
-                'client': shopping.client,
-                'service': shopping.service
-            });
-
-            this.appService.post(
-                `es/api/v1/shopping/${this.appService.userType()}/${this.appService.secvars.user.id}/recharge/${shopping.recharge.id}/create`, data
-            ).subscribe(
-                (resp: Shopping[]) => {
-                    this.appService.shvars.setAllShoppings(resp);
-                },
-                (err) => {
-                    let error = err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER;
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(error).then();
-                    });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
-                });
         });
     }
 

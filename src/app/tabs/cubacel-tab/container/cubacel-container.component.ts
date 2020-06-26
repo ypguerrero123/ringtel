@@ -44,7 +44,7 @@ export class CubacelContainerComponent implements OnInit {
     /**
      * @var number
      */
-    private action: number = 1;
+    public action: number = 1;
 
     /**
      * Constructor CubacelContainerComponent

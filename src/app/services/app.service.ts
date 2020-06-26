@@ -28,7 +28,6 @@ import {TransferService} from './transfer/transfer.service';
 import {ContactInterface} from '../model/contact';
 import {AgentsVars} from './agents/agents.vars';
 import {AgentsService} from './agents/agents.service';
-import {ContactVars} from './native-plugins/contact.vars';
 
 @Injectable({
     providedIn: 'root'
@@ -53,8 +52,7 @@ export class AppService {
                 public stvars: StripeVars,
                 public profvars: ProfileVars,
                 public transfvars: TransferVars,
-                public agentsVars: AgentsVars,
-                public contactVars: ContactVars
+                public agentsVars: AgentsVars
     ) {
     }
 
@@ -338,22 +336,6 @@ export class AppService {
     }
 
     /**
-     *@method sendOneShopping
-     * @param shopping
-     */
-    public async sendOneShopping(shopping: Shopping) {
-        await (new OperationService(this)).sendOneShopping(shopping);
-    }
-
-    /**
-     * @method sendOneShoppingToPreSale
-     * @param shopping
-     */
-    public async sendOneShoppingToPreSale(shopping: Shopping) {
-        await (new OperationService(this)).sendOneShoppingToPreSale(shopping);
-    }
-
-    /**
      * @method getAllRechargesByServiceSlug
      * @param slug
      */
@@ -391,21 +373,12 @@ export class AppService {
     }
 
     /**
-     * @method addOneShoppingToCart
-     * @param shopping
-     */
-    public async addOneShoppingToCart(shopping: Shopping) {
-        await (new ShoppingService(this)).addOneShoppingToCart(shopping);
-    }
-
-    /**
      * @method removeOneShopping
      * @param shopping
      */
     public async removeOneShopping(shopping: Shopping) {
         await (new ShoppingService(this)).removeOneShopping(shopping);
     }
-
 
     //------------------COMMONS METHDOS API-------------------------//
 

@@ -20,12 +20,15 @@
 
         </ion-buttons>
 
-        <ion-title *ngIf="title != 'Cubacel' && title != 'Nauta'">{{title}}</ion-title>
+        <ion-title *ngIf="title != 'Cubacel' && title != 'Nauta' && title != 'Long'">{{title}}</ion-title>
         <ion-title *ngIf="title == 'Cubacel'">
             <ion-img class="logo_service" src="../../assets/images/services/cubacel_logo.svg"></ion-img>
         </ion-title>
         <ion-title *ngIf="title == 'Nauta'">
             <ion-img class="logo_service" src="../../assets/images/services/nauta.png"></ion-img>
+        </ion-title>
+        <ion-title *ngIf="title == 'Long'">
+            <ion-img class="logo_service" src="../../assets/images/services/long_distance.png"></ion-img>
         </ion-title>
 
         <ion-buttons slot="primary">

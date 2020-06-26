@@ -6,7 +6,7 @@
                loading="{{ (loadingMethods || loadingCharges) ? '' : false }}"></app-empty>
 
     <div *ngIf="!loadingMethods && !loadingCharges && chargesTableDataSource.data.length > 0">
-        <mat-tab-group dynamicHeight>
+        <mat-tab-group dynamicHeight selectedIndex="0">
             <mat-tab label="Últimas transacciones">
                 <div class="mat-elevation-z8 shadow-lg">
                     <table [dataSource]="chargesTableDataSource" mat-table>

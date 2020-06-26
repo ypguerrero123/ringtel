@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActionSheetController, LoadingController} from '@ionic/angular';
-import {MatStepper} from '@angular/material';
 import {AppService} from '../services/app.service';
 import {Utils} from '../services/utils/utils';
 import {Messages} from '../config/messages';
@@ -18,7 +17,6 @@ declare var Stripe;
 })
 export class StripePage implements OnInit {
 
-    @ViewChild('stepper', {static: false}) stepper: MatStepper;
     /**
      * @var string
      */

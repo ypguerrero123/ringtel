@@ -44,19 +44,21 @@
             </div>
         </ion-card-content>
     </ion-card>
-    <ion-toolbar class="pl-3 pr-3">
+    <ion-toolbar class="pl-3 pr-3" *ngIf="!appService.isPostSale()">
         <ion-item class="ion-no-padding">
             <ion-label>Fecha inicio</ion-label>
             <ion-datetime [pickerOptions]="customPickerOptionsStart"
                           max="{{endDate|date: 'yyyy-MM-dd'}}" min="1990-04-16"
-                          monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic" placeholder="Seleccione una fecha"
+                          monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
+                          placeholder="Seleccione una fecha"
                           value="{{startDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
         </ion-item>
         <ion-item class="ion-no-padding">
             <ion-label>Fecha fin</ion-label>
             <ion-datetime [pickerOptions]="customPickerOptionsEnd"
                           max="{{today|date: 'yyyy-MM-dd'}}"
-                          min="{{startDate|date: 'yyyy-MM-dd'}}" monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
+                          min="{{startDate|date: 'yyyy-MM-dd'}}"
+                          monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
                           placeholder="Seleccione una fecha" value="{{endDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
         </ion-item>
     </ion-toolbar>
