@@ -6,8 +6,8 @@ import {IonicModule} from '@ionic/angular';
 
 import {StripePageRoutingModule} from './stripe-routing.module';
 
-import {StripePage} from './stripe.page';
-import {ToolbarModule} from '../includes/toolbar/toolbar.module';
+import {StripePage} from './component/stripe.page';
+import {ToolbarModule} from '../shared/component/toolbar-page/toolbar.module';
 import {CardModule} from 'ngx-card';
 import {MaterialModule} from '../material.module';
 

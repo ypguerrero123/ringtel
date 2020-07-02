@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {RecoveryPage} from './recovery.page';
+import {RecoveryPage} from './component/recovery.page';
 
 const routes: Routes = [
     {

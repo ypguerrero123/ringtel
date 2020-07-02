@@ -1,0 +1,86 @@
+<app-toolbar active="sales" title="Editar precios y ventas"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage="{{profileSalesService.appService.appRoutes.APP_EDIT_SALES}}"></app-refresh>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <ion-item class="ion-no-padding z-index-0">
+                <ion-avatar slot="start">
+                    <ion-img src="../../assets/images/services/info.svg"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                    <h2>Info</h2>
+                    <p>Costos de servicios proporcionados <br/> en su perfil.</p>
+                </ion-label>
+            </ion-item>
+            <div class="row text-center">
+                <div class="col-6 border-right py-3">
+                    <div class="h4 mb-0 text-primary">
+                        ${{profileSalesService.appService.user.sale_price_cubacel|number}}</div>
+                    <span class="small text-gray">Costo Cubacel</span>
+                </div>
+                <div class="col-6 py-3">
+                    <div class="h4 mb-0 text-success">
+                        ${{profileSalesService.appService.user.sale_price_nauta|number}}</div>
+                    <span class="small text-gray">Costo Nauta</span>
+                </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <form [formGroup]="saleForm">
+
+                <div class="form-group">
+                    <ion-label class="required">
+                        Precio de venta cubacel:
+                    </ion-label>
+                    <ion-input [class.error-input]="(!formControl.sellingCostCubacel.valid && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)) || profileSalesService.errorPath == 'sellingCostCubacel'" autocomplete="off" formControlName="sellingCostCubacel"
+                               placeholder="Ingrese precio de venta cubacel" required
+                               type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.sellingCostCubacel.errors?.required && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)"
+                          class="error">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span *ngIf="formControl.sellingCostCubacel.errors?.pattern && (formControl.sellingCostCubacel.dirty || formControl.sellingCostCubacel.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="profileSalesService.errorMessage && profileSalesService.errorPath == 'sellingCostCubacel'"
+                          class="error">
+                            {{profileSalesService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Precio de venta nauta:
+                    </ion-label>
+                    <ion-input [class.error-input]="(!formControl.sellingCostNauta.valid && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)) || profileSalesService.errorPath == 'sellingCostNauta'" autocomplete="off" formControlName="sellingCostNauta"
+                               placeholder="Ingrese precio de venta nauta" required
+                               type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.sellingCostNauta.errors?.required && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)"
+                          class="error">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span *ngIf="formControl.sellingCostNauta.errors?.pattern && (formControl.sellingCostNauta.dirty || formControl.sellingCostNauta.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="profileSalesService.errorMessage && profileSalesService.errorPath == 'sellingCostNauta'"
+                          class="error">
+                            {{profileSalesService.errorMessage}}
+                        </span>
+                </div>
+
+                <div class="form-group">
+                    <ion-button color="primary" expand="block"  (click)="onSubmit()">
+                        Actualizar datos
+                    </ion-button>
+                </div>
+
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

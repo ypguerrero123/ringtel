@@ -6,8 +6,8 @@ import {IonicModule} from '@ionic/angular';
 
 import {SalesPageRoutingModule} from './sales-routing.module';
 
-import {SalesPage} from './sales.page';
-import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
+import {SalesPage} from './component/sales.page';
+import {ToolbarModule} from '../../shared/component/toolbar-page/toolbar.module';
 
 @NgModule({
     imports: [

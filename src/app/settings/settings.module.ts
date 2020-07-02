@@ -6,8 +6,8 @@ import {IonicModule} from '@ionic/angular';
 
 import {SettingsPageRoutingModule} from './settings-routing.module';
 
-import {SettingsPage} from './settings.page';
-import {ToolbarModule} from '../includes/toolbar/toolbar.module';
+import {SettingsPage} from './component/settings.page';
+import {ToolbarModule} from '../shared/component/toolbar-page/toolbar.module';
 
 @NgModule({
     imports: [

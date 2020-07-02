@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {StripePage} from './stripe.page';
+import {StripePage} from './component/stripe.page';
 
 const routes: Routes = [
     {

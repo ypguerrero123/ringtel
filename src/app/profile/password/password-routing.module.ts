@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {PasswordPage} from './password.page';
+import {PasswordPage} from './component/password.page';
 
 const routes: Routes = [
     {

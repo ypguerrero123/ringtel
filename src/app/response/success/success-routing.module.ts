@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {SuccessPage} from './success.page';
+import {SuccessPage} from './component/success.page';
 
 const routes: Routes = [
     {

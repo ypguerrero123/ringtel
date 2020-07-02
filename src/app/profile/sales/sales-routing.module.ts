@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {SalesPage} from './sales.page';
+import {SalesPage} from './component/sales.page';
 
 const routes: Routes = [
     {

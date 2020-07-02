@@ -1775,11 +1775,11 @@ var card =
             };
 
             /**
-             * is.empty
-             * Test if `value` is empty.
+             * is.empty-page
+             * Test if `value` is empty-page.
              *
              * @param {Mixed} value value to test
-             * @return {Boolean} true if `value` is empty, false otherwise
+             * @return {Boolean} true if `value` is empty-page, false otherwise
              * @api public
              */
 
@@ -1953,11 +1953,11 @@ var card =
             };
 
             /**
-             * is.arguments.empty
-             * Test if `value` is an empty arguments object.
+             * is.arguments.empty-page
+             * Test if `value` is an empty-page arguments object.
              *
              * @param {Mixed} value value to test
-             * @return {Boolean} true if `value` is an empty arguments object, false otherwise
+             * @return {Boolean} true if `value` is an empty-page arguments object, false otherwise
              * @api public
              */
             is.args.empty = function (value) {
@@ -1965,11 +1965,11 @@ var card =
             };
 
             /**
-             * is.array.empty
-             * Test if `value` is an empty array.
+             * is.array.empty-page
+             * Test if `value` is an empty-page array.
              *
              * @param {Mixed} value value to test
-             * @return {Boolean} true if `value` is an empty array, false otherwise
+             * @return {Boolean} true if `value` is an empty-page array, false otherwise
              * @api public
              */
             is.array.empty = function (value) {

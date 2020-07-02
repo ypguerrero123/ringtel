@@ -7,9 +7,9 @@ import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Router} from '@angular/router';
-import {AppService} from './services/app.service';
-import {Constants} from './config/constants';
-import {Messages} from './config/messages';
+import {AppService} from './shared/service/app.service';
+import {Constants} from './shared/config/constants';
+import {Messages} from './shared/config/messages';
 
 @Component({
     selector: 'app-root',

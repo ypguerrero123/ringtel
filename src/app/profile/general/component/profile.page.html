@@ -1,0 +1,103 @@
+<app-toolbar active="profile" title="Editar perfil"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage="{{profileGeneralService.appService.appRoutes.APP_EDIT_PROFILE}}"></app-refresh>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <ion-item class="ion-no-padding z-index-0" lines="none">
+                <ion-avatar slot="start">
+                    <ion-img src="../../assets/images/services/info.svg"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                    <h2>Info</h2>
+                    <h3>Recuperarción de contraseña</h3>
+                    <p>Será a travez del correo o teléfono <br/> proporcionados en su perfil.</p>
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+
+                <div class="form-group">
+                    <ion-label class="required">
+                        Nombre:
+                    </ion-label>
+                    <ion-input [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || profileGeneralService.errorPath == 'name'" autocomplete="off" formControlName="name"
+                               maxlength="50" placeholder="Entre su nombre" required
+                               type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.name.errors?.required && (formControl.name.dirty || formControl.name.touched)"
+                          class="error">
+                            Nombre obligatorio.
+                        </span>
+                    <span *ngIf="formControl.name.errors?.minlength && (formControl.name.dirty || formControl.name.touched)"
+                          class="error">
+                            Nombre de 2 caracteres mínimo.
+                        </span>
+                    <span *ngIf="profileGeneralService.errorMessage && profileGeneralService.errorPath == 'name'"
+                          class="error">
+                            {{profileGeneralService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Correo:
+                    </ion-label>
+                    <ion-input [class.error-input]="(!formControl.email.valid && (formControl.email.dirty || formControl.email.touched)) || profileGeneralService.errorPath == 'email'" aria-describedby="emailHelp" autocomplete="off" formControlName="email"
+                               maxlength="50" placeholder="Entre su dirección de correo" required
+                               type="email"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.email.errors?.required && (formControl.email.dirty || formControl.email.touched)"
+                          class="error">
+                            Correo obligatorio.
+                        </span>
+                    <span *ngIf="formControl.email.errors?.email && (formControl.email.dirty || formControl.email.touched)"
+                          class="error">
+                            Correo no válido.
+                        </span>
+                    <span *ngIf="profileGeneralService.errorMessage && profileGeneralService.errorPath == 'email'"
+                          class="error">
+                            {{profileGeneralService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">
+                        Teléfono:
+                    </ion-label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button (click)="profileGeneralService.appService.choicePhoneCode()" class="btn btn-outline-secondary"
+                                    type="button">
+                                {{profileGeneralService.appService.ccodePhoneValue}}</button>
+                        </div>
+                        <ion-input (keyup.enter)="onSubmit()" [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || profileGeneralService.errorPath == 'phone'" autocomplete="off"
+                                   formControlName="phone" maxlength="13" placeholder="Entre su número de celular"
+                                   required
+                                   type="tel"></ion-input>
+                    </div>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.phone.errors?.required && (formControl.phone.dirty || formControl.phone.touched)"
+                          class="error">
+                            Teléfono obligatorio.
+                        </span>
+                    <span *ngIf="formControl.phone.errors?.pattern && (formControl.phone.dirty || formControl.phone.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="profileGeneralService.errorMessage && profileGeneralService.errorPath == 'phone'"
+                          class="error">
+                            {{profileGeneralService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-button color="primary" expand="block" (click)="onSubmit()">
+                        Actualizar datos
+                    </ion-button>
+                </div>
+
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-content scroll-y="true">
+    <div class="p-4 mt-4">
+        <ion-card class="shadow-lg" mode="md">
+            <ion-img class="img-gif" src="../../assets/images/security/icon_logo.png"></ion-img>
+            <ion-card-content>
+                <form [formGroup]="loginForm">
+
+                    <div class="form-group">
+                        <ion-label class="required">
+                            Correo:
+                        </ion-label>
+                        <ion-input autocomplete="off" formControlName="username"
+                                   placeholder="Entre su dirección de correo"
+                                   type="email"></ion-input>
+                    </div>
+
+                    <div class="form-group">
+                        <ion-label class="required">
+                            Contraseña:
+                        </ion-label>
+                        <ion-input (keyup.enter)="onSubmit()" autocomplete="off" formControlName="password"
+                                   placeholder="Entre su contraseña" type="password"></ion-input>
+                    </div>
+
+                    <ion-text class="ion-text-left">
+                        <p (click)="loginService.appService.navigateToUrl(loginService.appService.appRoutes.APP_RECOVERY)"
+                           class="underline mt-2">
+                            ¿Olvidó su contraseña?
+                        </p>
+                    </ion-text>
+
+                    <div class="form-group mt-4 mb-4">
+                        <ion-button color="primary" expand="block" (click)="onSubmit()">
+                            Acceder
+                        </ion-button>
+                    </div>
+
+                    <ion-text class="ion-text-center">
+                        <p>¿Aún no tiene cuenta creada?
+                            <small (click)="loginService.appService.navigateToUrl(loginService.appService.appRoutes.APP_REGISTER)"
+                                   class="underline underline-small">
+                                Registrarse
+                            </small>
+                        </p>
+                    </ion-text>
+
+
+                </form>
+
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>
+

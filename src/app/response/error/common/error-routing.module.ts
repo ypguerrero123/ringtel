@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {ErrorPage} from './error.page';
+import {ErrorPage} from './component/error.page';
 
 const routes: Routes = [
     {

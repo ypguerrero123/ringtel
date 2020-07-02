@@ -1,0 +1,167 @@
+<app-toolbar active="agent-edit" title="Editar usuario"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage="{{agentEditService.appService.appRoutes.APP_AGENTS_EDIT}}"></app-refresh>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <form [formGroup]="agentForm">
+
+                <div class="form-group">
+                    <ion-label class="required">Nombre:</ion-label>
+                    <ion-input
+                            [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || agentEditService.errorPath == 'name'"
+                            autocomplete="off" formControlName="name"
+                            maxlength="50" placeholder="Entre su nombre" required
+                            type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.name.errors?.required && (formControl.name.dirty || formControl.name.touched)"
+                          class="error">
+                            Nombre obligatorio.
+                        </span>
+                    <span *ngIf="formControl.name.errors?.minlength && (formControl.name.dirty || formControl.name.touched)"
+                          class="error">
+                            Nombre de 2 caracteres mínimo.
+                        </span>
+                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'name'"
+                          class="error">
+                            {{agentEditService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">Correo:</ion-label>
+                    <ion-input
+                            [class.error-input]="(!formControl.email.valid && (formControl.email.dirty || formControl.email.touched)) || agentEditService.errorPath == 'email'"
+                            aria-describedby="emailHelp" autocomplete="off" formControlName="email"
+                            maxlength="50" placeholder="Ingrese la dirección de correo" required
+                            type="email"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.email.errors?.required && (formControl.email.dirty || formControl.email.touched)"
+                          class="error">
+                            Correo obligatorio.
+                        </span>
+                    <span *ngIf="formControl.email.errors?.email && (formControl.email.dirty || formControl.email.touched)"
+                          class="error">
+                            Correo no válido.
+                        </span>
+                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'email'"
+                          class="error">
+                            {{agentEditService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">Teléfono:</ion-label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button (click)="agentEditService.appService.choicePhoneCode()"
+                                    class="btn btn-outline-secondary"
+                                    type="button">
+                                {{agentEditService.appService.ccodePhoneValue}}</button>
+                        </div>
+                        <ion-input
+                                [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || agentEditService.errorPath == 'phone'"
+                                autocomplete="off" formControlName="phone"
+                                maxlength="13" placeholder="Ingrese el número de celular" required
+                                type="tel"></ion-input>
+                    </div>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.phone.errors?.required && (formControl.phone.dirty || formControl.phone.touched)"
+                          class="error">
+                            Teléfono obligatorio.
+                        </span>
+                    <span *ngIf="formControl.phone.errors?.pattern && (formControl.phone.dirty || formControl.phone.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'phone'"
+                          class="error">
+                            {{agentEditService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">Balance:</ion-label>
+                    <ion-input (keyup.enter)="onSubmit()"
+                               [class.error-input]="(!formControl.balance.valid && (formControl.balance.dirty || formControl.balance.touched)) || agentEditService.errorPath == 'balance'"
+                               autocomplete="off"
+                               formControlName="balance" placeholder="Ingrese el balance" required
+                               type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.balance.errors?.required && (formControl.balance.dirty || formControl.balance.touched)"
+                          class="error">
+                            Balance obligatorio.
+                        </span>
+                    <span *ngIf="formControl.balance.errors?.pattern && (formControl.balance.dirty || formControl.balance.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'balance'"
+                          class="error">
+                            {{agentEditService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">Costo cubacel:</ion-label>
+                    <ion-input
+                            [class.error-input]="(!formControl.salePriceCubacel.valid && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)) || agentEditService.errorPath == 'salePriceCubacel'"
+                            autocomplete="off"
+                            formControlName="salePriceCubacel"
+                            placeholder="Ingrese costo cubacel" required
+                            type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.salePriceCubacel.errors?.required && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)"
+                          class="error">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span *ngIf="formControl.salePriceCubacel.errors?.pattern && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'salePriceCubacel'"
+                          class="error">
+                            {{agentEditService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="required">Costo nauta:</ion-label>
+                    <ion-input
+                            [class.error-input]="(!formControl.salePriceNauta.valid && (formControl.salePriceNauta.dirty || formControl.salePriceNauta.touched)) || agentEditService.errorPath == 'salePriceNauta'"
+                            autocomplete="off"
+                            formControlName="salePriceNauta"
+                            placeholder="Ingrese costo nauta" required
+                            type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.salePriceNauta.errors?.required && (formControl.salePriceNauta.dirty || formControl.salePriceNauta.touched)"
+                          class="error">
+                            Precio de venta obligatorio.
+                        </span>
+                    <span *ngIf="formControl.salePriceNauta.errors?.pattern && (formControl.salePriceNauta.dirty || formControl.salePriceNauta.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'salePriceNauta'"
+                          class="error">
+                            {{agentEditService.errorMessage}}
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-label class="">Contraseña:</ion-label>
+                    <ion-input (keyup.enter)="onSubmit()"
+                               [class.error-input]="!formControl.password.valid && (formControl.password.dirty || formControl.password.touched)"
+                               autocomplete="off" formControlName="password"
+                               maxlength="20" placeholder="Entre la contraseña"
+                               type="password"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.password.errors?.minlength && (formControl.password.dirty || formControl.password.touched)"
+                          class="error">
+                            Contrseña de 8 caracteres mínimo.
+                        </span>
+                </div>
+                <div class="form-group">
+                    <ion-button color="primary" expand="block" (click)="onSubmit()">
+                        Actualizar datos
+                    </ion-button>
+                </div>
+
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

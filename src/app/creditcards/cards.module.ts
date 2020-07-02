@@ -6,10 +6,10 @@ import {IonicModule} from '@ionic/angular';
 
 import {CardsPageRoutingModule} from './cards-routing.module';
 
-import {CardsPage} from './cards.page';
-import {ToolbarModule} from '../includes/toolbar/toolbar.module';
+import {CardsPage} from './component/cards.page';
+import {ToolbarModule} from '../shared/component/toolbar-page/toolbar.module';
 import {MaterialModule} from '../material.module';
-import {EmptyComponent} from '../includes/empty/empty.component';
+import {EmptyComponent} from '../shared/component/empty-page/empty.component';
 
 @NgModule({
     imports: [

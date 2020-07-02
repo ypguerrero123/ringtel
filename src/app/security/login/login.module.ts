@@ -6,7 +6,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {LoginPageRoutingModule} from './login-routing.module';
 
-import {LoginPage} from './login.page';
+import {LoginPage} from './component/login.page';
 import {MaterialModule} from '../../material.module';
 
 @NgModule({

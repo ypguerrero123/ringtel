@@ -6,8 +6,8 @@ import {IonicModule} from '@ionic/angular';
 
 import {CreatePageRoutingModule} from './create-routing.module';
 
-import {CreatePage} from './create.page';
-import {ToolbarModule} from '../../includes/toolbar/toolbar.module';
+import {CreatePage} from './component/create.page';
+import {ToolbarModule} from '../../shared/component/toolbar-page/toolbar.module';
 
 @NgModule({
     imports: [

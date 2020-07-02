@@ -1,0 +1,14 @@
+ion-content {
+  --background: url('../../../../../assets/images/cards/error.gif') no-repeat center/cover fixed;
+}
+
+h2 {
+  color: #fff !important;
+  font-weight: 300;
+}
+
+.h2-bottom {
+  position: absolute !important;
+  bottom: 0 !important;
+  margin-bottom: 4rem !important;
+}

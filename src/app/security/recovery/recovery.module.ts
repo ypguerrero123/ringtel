@@ -6,7 +6,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {RecoveryPageRoutingModule} from './recovery-routing.module';
 
-import {RecoveryPage} from './recovery.page';
+import {RecoveryPage} from './component/recovery.page';
 
 @NgModule({
     imports: [

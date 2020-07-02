@@ -6,7 +6,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {SuccessPageRoutingModule} from './success-routing.module';
 
-import {SuccessPage} from './success.page';
+import {SuccessPage} from './component/success.page';
 
 @NgModule({
     imports: [

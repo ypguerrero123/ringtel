@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from './guards/auth.guard';
-import {AppRoutes} from './config/routes';
+import {AuthGuard} from './shared/guards/auth.guard';
+import {AppRoutes} from './shared/config/routes';
 
 const routes: Routes = [
     {
@@ -28,7 +28,7 @@ const routes: Routes = [
     //---------RECHARGES APPLICATION-----------//
     {
         path: 'application',
-        loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+        loadChildren: () => import('./home/tabs.module').then(m => m.TabsPageModule),
         canActivate: [AuthGuard]
     },
     //---------OTHERS ROUTES-------------------------//
@@ -45,6 +45,11 @@ const routes: Routes = [
     {
         path: AppRoutes.APP_RECHARGE_DETAIL,
         loadChildren: () => import('./operation/show/show.module').then(m => m.OperationPageModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: AppRoutes.APP_RECHARGE_PROCESSING_PENDING,
+        loadChildren: () => import('./operation/processing-pending/processing-pending.module').then(m => m.ProcessingPendingPageModule),
         canActivate: [AuthGuard]
     },
     {

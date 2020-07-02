@@ -6,7 +6,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {ErrorRoutingModule} from './error-routing.module';
 
-import {ErrorPage} from './error.page';
+import {ErrorPage} from './component/error.page';
 
 @NgModule({
     imports: [

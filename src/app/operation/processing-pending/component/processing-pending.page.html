@@ -1,0 +1,89 @@
+<app-toolbar active="recharges" title="Recargas pendientes"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh
+            routePage="{{processingPendingService.appService.appRoutes.APP_RECHARGE_PROCESSING_PENDING}}"></app-refresh>
+    <app-empty empty="{{ dataSourcePending.data.length == 0 && dataSourceProcessing.data.length == 0 }}"
+               loading="{{ loadingData ? '' : loadingData }}"></app-empty>
+
+    <div *ngIf="dataSourcePending.data.length > 0 || dataSourceProcessing.data.length > 0 && !loadingData">
+
+        <mat-tab-group dynamicHeight selectedIndex="0">
+            <mat-tab label="Pendientes">
+                <div class="mat-elevation-z8 shadow-lg">
+                    <ion-searchbar (keyup)="applyFilterPending($event)" animated debounce="500"
+                                   placeholder="Filtrar recargas"></ion-searchbar>
+                    <table [dataSource]="dataSourcePending" mat-table>
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="data">
+                            <th *matHeaderCellDef mat-header-cell> Datos de la recarga</th>
+                            <td *matCellDef="let element" mat-cell>
+                                Cliente: {{element.client.length > 15 ? element.client.slice(0, 15) : element.client}}
+                                <br/>
+                                Cuenta: {{element.accountToRecharge.length > 10 ? element.accountToRecharge.slice(0, 10) : element.accountToRecharge}}
+                                <br/>
+                                Servicio: {{(element.service|uppercase) == 'CUBACEL_RECHARGE' ? 'Cubacel' : ((element.service|uppercase) == 'NAUTA_RECHARGE' ? 'Nauta' : 'Larga')}}
+                                <br/>
+                                Valor: ${{element.amount}}<br/>
+                                Fecha: {{element.dateCreated|date: "dd-MM-yyyy hh:mm:ss a"}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th *matHeaderCellDef mat-header-cell> Estado</th>
+                            <td *matCellDef="let element" mat-cell>
+                                <ion-badge
+                                        color="{{element.status == 'COMPLETED' ? 'primary' : (element.status == 'FAILED' ? 'danger' : 'light')}}">
+                                    {{element.status == 'COMPLETED' ? 'Completado' : (element.status == 'FAILED' ? 'Fallido' : (element.status == 'PENDING' ? 'Pendiente' : 'Procesando')) }}
+                                </ion-badge>
+                                <hr/>
+                                <ion-icon name="trash-outline" color="danger"
+                                          (click)="processingPendingService.deletePending(element)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                    </table>
+                </div>
+            </mat-tab>
+            <mat-tab label="Recargas en proceso">
+                <div class="mat-elevation-z8 shadow-lg">
+                    <ion-searchbar (keyup)="applyFilterProcessing($event)" animated debounce="500"
+                                   placeholder="Filtrar recargas"></ion-searchbar>
+                    <table [dataSource]="dataSourceProcessing" mat-table>
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="data">
+                            <th *matHeaderCellDef mat-header-cell> Datos de la recarga</th>
+                            <td *matCellDef="let element" mat-cell>
+                                Cliente: {{element.client.length > 15 ? element.client.slice(0, 15) : element.client}}
+                                <br/>
+                                Cuenta: {{element.accountToRecharge.length > 10 ? element.accountToRecharge.slice(0, 10) : element.accountToRecharge}}
+                                <br/>
+                                Servicio: {{(element.service|uppercase) == 'CUBACEL_RECHARGE' ? 'Cubacel' : ((element.service|uppercase) == 'NAUTA_RECHARGE' ? 'Nauta' : 'Larga')}}
+                                <br/>
+                                Valor: ${{element.amount}}<br/>
+                                Fecha: {{element.dateCreated|date: "dd-MM-yyyy hh:mm:ss a"}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th *matHeaderCellDef mat-header-cell> Estado</th>
+                            <td *matCellDef="let element" mat-cell>
+                                <ion-badge
+                                        color="{{element.status == 'COMPLETED' ? 'primary' : (element.status == 'FAILED' ? 'danger' : 'light')}}">
+                                    {{element.status == 'COMPLETED' ? 'Completado' : (element.status == 'FAILED' ? 'Fallido' : (element.status == 'PENDING' ? 'Pendiente' : 'Procesando')) }}
+                                </ion-badge>
+                            </td>
+                        </ng-container>
+
+                        <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                    </table>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+    </div>
+
+</ion-content>

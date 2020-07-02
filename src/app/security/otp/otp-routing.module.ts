@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {OtpPage} from './otp.page';
+import {OtpPage} from './component/otp.page';
 
 const routes: Routes = [
     {

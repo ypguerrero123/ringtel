@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {ShowPage} from './show.page';
+import {ShowPage} from './component/show.page';
 
 const routes: Routes = [
     {
