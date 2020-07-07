@@ -7,7 +7,6 @@ import {ContactInterface} from '../../../shared/model/contact';
 import {Validations} from '../../../shared/config/validations';
 import {RechargeService} from '../../service/recharge.service';
 import {Constants} from '../../../shared/config/constants';
-import {Chooser} from '@ionic-native/chooser/ngx';
 import {IonInput} from '@ionic/angular';
 
 @Component({
@@ -50,10 +49,9 @@ export class CubacelContainerComponent implements OnInit {
     /**
      * Constructor
      * @param formBuilder
-     * @param chooser
      * @param rechargeService
      */
-    constructor(private formBuilder: FormBuilder, private chooser: Chooser, public rechargeService: RechargeService) {
+    constructor(private formBuilder: FormBuilder, public rechargeService: RechargeService) {
     }
 
     /**
