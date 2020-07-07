@@ -4,10 +4,11 @@ import {Messages} from '../../../shared/config/messages';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {ContactInterface} from '../../../shared/model/contact';
-import {FileValidator} from 'ngx-material-file-input';
 import {Validations} from '../../../shared/config/validations';
 import {RechargeService} from '../../service/recharge.service';
 import {Constants} from '../../../shared/config/constants';
+import {Chooser} from '@ionic-native/chooser/ngx';
+import {IonInput} from '@ionic/angular';
 
 @Component({
     selector: 'app-cubacel-container',
@@ -21,10 +22,6 @@ export class CubacelContainerComponent implements OnInit {
     public cubacelForm: FormGroup;
     public cubacelFormFile: FormGroup;
 
-    /**
-     * In this example, it's 100 MB (=100 * 2 ** 20).
-     */
-    readonly maxSizeFile = 104857600;
     /**
      * @var string
      */
@@ -45,13 +42,18 @@ export class CubacelContainerComponent implements OnInit {
      * @var number
      */
     public action: number = 1;
+    /**
+     * @var File
+     */
+    private file: File;
 
     /**
      * Constructor
      * @param formBuilder
+     * @param chooser
      * @param rechargeService
      */
-    constructor(private formBuilder: FormBuilder, public rechargeService: RechargeService) {
+    constructor(private formBuilder: FormBuilder, private chooser: Chooser, public rechargeService: RechargeService) {
     }
 
     /**
@@ -77,7 +79,6 @@ export class CubacelContainerComponent implements OnInit {
         this.cubacelFormFile = this.formBuilder.group({
             inputFile: ['', [
                 Validators.required,
-                FileValidator.maxContentSize(this.maxSizeFile),
                 Validations.fileExtensionValidator('txt,csv')]
             ],
             recharge: ['', [Validators.required]],
@@ -98,20 +99,24 @@ export class CubacelContainerComponent implements OnInit {
      * @method onSubmit
      */
     public async onSubmit() {
-        if (this.cubacelForm.valid) {
-            return this.rechargeService.confirmShoppingData(this.cubacelForm, this.action, Messages.CUBACEl_LOWER).then();
+        if ((this.rechargeService.allSalesActive && this.rechargeService.appService.isPostSale()) || (!this.rechargeService.appService.isPostSale())) {
+            if (this.cubacelForm.valid) {
+                return this.rechargeService.confirmShoppingData(this.cubacelForm, this.action, Messages.CUBACEl_LOWER).then();
+            }
+            return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
         }
-        return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**
      * @method onSubmitFile
      */
     public async onSubmitFile() {
-        if (this.cubacelFormFile.valid) {
-            return this.rechargeService.confirmShoppingDataFile(this.cubacelFormFile, this.action, Messages.CUBACEl_LOWER).then();
+        if ((this.rechargeService.allSalesActive && this.rechargeService.appService.isPostSale()) || (!this.rechargeService.appService.isPostSale())) {
+            if (this.cubacelFormFile.valid && this.file) {
+                return this.rechargeService.confirmShoppingDataFile(this.file, this.cubacelFormFile.value.recharge, this.action, Messages.CUBACEl_LOWER).then();
+            }
+            return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
         }
-        return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**
@@ -128,12 +133,36 @@ export class CubacelContainerComponent implements OnInit {
     }
 
     /**
+     * @method chooserFile
+     * @param $event
+     */
+    public async chooserFile($event: CustomEvent) {
+        this.file = $event.target['firstChild'].files[0];
+        if (this.file) {
+            this.cubacelFormFile.setValue({
+                inputFile: this.file.name,
+                recharge: this.cubacelFormFile.value.recharge
+            });
+            this.formControlFile.inputFile.markAsDirty();
+        }
+    }
+
+    /**
+     * @method activeEventGetFile
+     * @param inputHiddenFile
+     */
+    public activeEventGetFile(inputHiddenFile: IonInput) {
+        inputHiddenFile.getInputElement().then((input: HTMLInputElement) => {
+            input.click();
+        });
+    }
+
+    /**
      * @method setAction
      * @param value
      */
     public setAction(value: number) {
         this.action = value;
-
         switch (value) {
             case 3:
                 this.buttonSubmitText = Messages.RECHARGE_IN_PROMOTION;

@@ -18,6 +18,7 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import {DatePipe} from '@angular/common';
+import {Chooser} from '@ionic-native/chooser/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -40,6 +41,7 @@ import {DatePipe} from '@angular/common';
         Network,
         FirebaseX,
         DatePipe,
+        Chooser,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

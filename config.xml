@@ -24,10 +24,12 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="WKWebViewOnly" value="true" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <engine name="android" spec="^8.1.0" />
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
+            <application android:largeHeap="true" />
         </edit-config>
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <allow-intent href="market:*" />
@@ -112,7 +114,7 @@
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <plugin name="cordova-plugin-device" spec="2.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
-    <plugin name="cordova-plugin-firebasex" spec="9.1.2-cli">
+    <plugin name="cordova-plugin-firebasex" spec="10.1.0-cli">
         <variable name="IOS_STRIP_DEBUG" value="true" />
         <variable name="FIREBASE_ANALYTICS_COLLECTION_ENABLED" value="false" />
         <variable name="FIREBASE_PERFORMANCE_COLLECTION_ENABLED" value="false" />

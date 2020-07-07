@@ -18,7 +18,9 @@ export class Messages {
     public static readonly CREDIT_NOT_VALID = 'Crédito insuficiente.';
     public static readonly FORM_NOT_VALID = 'Fomulario incompleto.';
     public static readonly FORM_FILE_NOT_VALID = 'El archivo contiene datos no válidos.';
+    public static readonly FORM_FILE_PERMISSION_DENIED = 'No abrir archivos de esa dirección.';
     public static readonly FORM_FILE_EMPTY = 'El archivo esta vacío.';
+    public static readonly FORM_FILE_MAX_SIZE = 'El archivo no puede exceder los 10Mb.';
     public static readonly FORM_MAX_FILE_100 = 'El archivo no puede contener mas de 100 elementos.';
 
     public static readonly SEND_TO_SHOPPING_CART = 'Enviar al carrito';

@@ -241,7 +241,7 @@ export class AppService {
             message: message,
             position: 'top',
             color: color,
-            duration: 2000,
+            duration: 5000,
             buttons: [
                 {
                     text: Messages.DONE,

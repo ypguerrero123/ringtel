@@ -9,8 +9,8 @@ export class Validations {
     public static fileExtensionValidator(validExt: string): ValidatorFn {
         return (control: FormControl): { [key: string]: any } | null => {
             let forbidden = true;
-            if (control.value && control.value._fileNames) {
-                const fileExt = control.value._fileNames.split('.').pop();
+            if (control.value) {
+                const fileExt = control.value.split('.').pop();
                 validExt.split(',').forEach(ext => {
                     if (ext.trim() == fileExt) {
                         forbidden = false;

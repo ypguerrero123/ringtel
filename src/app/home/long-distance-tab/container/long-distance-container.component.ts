@@ -39,7 +39,7 @@ export class LongDistanceContainerComponent implements OnInit {
     /**
      * @var number
      */
-    private action: number = 1;
+    public action: number = 1;
 
     /**
      * Constructor LongDistanceContainerComponent
@@ -83,10 +83,12 @@ export class LongDistanceContainerComponent implements OnInit {
      * @method onSubmitVerifyOTP
      */
     public async onSubmit() {
-        if (this.longForm.valid) {
-            return this.rechargeService.confirmShoppingData(this.longForm, this.action, Messages.LONG_DISTANCE_LOWER).then();
+        if ((this.rechargeService.allSalesActive && this.rechargeService.appService.isPostSale()) || (!this.rechargeService.appService.isPostSale())) {
+            if (this.longForm.valid) {
+                return this.rechargeService.confirmShoppingData(this.longForm, this.action, Messages.LONG_DISTANCE_LOWER).then();
+            }
+            return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
         }
-        return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**

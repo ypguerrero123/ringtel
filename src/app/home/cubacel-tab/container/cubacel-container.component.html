@@ -62,13 +62,13 @@
                                                    [value]="item.id">{{item.slug}}</ion-select-option>
                             </ion-select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="(rechargeService.allSalesActive && rechargeService.appService.isPostSale()) || (!rechargeService.appService.isPostSale())">
                             <ion-radio-group value="{{action}}">
                                 <ion-item (click)="setAction(1)" class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="primary" value="1"></ion-radio>
                                     <ion-label>Recargar ahora</ion-label>
                                 </ion-item>
-                                <ion-item (click)="setAction(3)" *ngIf="rechargeService.preSalesActive"
+                                <ion-item (click)="setAction(3)" *ngIf="rechargeService.preSalesActive && rechargeService.appService.isPostSale()"
                                           class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="success" value="3"></ion-radio>
                                     <ion-label>Enviar en preventa</ion-label>
@@ -96,26 +96,26 @@
 
                         <div class="form-group">
                             <ion-label class="required">Seleccionar lote:</ion-label>
-                            <mat-form-field appearance="outline">
-                                <ngx-mat-file-input #inputFile formControlName="inputFile"
-                                                    valuePlaceholder="*.txt, *.csv"
-                                                    [accept]="'.txt'"></ngx-mat-file-input>
-                                <mat-icon matSuffix *ngIf="inputFile.empty">folder</mat-icon>
-                                <button mat-icon-button matSuffix *ngIf="!inputFile.empty"
-                                        (click)="inputFile.clear($event)">
-                                    <mat-icon>clear</mat-icon>
-                                </button>
-                            </mat-form-field>
+                            <div class="input-group">
+                                <ion-input
+                                        [class.error-input]="(!formControlFile.inputFile.valid && (formControlFile.inputFile.dirty || formControlFile.inputFile.touched))"
+                                        formControlName="inputFile" readonly="readonly"
+                                        placeholder="*.txt *.csv"
+                                        type="text"></ion-input>
+                                <div class="input-group-append" (click)="activeEventGetFile(inputHiddenFile)">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        Seleccionar
+                                    </button>
+                                </div>
+                            </div>
+                            <ion-input #inputHiddenFile style="opacity: 0; position: absolute" (ionChange)="chooserFile($event)"
+                                       type="file"></ion-input>
                             <!-- Error messages -->
-                            <span *ngIf="formControlFile.inputFile.errors?.required && (!inputFile.empty)"
+                            <span *ngIf="formControlFile.inputFile.errors?.required && (formControlFile.inputFile.dirty || formControlFile.inputFile.touched)"
                                   class="error">
                                 Debe seleccionar un lote.
                             </span>
-                            <span *ngIf="formControlFile.inputFile.errors?.maxContentSize">
-                                No puede exceder {{formControlFile.inputFile.errors?.maxContentSize.maxSize | byteFormat}}
-                                ({{formControlFile.inputFile.errors?.maxContentSize.actualSize | byteFormat}}).
-                            </span>
-                            <span *ngIf="formControlFile.inputFile.errors?.inValidExt && (!inputFile.empty)"
+                            <span *ngIf="formControlFile.inputFile.errors?.inValidExt && (formControlFile.inputFile.dirty || formControlFile.inputFile.touched)"
                                   class="error">
                                 Extensión de lote no válida.
                             </span>
@@ -130,13 +130,13 @@
                                                    [value]="item.id">{{item.slug}}</ion-select-option>
                             </ion-select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="(rechargeService.allSalesActive && rechargeService.appService.isPostSale()) || (!rechargeService.appService.isPostSale())">
                             <ion-radio-group value="{{action}}">
                                 <ion-item (click)="setAction(1)" class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="primary" value="1"></ion-radio>
                                     <ion-label>Recargar ahora</ion-label>
                                 </ion-item>
-                                <ion-item (click)="setAction(3)" *ngIf="rechargeService.preSalesActive"
+                                <ion-item (click)="setAction(3)" *ngIf="rechargeService.preSalesActive && rechargeService.appService.isPostSale()"
                                           class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="success" value="3"></ion-radio>
                                     <ion-label>Enviar en preventa</ion-label>

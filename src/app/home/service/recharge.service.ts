@@ -21,6 +21,12 @@ export class RechargeService {
     public longDistanceRecharges: Recharge[];
     public hasLoadRecharges = false;
     public preSalesActive = false;
+    public allSalesActive = false;
+
+    /**
+     * In this example, it's 10 MB
+     */
+    readonly maxSizeFile = 10485760;
 
     /**
      * Constructor
@@ -39,8 +45,10 @@ export class RechargeService {
         ).subscribe(
             (resp: any) => {
                 this.preSalesActive = resp.presales ? resp.presales : false;
+                this.allSalesActive = resp.sales ? resp.sales : false;
             }, () => {
                 this.preSalesActive = false;
+                this.allSalesActive = false;
             }
         );
     }
@@ -272,14 +280,19 @@ export class RechargeService {
 
     /**
      * @method confirmShoppingDataFile
-     * @param form
+     * @param file
+     * @param priceId
      * @param action
      * @param service
      */
-    public async confirmShoppingDataFile(form: FormGroup, action, service) {
+    public async confirmShoppingDataFile(file: File, priceId: number, action: number, service: string) {
+
+        if (file.size > this.maxSizeFile) {
+            return this.appService.presentToast(Messages.FORM_FILE_MAX_SIZE).then();
+        }
 
         let reader: FileReader = new FileReader();
-        reader.readAsText(form.value.inputFile._files[0]);
+        reader.readAsText(file);
 
         reader.onload = async () => {
 
@@ -287,7 +300,7 @@ export class RechargeService {
             let allData = csv.split(/\r\n|\n/);
 
             const user: User = this.appService.user;
-            const recharge: Recharge = await this.getRecharge(form.value.recharge, service, user);
+            const recharge: Recharge = await this.getRecharge(priceId, service, user);
 
             if (allData.length == 0 || (allData.length > 0 && allData[0] == '') || allData.length > 100) {
 
@@ -343,8 +356,8 @@ export class RechargeService {
             });
 
         };
-        reader.onerror = () => {
-            return this.appService.presentToast(Messages.FORM_FILE_NOT_VALID).then();
+        reader.onerror = (err) => {
+            return this.appService.presentToast(Messages.FORM_FILE_PERMISSION_DENIED).then();
         };
 
     }

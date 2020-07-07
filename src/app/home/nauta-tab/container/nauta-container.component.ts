@@ -5,9 +5,9 @@ import {Validations} from '../../../shared/config/validations';
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ContactInterface} from '../../../shared/model/contact';
-import {FileValidator} from 'ngx-material-file-input';
 import {RechargeService} from '../../service/recharge.service';
 import {Constants} from '../../../shared/config/constants';
+import {IonInput} from '@ionic/angular';
 
 @Component({
     selector: 'app-nauta-container',
@@ -22,10 +22,6 @@ export class NautaContainerComponent implements OnInit {
     public nautaForm: FormGroup;
     public nautaFormFile: FormGroup;
 
-    /**
-     * In this example, it's 100 MB (=100 * 2 ** 20).
-     */
-    readonly maxSizeFile = 104857600;
     /**
      * @var ContactInterface[]
      */
@@ -42,6 +38,10 @@ export class NautaContainerComponent implements OnInit {
      * @var number
      */
     public action: number = 1;
+    /**
+     * @var File
+     */
+    private file: File;
 
     /**
      * Constructor NautaContainerComponent
@@ -74,7 +74,6 @@ export class NautaContainerComponent implements OnInit {
         this.nautaFormFile = this.formBuilder.group({
             inputFile: ['', [
                 Validators.required,
-                FileValidator.maxContentSize(this.maxSizeFile),
                 Validations.fileExtensionValidator('txt,csv')]
             ],
             recharge: ['', [Validators.required]],
@@ -106,9 +105,34 @@ export class NautaContainerComponent implements OnInit {
      */
     public async onSubmitFile() {
         if (this.nautaFormFile.valid) {
-            return this.rechargeService.confirmShoppingDataFile(this.nautaFormFile, this.action, Messages.NAUTA_LOWER).then();
+            return this.rechargeService.confirmShoppingDataFile(this.file, this.nautaFormFile.value.recharge, this.action, Messages.NAUTA_LOWER).then();
         }
         return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
+    }
+
+    /**
+     * @method chooserFile
+     * @param $event
+     */
+    public async chooserFile($event: CustomEvent) {
+        this.file = $event.target['firstChild'].files[0];
+        if (this.file) {
+            this.nautaFormFile.setValue({
+                inputFile: this.file.name,
+                recharge: this.nautaFormFile.value.recharge
+            });
+            this.formControlFile.inputFile.markAsDirty();
+        }
+    }
+
+    /**
+     * @method activeEventGetFile
+     * @param inputHiddenFile
+     */
+    public activeEventGetFile(inputHiddenFile: IonInput) {
+        inputHiddenFile.getInputElement().then((input: HTMLInputElement) => {
+            input.click();
+        });
     }
 
     /**
@@ -117,7 +141,6 @@ export class NautaContainerComponent implements OnInit {
      */
     public setAction(value: number) {
         this.action = value;
-
         switch (value) {
             case 3:
                 this.buttonSubmitText = Messages.RECHARGE_IN_PROMOTION;
