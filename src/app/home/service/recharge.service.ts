@@ -24,11 +24,6 @@ export class RechargeService {
     public allSalesActive = false;
 
     /**
-     * In this example, it's 10 MB
-     */
-    readonly maxSizeFile = 10485760;
-
-    /**
      * Constructor
      * @param appService
      * @param shoppingService
@@ -279,54 +274,41 @@ export class RechargeService {
     //-----------------LOTE FILE SERVICE-------------------------------//
 
     /**
-     * @method confirmShoppingDataFile
-     * @param file
-     * @param priceId
+     * @method proccessLote
+     * @param allData
+     * @param rechargePriceId
      * @param action
      * @param service
      */
-    public async confirmShoppingDataFile(file: File, priceId: number, action: number, service: string) {
+    public async proccessLote(allData: string[], rechargePriceId, action, service){
+        if (allData.length == 0 || (allData.length > 0 && allData[0] == '') || allData.length > 100) {
 
-        if (file.size > this.maxSizeFile) {
-            return this.appService.presentToast(Messages.FORM_FILE_MAX_SIZE).then();
+            return this.appService.presentToast(
+                allData.length == 0 || (allData.length > 0 && allData[0] == '')
+                    ? Messages.FORM_LOTE_EMPTY : Messages.FORM_MAX_FILE_100
+            ).then();
+
         }
+        Utils.validLote(allData).then(async (valid: any) => {
 
-        let reader: FileReader = new FileReader();
-        reader.readAsText(file);
-
-        reader.onload = async () => {
-
-            let csv: string = reader.result as string;
-            let allData = csv.split(/\r\n|\n/);
-
-            const user: User = this.appService.user;
-            const recharge: Recharge = await this.getRecharge(priceId, service, user);
-
-            if (allData.length == 0 || (allData.length > 0 && allData[0] == '') || allData.length > 100) {
-
-                return this.appService.presentToast(
-                    allData.length == 0 || (allData.length > 0 && allData[0] == '')
-                        ? Messages.FORM_FILE_EMPTY : Messages.FORM_MAX_FILE_100
-                ).then();
-
-            } else if (parseInt(user.balance) == 0 || parseInt(user.balance) < (allData.length * recharge.amount)) {
-
-                if (!this.appService.isPostSale()) {
-                    return this.appService.navigateToUrl(this.appService.appRoutes.APP_STRIPE);
-                } else {
-                    return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseInt(user.balance).toFixed(2)} < $${(allData.length * recharge.amount).toFixed(2)}`);
-                }
-
+            if (valid !== true) {
+                return this.appService.presentToast(`${Messages.FORM_LOTE_NOT_VALID} ${valid}`).then();
             }
-            Utils.validDataFile(allData, service).then(async (valid: any) => {
 
-                if (valid !== true) {
-                    return this.appService.presentToast(`${Messages.FORM_FILE_NOT_VALID} ${valid}`).then();
+            Utils.parseLote(allData).then(async (finalLote: string[]) => {
+
+                const user: User = this.appService.user;
+                const recharge: Recharge = await this.getRecharge(rechargePriceId, service, user);
+
+                const salePriceCubacel = parseFloat(user.sale_price_cubacel);
+
+                if (parseInt(user.balance) == 0 || parseInt(user.balance) < (finalLote.length * salePriceCubacel)) {
+                    return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseFloat(user.balance).toFixed(2)} < $${(finalLote.length * salePriceCubacel).toFixed(2)}`);
                 }
 
                 const alert = await this.appService.alertController.create({
                     header: Messages.CONFIRM_DATA,
-                    message: `<hr/><p>No. de cuentas: ${allData.length}</p><hr/><p>Recarga: ${recharge.slug}</p><hr/><p>Precio: $${(allData.length * recharge.amount).toFixed(2)}</p>`,
+                    message: `<hr/><p>Cantidad de números: ${finalLote.length}</p><hr/><p>Recarga: ${recharge.slug}</p><hr/><p>Precio del lote: $${(finalLote.length * salePriceCubacel).toFixed(2)}</p>`,
                     buttons: [
                         {
                             text: Messages.CANCEL,
@@ -339,13 +321,13 @@ export class RechargeService {
                             handler: () => {
                                 switch (action) {
                                     case 2:
-                                        this.addOneShoppingToCartFile(recharge, allData, service).then();
+                                        this.addOneShoppingToCartByLote(recharge, finalLote, service).then();
                                         break;
                                     case 3:
-                                        this.sendOneShoppingToPreSaleFile(recharge, allData).then();
+                                        this.sendOneShoppingToPreSaleByLote(recharge, finalLote).then();
                                         break;
                                     default:
-                                        this.sendOneShoppingFile(recharge, allData).then();
+                                        this.sendOneShoppingByLote(recharge, finalLote).then();
                                         break;
                                 }
                             }
@@ -353,21 +335,17 @@ export class RechargeService {
                     ]
                 });
                 await alert.present();
+
             });
-
-        };
-        reader.onerror = (err) => {
-            return this.appService.presentToast(Messages.FORM_FILE_PERMISSION_DENIED).then();
-        };
-
+        });
     }
 
     /**
-     * @method sendOneShoppingToPreSaleFile
+     * @method sendOneShoppingToPreSaleByLote
      * @param recharge
      * @param allData
      */
-    private async sendOneShoppingToPreSaleFile(recharge: Recharge, allData: string[]) {
+    private async sendOneShoppingToPreSaleByLote(recharge: Recharge, allData: string[]) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
 
             const data = Utils.getFormData({
@@ -394,12 +372,12 @@ export class RechargeService {
     }
 
     /**
-     * @method addOneShoppingToCartFile
+     * @method addOneShoppingToCartByLote
      * @param recharge
      * @param allData
      * @param service
      */
-    private async addOneShoppingToCartFile(recharge: Recharge, allData: string[], service) {
+    private async addOneShoppingToCartByLote(recharge: Recharge, allData: string[], service) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
 
             const data = Utils.getFormData({
@@ -427,11 +405,11 @@ export class RechargeService {
     }
 
     /**
-     * @method sendOneShoppingFile
+     * @method sendOneShoppingByLote
      * @param recharge
      * @param allData
      */
-    private async sendOneShoppingFile(recharge: Recharge, allData: string[]) {
+    private async sendOneShoppingByLote(recharge: Recharge, allData: string[]) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             const data = Utils.getFormData({
                 'all_data': allData

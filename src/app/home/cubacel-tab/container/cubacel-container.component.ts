@@ -7,7 +7,7 @@ import {ContactInterface} from '../../../shared/model/contact';
 import {Validations} from '../../../shared/config/validations';
 import {RechargeService} from '../../service/recharge.service';
 import {Constants} from '../../../shared/config/constants';
-import {IonInput} from '@ionic/angular';
+import {IonInput, IonTextarea} from '@ionic/angular';
 
 @Component({
     selector: 'app-cubacel-container',
@@ -20,6 +20,11 @@ export class CubacelContainerComponent implements OnInit {
      */
     public cubacelForm: FormGroup;
     public cubacelFormFile: FormGroup;
+
+    /**
+     * In this example, it's 10 MB
+     */
+    readonly maxSizeFile = 10485760;
 
     /**
      * @var string
@@ -44,7 +49,7 @@ export class CubacelContainerComponent implements OnInit {
     /**
      * @var File
      */
-    private file: File;
+    public file: File;
 
     /**
      * Constructor
@@ -75,10 +80,8 @@ export class CubacelContainerComponent implements OnInit {
             recharge: ['', [Validators.required]],
         });
         this.cubacelFormFile = this.formBuilder.group({
-            inputFile: ['', [
-                Validators.required,
-                Validations.fileExtensionValidator('txt,csv')]
-            ],
+            inputFile: ['', [Validations.fileExtensionValidator('txt,csv')]],
+            textAreaNumbers: ['', [Validators.required, Validations.textAreaValidator]],
             recharge: ['', [Validators.required]],
         });
 
@@ -110,8 +113,8 @@ export class CubacelContainerComponent implements OnInit {
      */
     public async onSubmitFile() {
         if ((this.rechargeService.allSalesActive && this.rechargeService.appService.isPostSale()) || (!this.rechargeService.appService.isPostSale())) {
-            if (this.cubacelFormFile.valid && this.file) {
-                return this.rechargeService.confirmShoppingDataFile(this.file, this.cubacelFormFile.value.recharge, this.action, Messages.CUBACEl_LOWER).then();
+            if (this.cubacelFormFile.valid) {
+                return this.rechargeService.proccessLote(this.cubacelFormFile.value.textAreaNumbers.split(/\r\n|\n/), this.cubacelFormFile.value.recharge, this.action, Messages.CUBACEl_LOWER).then();
             }
             return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
         }
@@ -132,17 +135,52 @@ export class CubacelContainerComponent implements OnInit {
 
     /**
      * @method chooserFile
-     * @param $event
+     * @param event
+     * @param textarea
      */
-    public async chooserFile($event: CustomEvent) {
-        this.file = $event.target['firstChild'].files[0];
+    public async chooserFile(event: CustomEvent, textarea: IonTextarea) {
+        this.file = event.target['firstChild'].files[0];
         if (this.file) {
-            this.cubacelFormFile.setValue({
-                inputFile: this.file.name,
-                recharge: this.cubacelFormFile.value.recharge
-            });
-            this.formControlFile.inputFile.markAsDirty();
+
+            if (this.file.size > this.maxSizeFile) {
+                return this.rechargeService.appService.presentToast(Messages.FORM_FILE_MAX_SIZE).then();
+            }
+
+            let reader: FileReader = new FileReader();
+            reader.readAsText(this.file);
+
+            reader.onload = async () => {
+
+                let csv: string = reader.result as string;
+
+                this.cubacelFormFile.setValue({
+                    inputFile: this.file.name,
+                    textAreaNumbers: csv,
+                    recharge: this.cubacelFormFile.value.recharge
+                });
+
+                this.formControlFile.inputFile.markAsDirty();
+                this.formControlFile.textAreaNumbers.markAsDirty();
+
+                this.addEventListenerTextArea(textarea)
+
+            };
+            reader.onerror = (err: ProgressEvent) => {
+                return this.rechargeService.appService.presentToast(Messages.FORM_FILE_PERMISSION_DENIED).then();
+            };
         }
+    }
+
+    /**
+     * @method addEventListenerTextArea
+     * @param textarea
+     */
+    public addEventListenerTextArea(textarea: IonTextarea) {
+        const pp = document.querySelector('#placeholder');
+        textarea.getInputElement().then((ta: HTMLTextAreaElement) => {
+            ta.value = ta.value.replace(/ /g, '');
+            pp.classList.toggle('hidden', ta.value !== '');
+        });
     }
 
     /**

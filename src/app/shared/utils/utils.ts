@@ -2,43 +2,50 @@
  * Utils
  */
 import {Method} from '../model/stripe';
-import {Messages} from '../config/messages';
 
 export class Utils {
 
     /**
-     * @method validDatFile
+     * @method validLote
      * @param allData
-     * @param service
      */
-    public static async validDataFile(allData: string[], service: string) {
+    public static async validLote(allData: string[]) {
 
-        let reg;
-        switch (service) {
-            case Messages.NAUTA_LOWER:
-                reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-                break;
-            default:
-                reg = new RegExp('[5]{1}[0-9]{7}');
-                break;
-        }
+        let regNumberCubacel = new RegExp('[5]{1}[0-9]{7}$');
+        let regCantNumbers = new RegExp('[1-9]{1}$');
 
         for (let i = 0; i < allData.length; i++) {
-            if (service == Messages.CUBACEl_LOWER && !reg.test(allData[i])) {
 
+            let line = allData[i].split('+');
+
+            if (!regNumberCubacel.test(line[0])) {
                 return allData[i];
-
-            } else if (service == Messages.NAUTA_LOWER) {
-
-                let nauta = allData[i].split('@');
-                if (!reg.test(String(allData[i]).toLowerCase()) || (nauta.length != 2 || nauta[1] != 'nauta.com.cu')) {
-                    return allData[i];
-                }
-
+            } else if (line.length > 1 && (!regCantNumbers.test(line[1]))) {
+                return allData[i];
             }
-
         }
+
         return true;
+    }
+
+    /**
+     * @method parseLote
+     * @param allData
+     */
+    public static async parseLote(allData: string[]) {
+
+        let finalLote: string[] = [];
+        for (let i = 0; i < allData.length; i++) {
+
+            let line = allData[i].split('+');
+            let cant = line.length > 1 ? line.pop() : 1;
+
+            for (let j = 0; j < cant; j++) {
+                finalLote.push(line[0]);
+            }
+        }
+
+        return finalLote;
     }
 
     /**

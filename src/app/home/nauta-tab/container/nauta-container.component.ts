@@ -7,7 +7,6 @@ import {Observable} from 'rxjs';
 import {ContactInterface} from '../../../shared/model/contact';
 import {RechargeService} from '../../service/recharge.service';
 import {Constants} from '../../../shared/config/constants';
-import {IonInput} from '@ionic/angular';
 
 @Component({
     selector: 'app-nauta-container',
@@ -20,7 +19,6 @@ export class NautaContainerComponent implements OnInit {
      * @var FormGroup
      */
     public nautaForm: FormGroup;
-    public nautaFormFile: FormGroup;
 
     /**
      * @var ContactInterface[]
@@ -38,10 +36,6 @@ export class NautaContainerComponent implements OnInit {
      * @var number
      */
     public action: number = 1;
-    /**
-     * @var File
-     */
-    private file: File;
 
     /**
      * Constructor NautaContainerComponent
@@ -58,24 +52,10 @@ export class NautaContainerComponent implements OnInit {
         return this.nautaForm.controls;
     }
 
-    /**
-     * @method formControlFile
-     */
-    public get formControlFile() {
-        return this.nautaFormFile.controls;
-    }
-
     ngOnInit() {
         this.nautaForm = this.formBuilder.group({
             client: ['', [Validators.minLength(2)]],
             account: ['', [Validators.required, Validators.minLength(2), Validations.emailDomainValidator]],
-            recharge: ['', [Validators.required]],
-        });
-        this.nautaFormFile = this.formBuilder.group({
-            inputFile: ['', [
-                Validators.required,
-                Validations.fileExtensionValidator('txt,csv')]
-            ],
             recharge: ['', [Validators.required]],
         });
 
@@ -98,41 +78,6 @@ export class NautaContainerComponent implements OnInit {
             return this.rechargeService.confirmShoppingData(this.nautaForm, this.action, Messages.NAUTA_LOWER).then();
         }
         return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
-    }
-
-    /**
-     * @method onSubmitFile
-     */
-    public async onSubmitFile() {
-        if (this.nautaFormFile.valid) {
-            return this.rechargeService.confirmShoppingDataFile(this.file, this.nautaFormFile.value.recharge, this.action, Messages.NAUTA_LOWER).then();
-        }
-        return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
-    }
-
-    /**
-     * @method chooserFile
-     * @param $event
-     */
-    public async chooserFile($event: CustomEvent) {
-        this.file = $event.target['firstChild'].files[0];
-        if (this.file) {
-            this.nautaFormFile.setValue({
-                inputFile: this.file.name,
-                recharge: this.nautaFormFile.value.recharge
-            });
-            this.formControlFile.inputFile.markAsDirty();
-        }
-    }
-
-    /**
-     * @method activeEventGetFile
-     * @param inputHiddenFile
-     */
-    public activeEventGetFile(inputHiddenFile: IonInput) {
-        inputHiddenFile.getInputElement().then((input: HTMLInputElement) => {
-            input.click();
-        });
     }
 
     /**

@@ -402,7 +402,7 @@ export class AppService {
     public async verifyInitRedirect() {
         const userLoggedIn: User = await this.getStorage(Constants.USER_AUTH_KEY);
         if (userLoggedIn) {
-            return !userLoggedIn.selling_cost_cubacel || !userLoggedIn.selling_cost_nauta
+            return userLoggedIn.broker_post_sale && (!userLoggedIn.selling_cost_cubacel || !userLoggedIn.selling_cost_nauta)
                 ? this.router.navigateByUrl(AppRoutes.APP_EDIT_SALES).then()
                 : this.router.navigateByUrl(AppRoutes.APP_HOME_PAGE).then();
         }

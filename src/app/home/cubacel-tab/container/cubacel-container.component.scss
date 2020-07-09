@@ -12,24 +12,6 @@ mat-form-field {
   width: 100%;
 }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
-  border-radius: 0px !important;
-}
-
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
-  border-radius: 0px !important;
-}
-
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: 1px solid lightgrey !important;
-  border-radius: 0;
-}
-
-$custom-file-text: (
-        en: "Browse",
-        es: "Elegir"
-);
-
 .custom-file-input {
   border-radius: 0 !important;
 }
@@ -38,7 +20,18 @@ $custom-file-text: (
   margin: 60% 50% !important;
 }
 
-::placeholder {
+.hidden {
+  display: none;
+}
+
+#placeholder {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  padding: 0.5rem 0.5rem;
+}
+
+::placeholder, p {
   color: #BDBDBD;
   opacity: 1;
   font-weight: 300
@@ -74,7 +67,7 @@ ion-select {
   letter-spacing: 1px !important
 }
 
-ion-input, input {
+ion-input, input, ion-textarea {
   padding: 0 12px 0 5px !important;
   border: 1px solid lightgrey !important;
   border-radius: 0 !important;

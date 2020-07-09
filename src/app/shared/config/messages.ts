@@ -16,12 +16,14 @@ export class Messages {
     public static readonly LONG_DISTANCE_LOWER = 'long-distance';
 
     public static readonly CREDIT_NOT_VALID = 'Crédito insuficiente.';
-    public static readonly FORM_NOT_VALID = 'Fomulario incompleto.';
-    public static readonly FORM_FILE_NOT_VALID = 'El archivo contiene datos no válidos.';
+    public static readonly FORM_NOT_VALID = 'Fomulario incompleto. Por favor revise los datos ingresados.';
+    public static readonly FORM_LOTE_NOT_VALID = 'El lote contiene datos no válidos. ';
+    public static readonly FORM_SELECT_FILE_AND_TEXT = 'No puede seleccionar un archivo y a la vez escribir el lote.';
+    public static readonly FORM_SELECT_FILE_OR_TEXT = 'Seleccione un archivo o escriba el lote.';
     public static readonly FORM_FILE_PERMISSION_DENIED = 'No abrir archivos de esa dirección.';
-    public static readonly FORM_FILE_EMPTY = 'El archivo esta vacío.';
+    public static readonly FORM_LOTE_EMPTY = 'El lote esta vacío.';
     public static readonly FORM_FILE_MAX_SIZE = 'El archivo no puede exceder los 10Mb.';
-    public static readonly FORM_MAX_FILE_100 = 'El archivo no puede contener mas de 100 elementos.';
+    public static readonly FORM_MAX_FILE_100 = 'El lote no puede contener mas de 100 elementos.';
 
     public static readonly SEND_TO_SHOPPING_CART = 'Enviar al carrito';
     public static readonly CONFIRM_DATA = 'Confirmar datos';

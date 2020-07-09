@@ -16,9 +16,26 @@ export class Validations {
                         forbidden = false;
                     }
                 });
+
+                return forbidden ? {'inValidExt': true} : null;
             }
-            return forbidden ? {'inValidExt': true} : null;
         };
+    }
+
+    /**
+     * @method textAreaValidator
+     */
+    public static textAreaValidator(control: FormControl) {
+        if (control.value) {
+            let allData = control.value.split(/\r\n|\n/);
+            if (allData && allData.length > 100) {
+                return {
+                    inValidTextAreaMaxNumbers: {
+                        parsedData: true
+                    }
+                };
+            }
+        }
     }
 
     /**
