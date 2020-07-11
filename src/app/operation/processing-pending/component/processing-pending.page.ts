@@ -30,6 +30,11 @@ export class ProcessingPendingPage implements OnInit {
      * @var boolean
      */
     public loadingData: boolean = true;
+    /**
+     * @var number
+     */
+    public cantPendingData: number = 0;
+    public cantProcessingData: number = 0;
 
     /**
      * Constructor
@@ -45,10 +50,12 @@ export class ProcessingPendingPage implements OnInit {
                 ProcessingPendingPage.filterOps(ops).then((result: Operation[]) => {
                     this.itemsPending = result;
                     this.dataSourcePending.data = this.itemsPending;
+                    this.cantPendingData = this.itemsPending.length;
                 });
                 ProcessingPendingPage.filterOps(ops, 'PROCESSING').then((result: Operation[]) => {
                     this.itemsProcessing = result;
                     this.dataSourceProcessing.data = this.itemsProcessing;
+                    this.cantProcessingData = this.itemsProcessing.length;
                 });
 
                 this.loadingData = false;

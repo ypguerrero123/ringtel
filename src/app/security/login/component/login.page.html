@@ -1,38 +1,62 @@
 <ion-content scroll-y="true">
-    <div class="p-4 mt-4">
-        <ion-card class="shadow-lg" mode="md">
-            <ion-img class="img-gif" src="../../assets/images/security/icon_logo.png"></ion-img>
+    <div class="p-4">
+        <ion-card class="shadow-lg py-4" mode="md">
+            <ion-img class="logoweb" src="../../assets/images/security/logoweb.png"></ion-img>
             <ion-card-content>
                 <form [formGroup]="loginForm">
 
-                    <div class="form-group">
-                        <ion-label class="required">
-                            Correo:
-                        </ion-label>
-                        <ion-input autocomplete="off" formControlName="username"
-                                   placeholder="Entre su dirección de correo"
-                                   type="email"></ion-input>
-                    </div>
-
-                    <div class="form-group">
-                        <ion-label class="required">
-                            Contraseña:
-                        </ion-label>
-                        <ion-input (keyup.enter)="onSubmit()" autocomplete="off" formControlName="password"
-                                   placeholder="Entre su contraseña" type="password"></ion-input>
-                    </div>
-
-                    <ion-text class="ion-text-left">
-                        <p (click)="loginService.appService.navigateToUrl(loginService.appService.appRoutes.APP_RECOVERY)"
-                           class="underline mt-2">
-                            ¿Olvidó su contraseña?
-                        </p>
+                    <ion-text class="ion-text-center">
+                        <h3>Fácil, rápido y al mejor precio del mercado</h3><br/>
                     </ion-text>
 
-                    <div class="form-group mt-4 mb-4">
-                        <ion-button color="primary" expand="block" (click)="onSubmit()">
-                            Acceder
-                        </ion-button>
+                    <div *ngIf="action == 1" (click)="fingerPrintService.showFingerprintAuthDlg()">
+
+                        <ion-text class="ion-text-center">
+                            <p class="underline" (click)="action = 2">Acceder con contraseña</p>
+                        </ion-text>
+
+                        <ion-img class="" src="../../assets/images/security/face_bio.gif"></ion-img>
+
+                        <ion-text class="ion-text-center">
+                            <p><small>Toca aquí para acceder con reconocimiento biométrico</small></p>
+                        </ion-text>
+                        <br/>
+
+                    </div>
+
+                    <div *ngIf="action == 2">
+
+                        <ion-text class="ion-text-center">
+                            <p class="underline" (click)="action = 1">Acceder con datos biométricos</p>
+                        </ion-text>
+                        <br/>
+                        <div class="form-group">
+                            <ion-label class="required">
+                                Correo:
+                            </ion-label>
+                            <ion-input autocomplete="off" formControlName="username"
+                                       placeholder="Entre su dirección de correo"
+                                       type="email"></ion-input>
+                        </div>
+                        <div class="form-group">
+                            <ion-label class="required">
+                                Contraseña:
+                            </ion-label>
+                            <ion-input (keyup.enter)="onSubmit()" autocomplete="off" formControlName="password"
+                                       placeholder="Entre su contraseña" type="password"></ion-input>
+                        </div>
+                        <ion-text class="ion-text-left">
+                            <p (click)="loginService.appService.navigateToUrl(loginService.appService.appRoutes.APP_RECOVERY)"
+                               class="underline mt-2">
+                                <small>¿Olvidó su contraseña?</small>
+                            </p>
+                        </ion-text>
+                        <div class="form-group mt-4 mb-4">
+                            <ion-button color="primary" expand="block" (click)="onSubmit()">
+                                Acceder
+                            </ion-button>
+                        </div>
+
                     </div>
 
                     <ion-text class="ion-text-center">
@@ -41,9 +65,9 @@
                                    class="underline underline-small">
                                 Registrarse
                             </small>
-                        </p>
+                        </p><br/>
+                        <p><small>Cuba Horizontes © {{fullYear}}</small></p>
                     </ion-text>
-
 
                 </form>
 

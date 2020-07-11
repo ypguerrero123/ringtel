@@ -6,6 +6,7 @@ export interface User {
     phoneCodeNumber: string;
     phone: string;
     enabled: boolean;
+    enabledFingerPrint: boolean;
     role_admin: boolean;
     selling_cost_cubacel: string;
     sale_price_cubacel: string;

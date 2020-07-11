@@ -51,7 +51,15 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar class="pl-3 pr-3">
+    <ion-toolbar class="px-3">
+        <ion-item class="ion-no-padding" lines="none">
+            <ion-label>Total de recargas: {{cantData}}</ion-label>
+        </ion-item>
+    </ion-toolbar>
+</ion-footer>
+
+<ion-footer>
+    <ion-toolbar class="px-3">
         <ion-item class="ion-no-padding">
             <ion-label>Fecha inicio</ion-label>
             <ion-datetime [pickerOptions]="customPickerOptionsStart"

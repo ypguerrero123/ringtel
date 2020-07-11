@@ -40,6 +40,13 @@
                 <ion-icon name="create-outline" slot="end"></ion-icon>
             </ion-item>
 
+            <ion-item
+                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_FINGER_ORINT_SETTINGS)">
+                <ion-icon name="finger-print-outline" slot="start"></ion-icon>
+                <ion-label>Acceso biométrico</ion-label>
+                <ion-icon name="create-outline" slot="end"></ion-icon>
+            </ion-item>
+
             <ion-item (click)="settingsService.confirmDisableAccount()">
                 <ion-icon name="person-remove-outline" slot="start"></ion-icon>
                 <ion-label>Desabilitar mi cuenta</ion-label>

@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from 
 import {Observable} from 'rxjs';
 import {AppService} from '../service/app.service';
 import {User} from '../model/user';
+import {Constants} from '../config/constants';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,9 @@ export class AuthGuard implements CanActivate {
         return this.appService.getUser().then((value: User) => {
             if (value) {
                 this.appService.updateToken(false).then();
+                this.appService.getStorage(Constants.IS_MOBIL_WEB, false).then((isMobilWeb) => {
+                    this.appService.isMobilWeb = isMobilWeb && isMobilWeb == true;
+                });
             }
             return !!value;
         });

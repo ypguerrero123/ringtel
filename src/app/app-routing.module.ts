@@ -127,6 +127,11 @@ const routes: Routes = [
         path: AppRoutes.APP_EDIT_SALES,
         loadChildren: () => import('./profile/sales/sales.module').then(m => m.SalesPageModule),
         canActivate: [AuthGuard]
+    },
+    {
+        path: AppRoutes.APP_FINGER_ORINT_SETTINGS,
+        loadChildren: () => import('./fingerprint/fingerprint.module').then(m => m.FingerprintPageModule),
+        canActivate: [AuthGuard]
     }
 
 ];

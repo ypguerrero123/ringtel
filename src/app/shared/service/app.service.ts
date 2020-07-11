@@ -30,6 +30,7 @@ export class AppService {
     public userHasUpdate: Subject<User> = new Subject<User>();
     public userOperationData: Subject<UserDataResponse> = new Subject<UserDataResponse>();
     public user: User = null;
+    public isMobilWeb: boolean = false;
 
     /**
      * Constructor

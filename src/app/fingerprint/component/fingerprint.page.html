@@ -1,0 +1,60 @@
+<app-toolbar active="finger-print" title="Configurar acceso biométrico"></app-toolbar>
+
+<ion-content scroll-y="true">
+
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <ion-item class="ion-no-padding z-index-0" lines="none">
+                <ion-avatar slot="start">
+                    <ion-img src="../../assets/images/services/info.svg"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                    <h2>Info</h2>
+                    <h3>Acceso biométrico</h3>
+                    <p>
+                        Los datos biométricos son casi únicos,
+                        <br/>difíciles de alterar y duraderos durante
+                        <br/>la vida de un individuo, lo que las
+                        <br/>hace adecuadas como marcadores a largo
+                        <br/>plazo de la identidad.
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <form [formGroup]="fingerForm">
+
+                <div class="form-group">
+                    <ion-label class="required">Confirmar su contraseña actual:</ion-label>
+                    <ion-input
+                            [class.error-input]="(!formControl.password.valid && (formControl.password.dirty || formControl.password.touched)) || fingerPrintService.errorPath == 'password'"
+                            (keyup.enter)="onSubmit()" autocomplete="off" formControlName="password"
+                            placeholder="Entre su contraseña" type="password"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.password.errors?.required && (formControl.password.dirty || formControl.password.touched)"
+                          class="error">
+                            Contraseña obligatoria.
+                        </span>
+                    <span *ngIf="fingerPrintService.errorMessage && fingerPrintService.errorPath == 'password'"
+                          class="error">
+                            {{fingerPrintService.errorMessage}}
+                        </span>
+                </div>
+
+                <div class="form-group">
+                    <ion-toggle formControlName="enabled"></ion-toggle>
+                </div>
+
+                <div class="form-group mt-4 mb-4">
+                    <ion-button color="primary" expand="block" (click)="onSubmit()">
+                        Activar acceso biométrico
+                    </ion-button>
+                </div>
+
+            </form>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

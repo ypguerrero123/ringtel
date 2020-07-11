@@ -68,7 +68,9 @@ export class RefreshComponent implements OnInit {
                 });
                 break;
             case AppRoutes.APP_RECHARGE_PROCESSING_PENDING:
-                this.processingPendingService.listProcessingPending().then();
+                this.processingPendingService.listProcessingPending().then(() => {
+                    event.target.complete();
+                });
                 break;
             default:
                 this.getProfile(event);

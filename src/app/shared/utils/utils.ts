@@ -84,7 +84,6 @@ export class Utils {
             });
         }
 
-
         return formData;
     }
 

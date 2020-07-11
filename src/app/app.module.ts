@@ -9,7 +9,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {Contacts} from '@ionic-native/contacts/ngx';
@@ -18,6 +18,8 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import {DatePipe} from '@angular/common';
+import {FingerprintAIO} from '@ionic-native/fingerprint-aio/ngx';
+import {AuthInterceptor} from './shared/interceptor/auth.interceptor';
 
 @NgModule({
     declarations: [AppComponent],
@@ -40,7 +42,9 @@ import {DatePipe} from '@angular/common';
         Network,
         FirebaseX,
         DatePipe,
-        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+        FingerprintAIO,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
     bootstrap: [AppComponent]
 })

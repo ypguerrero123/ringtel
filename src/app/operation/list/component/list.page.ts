@@ -29,6 +29,10 @@ export class ListPage implements OnInit {
      */
     public loadingData: boolean = true;
     /**
+     * @var number
+     */
+    public cantData: number = 0;
+    /**
      * @var any
      */
     public customPickerOptionsStart: any;
@@ -64,9 +68,9 @@ export class ListPage implements OnInit {
                 }
                 this.isFilter = false;
                 this.items = this.items.concat(ops);
+                this.cantData = this.items.length;
 
                 this.dataSource.data = this.items;
-
                 this.loadingData = false;
             }
         });
@@ -117,7 +121,9 @@ export class ListPage implements OnInit {
      * @param event
      */
     public async loadPagination(event) {
+
         await this.loadRechargesHistory();
+
         setTimeout(() => {
             event.target.complete();
         }, 500);
@@ -130,6 +136,7 @@ export class ListPage implements OnInit {
         if (this.endDate >= this.startDate) {
             this.isFilter = true;
             this.page = 0;
+
             this.loadRechargesHistory();
         }
     }

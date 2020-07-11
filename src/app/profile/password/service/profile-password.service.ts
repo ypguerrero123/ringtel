@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AppService} from '../../../shared/service/app.service';
 import {User} from '../../../shared/model/user';
 import {Messages} from '../../../shared/config/messages';
+import {Constants} from '../../../shared/config/constants';
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +25,7 @@ export class ProfilePasswordService {
      * @param pathParameter
      * @param newData
      */
-    public async updatePassword(pathParameter: string, newData: {}) {
+    public async updatePassword(pathParameter: string, newData: FormData) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
 
             this.setErrorVars(null, null);
@@ -33,7 +34,11 @@ export class ProfilePasswordService {
                 `es/api/v1/profile/${this.appService.userType()}/${this.appService.user.id}/${pathParameter}`, newData
             ).subscribe(
                 (resp: User) => {
-                    this.appService.setUser(resp);
+                    this.appService.setUser(resp).then(() => {
+                        if (resp.enabledFingerPrint) {
+                            this.appService.setStorage(Constants.DATA_FINGER_PRINT, {'username': this.appService.user.email, 'password': newData.get('newPassword')});
+                        }
+                    });
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {

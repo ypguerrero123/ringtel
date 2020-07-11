@@ -18,8 +18,6 @@ export class Messages {
     public static readonly CREDIT_NOT_VALID = 'Crédito insuficiente.';
     public static readonly FORM_NOT_VALID = 'Fomulario incompleto. Por favor revise los datos ingresados.';
     public static readonly FORM_LOTE_NOT_VALID = 'El lote contiene datos no válidos. ';
-    public static readonly FORM_SELECT_FILE_AND_TEXT = 'No puede seleccionar un archivo y a la vez escribir el lote.';
-    public static readonly FORM_SELECT_FILE_OR_TEXT = 'Seleccione un archivo o escriba el lote.';
     public static readonly FORM_FILE_PERMISSION_DENIED = 'No abrir archivos de esa dirección.';
     public static readonly FORM_LOTE_EMPTY = 'El lote esta vacío.';
     public static readonly FORM_FILE_MAX_SIZE = 'El archivo no puede exceder los 10Mb.';
@@ -37,7 +35,8 @@ export class Messages {
     public static readonly MY_CREDIT_CARDS = 'Mis tarjetas';
 
     public static readonly OFFLINE_NETWORK = 'No tiene acceso a la red ):';
-    public static readonly ON_PUSH_NOTIFICATION = 'Nuevo mensaje recibido.';
+    public static readonly APP_FINGET_NO_PERMITED = 'Lo sentimos, su teléfono no cuenta con este tipo de acceso.';
+    public static readonly APP_FINGET_NO_CONFIGURATED = 'No tiene configurado este tipo de acceso en la aplicación.';
 
     public static readonly SPEND_ALL_CREDIT = 'Debe gastar todo el crédito antes de poder desabilitar la cuenta.';
 

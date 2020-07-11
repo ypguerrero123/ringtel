@@ -2,6 +2,15 @@
   border-radius: 0 !important;
 }
 
+.form-security {
+  padding: 1rem;
+  margin-top: 5rem;
+}
+
+.border-line {
+  border-right: 1px solid #EEEEEE
+}
+
 ::placeholder {
   color: #BDBDBD;
   opacity: 1;
@@ -23,7 +32,7 @@ ion-input {
 input, ion-input {
   padding: 0 12px 0 5px !important;
   border: 1px solid lightgrey;
-  border-radius: 2px;
+  border-radius: 0;
   margin-top: 2px;
   width: 100%;
   box-sizing: border-box;
@@ -40,18 +49,22 @@ input:focus, ion-input:focus, {
   outline-width: 0
 }
 
+button:focus, ion-button:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline-width: 0
+}
+
 .btn {
   border: 1px solid lightgrey !important;
   border-radius: 2px !important;
   margin: 2px 0 0 !important;
 }
 
-.underline {
-  text-decoration: underline;
-}
-
-.underline-small {
-  font-size: 15px;
+.required:after {
+  content: "*";
+  color: darkred;
 }
 
 .error {
@@ -61,16 +74,6 @@ input:focus, ion-input:focus, {
 
 .error-input {
   border-color: darkred !important;
-}
-
-.required:after {
-  content: "*";
-  color: darkred;
-}
-
-.logoweb {
-  margin: 1.5rem auto;
-  width: 50%;
 }
 
 ion-label {

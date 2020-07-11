@@ -72,13 +72,15 @@
                                                    [value]="item.id">{{item.slug}}</ion-select-option>
                             </ion-select>
                         </div>
-                        <div class="form-group" *ngIf="(rechargeService.allSalesActive && rechargeService.appService.isPostSale()) || (!rechargeService.appService.isPostSale())">
+                        <div class="form-group">
                             <ion-radio-group value="{{action}}">
-                                <ion-item (click)="setAction(1)" class="ion-no-padding custom-radio-group" lines="none">
+                                <ion-item (click)="setAction(1)"
+                                          class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="primary" value="1"></ion-radio>
                                     <ion-label>Recargar ahora</ion-label>
                                 </ion-item>
-                                <ion-item (click)="setAction(2)" class="ion-no-padding custom-radio-group" lines="none">
+                                <ion-item (click)="setAction(2)"
+                                          class="ion-no-padding custom-radio-group" lines="none">
                                     <ion-radio class="mr-2" color="tertiary" value="2"></ion-radio>
                                     <ion-label>Enviar recarga al carrito</ion-label>
                                 </ion-item>

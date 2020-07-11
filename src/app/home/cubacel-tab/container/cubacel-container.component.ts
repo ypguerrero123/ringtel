@@ -100,24 +100,20 @@ export class CubacelContainerComponent implements OnInit {
      * @method onSubmit
      */
     public async onSubmit() {
-        if ((this.rechargeService.allSalesActive && this.rechargeService.appService.isPostSale()) || (!this.rechargeService.appService.isPostSale())) {
-            if (this.cubacelForm.valid) {
-                return this.rechargeService.confirmShoppingData(this.cubacelForm, this.action, Messages.CUBACEl_LOWER).then();
-            }
-            return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
+        if (this.cubacelForm.valid) {
+            return this.rechargeService.confirmShoppingData(this.cubacelForm, this.action, Messages.CUBACEl_LOWER).then();
         }
+        return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**
      * @method onSubmitFile
      */
     public async onSubmitFile() {
-        if ((this.rechargeService.allSalesActive && this.rechargeService.appService.isPostSale()) || (!this.rechargeService.appService.isPostSale())) {
-            if (this.cubacelFormFile.valid) {
-                return this.rechargeService.proccessLote(this.cubacelFormFile.value.textAreaNumbers.split(/\r\n|\n/), this.cubacelFormFile.value.recharge, this.action, Messages.CUBACEl_LOWER).then();
-            }
-            return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
+        if (this.cubacelFormFile.valid) {
+            return this.rechargeService.proccessLote(this.cubacelFormFile.value.textAreaNumbers.split(/\r\n|\n/), this.cubacelFormFile.value.recharge, this.action, Messages.CUBACEl_LOWER).then();
         }
+        return this.rechargeService.appService.presentToast(Messages.FORM_NOT_VALID).then();
     }
 
     /**

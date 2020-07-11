@@ -7,7 +7,7 @@
                              auto-hide="false"></ion-menu-button>
 
             <ion-back-button
-                    *ngIf="visible(['transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"
+                    *ngIf="visible(['finger-print', 'transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"
                     class="ml-3"
                     defaultHref="{{ visible(['operation-show']) ? shoppingService.appService.appRoutes.APP_RECHARGE_HISTORY : (visible(['agent-show', 'agent-edit']) ? shoppingService.appService.appRoutes.APP_AGENTS_LIST : shoppingService.appService.appRoutes.APP_SETTINGS) }}"
                     icon="arrow-back-outline"
