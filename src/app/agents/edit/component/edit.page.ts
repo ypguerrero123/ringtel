@@ -60,7 +60,7 @@ export class EditPage implements OnInit {
             name: ['', [Validators.required, Validators.minLength(2)]],
             email: ['', [Validators.required, Validators.email]],
             phone: ['', [Validators.required, Validators.pattern('[0-9.]+')]],
-            balance: ['', [Validators.required, Validators.pattern('[0-9.]+'), Validators.min(10)]],
+            balance: ['', [Validators.required, Validators.pattern('[0-9.]+')]],
             salePriceCubacel: ['', [Validators.required, Validators.pattern('[0-9.]+')]],
             salePriceNauta: ['', [Validators.required, Validators.pattern('[0-9.]+')]],
             password: ['', [Validators.minLength(8)]],
