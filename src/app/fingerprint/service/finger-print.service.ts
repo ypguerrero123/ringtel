@@ -82,10 +82,11 @@ export class FingerPrintService {
         const isMobilWeb = await this.appService.getStorage(Constants.IS_MOBIL_WEB, false);
 
         if (!isMobilWeb) {
-            const av = await this.faio.isAvailable();
-            if (av) {
-                this.isFingerAvailable = av === 'biometric' || av === 'face';
-            }
+            this.faio.isAvailable().then(() => {
+                this.isFingerAvailable = true;
+            }).catch(() => {
+                this.isFingerAvailable = false;
+            });
         }
 
         return this.userConfigurated;
