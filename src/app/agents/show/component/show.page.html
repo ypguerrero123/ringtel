@@ -3,72 +3,98 @@
 <ion-content scroll-y="true">
     <app-refresh routePage="{{agentShowService.appService.appRoutes.APP_AGENTS_SHOW}}"></app-refresh>
     <div *ngIf="agentToShow">
-        <ion-card class="shadow-lg" mode="md">
-            <ion-card-content>
-                <ion-item class="ion-no-padding">
-                    <ion-label>
-                        <h1>{{agentToShow.agent.name}}</h1>
-                        <h3>{{agentToShow.agent.email}}</h3>
-                    </ion-label>
 
-                </ion-item>
-                <ion-item class="ion-no-padding" lines="none">
-                    <ion-label>
-                        <h2>({{agentToShow.agent.phoneCodeNumber}}){{agentToShow.agent.phone}}</h2>
-                    </ion-label>
-                    <h1 class="text-primary" slot="end">${{agentToShow.agent.balance}}</h1>
-                </ion-item>
-            </ion-card-content>
-        </ion-card>
-        <ion-card class="shadow-lg" mode="md">
-            <ion-card-content>
-                <div class="row text-center">
-                    <div class="col-4 border-right border-bottom py-4">
-                        <div class="h4 mb-0 text-success">{{agentToShow.data.opAccepted}}</div>
-                        <span class="small text-gray">Completadas</span>
-                    </div>
-                    <div class="col-4 border-right border-bottom py-4">
-                        <div class="h4 mb-0 text-warning">{{agentToShow.data.opPending}}</div>
-                        <span class="small text-gray">Pendientes</span>
-                    </div>
-                    <div class="col-4 border-bottom py-4">
-                        <div class="h4 mb-0 text-danger">{{agentToShow.data.opFaileds}}</div>
-                        <span class="small text-gray">Fallidas</span>
-                    </div>
-                    <div class="col-12 border-bottom py-4">
-                        <div class="h4 mb-0 text-primary">${{totalSalePrice}}</div>
-                        <span class="small text-gray">Débito</span>
-                    </div>
-                    <div class="col-6 border-right py-4">
-                        <div class="h4 mb-0 text-success">${{totalSellingCost}}</div>
-                        <span class="small text-gray">Total de ventas</span>
-                    </div>
-                    <div class="col-6 py-4">
-                        <div class="h4 mb-0 text-info">${{totalEarnings}}</div>
-                        <span class="small text-gray">Ganancias</span>
-                    </div>
-                </div>
-            </ion-card-content>
-        </ion-card>
+        <mat-tab-group dynamicHeight selectedIndex="0">
+            <mat-tab label="Detalles de débito">
+
+                <ion-card class="shadow-lg" mode="md">
+                    <ion-card-content>
+                        <ion-item class="ion-no-padding">
+                            <ion-label>
+                                <h1>{{agentToShow.agent.name}}</h1>
+                                <h3>{{agentToShow.agent.email}}</h3>
+                            </ion-label>
+
+                        </ion-item>
+                        <ion-item class="ion-no-padding" lines="none">
+                            <ion-label>
+                                <h2>({{agentToShow.agent.phoneCodeNumber}}){{agentToShow.agent.phone}}</h2>
+                            </ion-label>
+                            <h1 class="text-primary" slot="end">${{agentToShow.agent.balance}}</h1>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+                <ion-card class="shadow-lg" mode="md">
+                    <ion-card-content>
+                        <div class="row text-center">
+                            <div class="col-4 border-right border-bottom py-4">
+                                <div class="h4 mb-0 text-success">{{agentToShow.data.opAccepted}}</div>
+                                <span class="small text-gray">Completadas</span>
+                            </div>
+                            <div class="col-4 border-right border-bottom py-4">
+                                <div class="h4 mb-0 text-warning">{{agentToShow.data.opPending}}</div>
+                                <span class="small text-gray">Pendientes</span>
+                            </div>
+                            <div class="col-4 border-bottom py-4">
+                                <div class="h4 mb-0 text-danger">{{agentToShow.data.opFaileds}}</div>
+                                <span class="small text-gray">Fallidas</span>
+                            </div>
+                            <div class="col-12 border-bottom py-4">
+                                <div class="h4 mb-0 text-primary">${{totalSalePrice}}</div>
+                                <span class="small text-gray">Débito</span>
+                            </div>
+                            <div class="col-6 border-right py-4">
+                                <div class="h4 mb-0 text-success">${{totalSellingCost}}</div>
+                                <span class="small text-gray">Total de ventas</span>
+                            </div>
+                            <div class="col-6 py-4">
+                                <div class="h4 mb-0 text-info">${{totalEarnings}}</div>
+                                <span class="small text-gray">Ganancias</span>
+                            </div>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+
+            </mat-tab>
+            <mat-tab label="Historial de recargas">
+
+                <ion-searchbar (keyup)="applyFilter($event)" animated debounce="500"
+                               placeholder="Filtrar recargas"></ion-searchbar>
+                <table [dataSource]="dataSource" mat-table>
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="data">
+                        <th *matHeaderCellDef mat-header-cell> Datos de la recarga</th>
+                        <td *matCellDef="let element" mat-cell>
+                            Cliente: {{element.client.length > 15 ? element.client.slice(0, 15) : element.client}}<br/>
+                            Cuenta: {{element.accountToRecharge.length > 10 ? element.accountToRecharge.slice(0, 10) : element.accountToRecharge}}
+                            <br/>
+                            Servicio: {{(element.service|uppercase) == 'CUBACEL_RECHARGE' ? 'Cubacel' : ((element.service|uppercase) == 'NAUTA_RECHARGE' ? 'Nauta' : 'Larga')}}
+                            <br/>
+                            Valor: ${{element.amount}}<br/>
+                            Fecha: {{element.dateCreated|date: "dd-MM-yyyy hh:mm:ss a"}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th *matHeaderCellDef mat-header-cell> Estado</th>
+                        <td *matCellDef="let element" mat-cell>
+                            <ion-badge
+                                    color="{{element.status == 'COMPLETED' ? 'primary' : (element.status == 'FAILED' ? 'danger' : 'light')}}">
+                                {{element.status == 'COMPLETED' ? 'Completado' : (element.status == 'FAILED' ? 'Fallido' : (element.status == 'PENDING' ? 'Pendiente' : 'Procesando')) }}
+                            </ion-badge>
+                        </td>
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+                    <tr (click)="agentShowService.appService.navigateToUrl('/show/' + row.id)"
+                        *matRowDef="let row; columns: displayedColumns;"
+                        mat-row></tr>
+                </table>
+
+            </mat-tab>
+        </mat-tab-group>
+
     </div>
 
 </ion-content>
-
-<ion-footer>
-    <ion-toolbar class="pl-3 pr-3">
-        <ion-item class="ion-no-padding">
-            <ion-label>Fecha inicio</ion-label>
-            <ion-datetime [pickerOptions]="customPickerOptionsStart"
-                          max="{{endDate|date: 'yyyy-MM-dd'}}" min="1990-04-16"
-                          monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic" placeholder="Seleccione una fecha"
-                          value="{{startDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
-        </ion-item>
-        <ion-item class="ion-no-padding">
-            <ion-label>Fecha fin</ion-label>
-            <ion-datetime [pickerOptions]="customPickerOptionsEnd"
-                          max="{{today|date: 'yyyy-MM-dd'}}"
-                          min="{{startDate|date: 'yyyy-MM-dd'}}" monthShortNames="En, Feb, Mar, Abr, May, Jun, Jul, Ag, Sep, Oct, Nov, Dic"
-                          placeholder="Seleccione una fecha" value="{{endDate|date: 'yyyy-MM-dd'}}"></ion-datetime>
-        </ion-item>
-    </ion-toolbar>
-</ion-footer>

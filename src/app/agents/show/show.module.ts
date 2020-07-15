@@ -8,6 +8,8 @@ import {ShowPageRoutingModule} from './show-routing.module';
 
 import {ShowPage} from './component/show.page';
 import {ToolbarModule} from '../../shared/component/toolbar-page/toolbar.module';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
     imports: [
@@ -15,7 +17,9 @@ import {ToolbarModule} from '../../shared/component/toolbar-page/toolbar.module'
         FormsModule,
         IonicModule,
         ShowPageRoutingModule,
-        ToolbarModule
+        ToolbarModule,
+        MatTabsModule,
+        MatTableModule
     ],
     declarations: [ShowPage]
 })

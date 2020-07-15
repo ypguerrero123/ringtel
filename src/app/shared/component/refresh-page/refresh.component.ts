@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AppRoutes} from '../../config/routes';
 import {Constants} from '../../config/constants';
-import {DatePipe} from '@angular/common';
 import {RechargeService} from '../../../home/service/recharge.service';
 import {AgentListService} from '../../../agents/list/service/agent-list.service';
 import {ShoppingService} from '../../../shopping/service/shopping.service';
 import {CreditCardService} from '../../../creditcards/service/credit-card.service';
 import {ProcessingPendingService} from '../../../operation/processing-pending/service/processing-pending.service';
+import {ActivatedRoute} from '@angular/router';
+import {AgentShowService} from '../../../agents/show/service/agent-show.service';
 
 @Component({
     selector: 'app-refresh',
@@ -17,12 +18,13 @@ export class RefreshComponent implements OnInit {
 
     @Input() routePage: string;
 
-    constructor(private datePipe: DatePipe,
-                public rechargeService: RechargeService,
-                public agentListService: AgentListService,
-                public shoppingService: ShoppingService,
-                public creditCardService: CreditCardService,
-                public processingPendingService: ProcessingPendingService
+    constructor(private route: ActivatedRoute,
+                private rechargeService: RechargeService,
+                private agentListService: AgentListService,
+                private agentShowService: AgentShowService,
+                private shoppingService: ShoppingService,
+                private creditCardService: CreditCardService,
+                private processingPendingService: ProcessingPendingService
     ) {
     }
 
@@ -56,6 +58,13 @@ export class RefreshComponent implements OnInit {
                     event.target.complete();
                 });
                 break;
+            case AppRoutes.APP_AGENTS_SHOW:
+                this.route.params.subscribe(params => {
+                    this.agentShowService.getAgentOperationData(params['id']).then(() => {
+                        event.target.complete();
+                    });
+                });
+                break;
             case AppRoutes.APP_SHOPPING_CART:
                 this.shoppingService.getAllShoppings(false).then(() => {
                     event.target.complete();
@@ -73,22 +82,11 @@ export class RefreshComponent implements OnInit {
                 });
                 break;
             default:
-                this.getProfile(event);
+                this.creditCardService.appService.getProfile().then(() => {
+                    event.target.complete();
+                });
                 break;
         }
-    }
-
-    /**
-     * @method getProfile
-     */
-    public getProfile(event) {
-
-        const startDate = new Date(new Date().setDate(new Date().getDate() - 7));
-        const endDate = new Date(new Date().setDate(new Date().getDate()));
-
-        this.creditCardService.appService.getProfile(this.datePipe.transform(startDate, 'yyyy-MM-dd'), this.datePipe.transform(endDate, 'yyyy-MM-dd')).then(() => {
-            event.target.complete();
-        });
     }
 
 }

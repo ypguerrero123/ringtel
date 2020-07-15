@@ -79,12 +79,10 @@ export class AppService {
 
     /**
      * @method getProfile
-     * @param start
-     * @param end
      */
-    public async getProfile(start, end) {
+    public async getProfile() {
         this.post(
-            `es/api/v1/profile/${this.userType()}/${this.user.id}/${start}/${end}/get-profile`
+            `es/api/v1/profile/${this.userType()}/${this.user.id}/get-profile`
         ).subscribe(
             (resp: UserDataResponse) => {
                 this.setUser(resp.agent, false).then(() => {

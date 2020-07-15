@@ -3,12 +3,15 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {UserDataResponse} from '../../../shared/model/user';
 import {Messages} from '../../../shared/config/messages';
+import {Operation} from '../../../shared/model/operation';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AgentShowService {
 
+    //-------------AGENT SHOW VARS------------------//
+    public allOperations: Subject<Operation[]> = new Subject<Operation[]>();
     /**
      * @var Subject
      */
@@ -24,16 +27,15 @@ export class AgentShowService {
     /**
      * @method getAgentData
      * @param agentId
-     * @param start
-     * @param end
      */
-    public async getAgentOperationData(agentId, start, end) {
+    public async getAgentOperationData(agentId) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             this.appService.post(
-                `es/api/v1/administrator/${this.appService.user.id}/get/${agentId}/agent/${start}/${end}/data`
+                `es/api/v1/administrator/${this.appService.user.id}/get/${agentId}/agent/data`
             ).subscribe(
-                (resp: UserDataResponse) => {
-                    this.agentOperationData.next(resp);
+                (resp: any) => {
+                    this.agentOperationData.next(resp.user_data);
+                    this.allOperations.next(resp.user_recharges);
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {

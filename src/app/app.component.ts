@@ -42,10 +42,10 @@ export class AppComponent {
             this.appService.setStorage(Constants.IS_ANDROID, this.platform.is('android'), false).then();
             this.appService.setStorage(Constants.IS_IOS, this.platform.is('ios'), false).then();
 
-            const isMobilWeb = (this.platform.is('mobileweb') || this.platform.is('desktop'))
+            const isMobilWeb = (this.platform.is('mobileweb') || this.platform.is('desktop'));
 
             this.appService.setStorage(Constants.IS_MOBIL_WEB, isMobilWeb, false).then();
-            this.appService.isMobilWeb = isMobilWeb
+            this.appService.isMobilWeb = isMobilWeb;
 
             if (!(this.platform.is('mobileweb') || this.platform.is('desktop'))) {
 

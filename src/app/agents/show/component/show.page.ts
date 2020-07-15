@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {DatePipe} from '@angular/common';
-import {Messages} from '../../../shared/config/messages';
 import {UserDataResponse} from '../../../shared/model/user';
-import {Utils} from '../../../shared/utils/utils';
 import {AgentShowService} from '../service/agent-show.service';
+import {Operation} from '../../../shared/model/operation';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-show',
@@ -14,17 +13,17 @@ import {AgentShowService} from '../service/agent-show.service';
 export class ShowPage implements OnInit {
 
     /**
-     * @var Date
+     * @var string[]
      */
-    public today: number = Date.now();
-    public startDate = new Date(new Date().setDate(new Date().getDate() - 7));
-    public endDate = new Date(new Date().setDate(new Date().getDate()));
-
+    public displayedColumns: string[] = ['data', 'status'];
     /**
-     * @var any
+     * @var Operation[]
      */
-    public customPickerOptionsStart: any;
-    public customPickerOptionsEnd: any;
+    public items: Operation[] = [];
+    /**
+     * @var MatTableDataSource
+     */
+    public dataSource = new MatTableDataSource<Operation>(this.items);
 
     /**
      * @var UserDataResponse
@@ -45,10 +44,9 @@ export class ShowPage implements OnInit {
     /**
      * Constructor
      * @param route
-     * @param datePipe
      * @param agentShowService
      */
-    constructor(private route: ActivatedRoute, private datePipe: DatePipe, public agentShowService: AgentShowService) {
+    constructor(private route: ActivatedRoute, public agentShowService: AgentShowService) {
     }
 
     ngOnInit() {
@@ -66,43 +64,27 @@ export class ShowPage implements OnInit {
                 : 0.00;
         });
 
-        this.route.params.subscribe(params => {
-            this.id = params['id'];
-            this.agentShowService.getAgentOperationData(params['id'], this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
+        this.agentShowService.allOperations.subscribe({
+            next: (ops: Operation[]) => {
+
+                this.items = ops;
+                this.dataSource.data = this.items;
+            }
         });
 
-        this.customPickerOptionsStart = {
-            buttons: [{
-                text: Messages.DONE,
-                handler: (e) => {
-                    this.startDate = new Date(Utils.transformDate(e));
-                    if (this.id) {
-                        this.agentShowService.getAgentOperationData(this.id, this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
-                    }
-                }
-            }, {
-                text: Messages.CANCEL,
-                handler: () => {
-                    return false;
-                }
-            }]
-        };
-        this.customPickerOptionsEnd = {
-            buttons: [{
-                text: Messages.DONE,
-                handler: (e) => {
-                    this.endDate = new Date(Utils.transformDate(e));
-                    if (this.id) {
-                        this.agentShowService.getAgentOperationData(this.id, this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
-                    }
-                }
-            }, {
-                text: Messages.CANCEL,
-                handler: () => {
-                    return false;
-                }
-            }]
-        };
+        this.route.params.subscribe(params => {
+            this.id = params['id'];
+            this.agentShowService.getAgentOperationData(params['id']).then();
+        });
+    }
+
+    /**
+     * @method applyFilter
+     * @param event
+     */
+    public applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
 }

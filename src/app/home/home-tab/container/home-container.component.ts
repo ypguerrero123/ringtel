@@ -15,19 +15,6 @@ export class HomeContainerComponent implements OnInit {
     /**
      * @var any
      */
-    public today: number = Date.now();
-    public startDate = new Date(new Date().setDate(new Date().getDate() - 7));
-    public endDate = new Date(new Date().setDate(new Date().getDate()));
-
-    /**
-     * @var any
-     */
-    public customPickerOptionsStart: any;
-    public customPickerOptionsEnd: any;
-
-    /**
-     * @var any
-     */
     public totalEarnings: any = 0.00;
     public totalSellingCost: any = 0.00;
     public totalSalePrice: any = 0.00;
@@ -64,35 +51,6 @@ export class HomeContainerComponent implements OnInit {
             this.getProfile();
         });
 
-        this.customPickerOptionsStart = {
-            buttons: [{
-                text: Messages.DONE,
-                handler: (e) => {
-                    this.startDate = new Date(Utils.transformDate(e));
-                    this.getProfile();
-                }
-            }, {
-                text: Messages.CANCEL,
-                handler: () => {
-                    return false;
-                }
-            }]
-        };
-        this.customPickerOptionsEnd = {
-            buttons: [{
-                text: Messages.DONE,
-                handler: (e) => {
-                    this.endDate = new Date(Utils.transformDate(e));
-                    this.getProfile();
-                }
-            }, {
-                text: Messages.CANCEL,
-                handler: () => {
-                    return false;
-                }
-            }]
-        };
-
         this.getProfile();
     }
 
@@ -100,7 +58,7 @@ export class HomeContainerComponent implements OnInit {
      * @method getProfile
      */
     public getProfile() {
-        this.appService.getProfile(this.datePipe.transform(this.startDate, 'yyyy-MM-dd'), this.datePipe.transform(this.endDate, 'yyyy-MM-dd')).then();
+        this.appService.getProfile().then();
     }
 
 }
