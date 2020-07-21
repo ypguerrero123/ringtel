@@ -41,7 +41,7 @@ export class ListPage implements OnInit {
      * @var Date
      */
     public today: number = Date.now();
-    public startDate = new Date(new Date().setDate(new Date().getDate() - 7));
+    public startDate = new Date(new Date().setDate(new Date().getDate() - 5));
     public endDate = new Date(new Date().setDate(new Date().getDate()));
     /**
      * @var number
