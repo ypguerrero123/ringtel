@@ -5,9 +5,25 @@
             <ion-card-content>
                 <form [formGroup]="registerForm">
 
-                    <ion-text class="ion-text-center">
-                        <h3>Registro rápido y seguro, su seguridad es lo primero</h3><br/>
-                    </ion-text>
+                    <div class="form-group">
+                        <ion-label class="required">Nombre: </ion-label>
+                        <ion-input [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || registerService.errorPath == 'fullName'" autocomplete="off" formControlName="name"
+                                   maxlength="50" placeholder="Entre su nombre" required
+                                   type="text"></ion-input>
+                        <!-- Error messages -->
+                        <span *ngIf="formControl.name.errors?.required && (formControl.name.dirty || formControl.name.touched)"
+                              class="error">
+                            Nombre obligatorio.
+                        </span>
+                        <span *ngIf="formControl.name.errors?.minlength && (formControl.name.dirty || formControl.name.touched)"
+                              class="error">
+                            Nombre de 2 caracteres mínimo.
+                        </span>
+                        <span *ngIf="registerService.errorMessage && registerService.errorPath == 'fullName'"
+                              class="error">
+                            {{registerService.errorMessage}}
+                        </span>
+                    </div>
 
                     <div class="form-group">
                         <ion-label class="required">Correo:</ion-label>

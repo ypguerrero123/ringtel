@@ -33,7 +33,7 @@ export class RegisterPage implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            name: ['Nombre Apellidos', [Validators.required, Validators.minLength(2)]],
+            name: ['', [Validators.required, Validators.minLength(2)]],
             email: ['', [Validators.required, Validators.email]],
             phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
             password: ['', [Validators.required, Validators.minLength(8)]]
