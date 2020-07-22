@@ -129,7 +129,7 @@ export class RechargeService {
             if (!this.appService.isPostSale()) {
                 return this.appService.navigateToUrl(this.appService.appRoutes.APP_STRIPE);
             } else {
-                return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseInt(user.balance).toFixed(2)} < $${(recharge.amount).toFixed(2)}`);
+                return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseInt(user.balance).toFixed(2)} < $${(recharge.amount)}`);
             }
 
         }
