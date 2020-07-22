@@ -280,7 +280,7 @@ export class RechargeService {
      * @param action
      * @param service
      */
-    public async proccessLote(allData: string[], rechargePriceId, action, service){
+    public async proccessLote(allData: string[], rechargePriceId, action, service) {
         if (allData.length == 0 || (allData.length > 0 && allData[0] == '') || allData.length > 100) {
 
             return this.appService.presentToast(

@@ -5,6 +5,7 @@ import {User} from '../../../shared/model/user';
 import {Utils} from '../../../shared/utils/utils';
 import {Messages} from '../../../shared/config/messages';
 import {AgentEditService} from '../service/agent-edit.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-edit',
@@ -12,6 +13,8 @@ import {AgentEditService} from '../service/agent-edit.service';
     styleUrls: ['./edit.page.scss'],
 })
 export class EditPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

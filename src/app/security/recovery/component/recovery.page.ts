@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Messages} from '../../../shared/config/messages';
 import {RecoveryService} from '../service/recovery.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-recovery',
@@ -9,6 +10,8 @@ import {RecoveryService} from '../service/recovery.service';
     styleUrls: ['./recovery.page.scss'],
 })
 export class RecoveryPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

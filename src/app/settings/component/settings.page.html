@@ -9,14 +9,14 @@
             </ion-item-divider>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_EDIT_PROFILE)">
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_EDIT_PROFILE)">
                 <ion-icon name="person-circle-outline" slot="start"></ion-icon>
                 <ion-label>Datos generales</ion-label>
                 <ion-icon name="create-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_EDIT_SALES)"
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_EDIT_SALES)"
                     *ngIf="settingsService.appService.isPostSale()">
                 <ion-icon name="cash-outline" slot="start"></ion-icon>
                 <ion-label>Precios de costos y ventas</ion-label>
@@ -34,14 +34,14 @@
             </ion-item-divider>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_EDIT_PASSWORD)">
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_EDIT_PASSWORD)">
                 <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
                 <ion-label>Cambiar contraseña</ion-label>
                 <ion-icon name="create-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_FINGER_ORINT_SETTINGS)">
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_FINGER_ORINT_SETTINGS)">
                 <ion-icon name="finger-print-outline" slot="start"></ion-icon>
                 <ion-label>Acceso biométrico</ion-label>
                 <ion-icon name="create-outline" slot="end"></ion-icon>
@@ -58,7 +58,7 @@
             </ion-item-divider>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_AGENTS_LIST)"
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_AGENTS_LIST)"
                     *ngIf="settingsService.appService.isAdmin()">
                 <ion-icon name="people-outline" slot="start"></ion-icon>
                 <ion-label>Mis usuarios</ion-label>
@@ -66,7 +66,7 @@
             </ion-item>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_AGENTS_CREATE)"
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_AGENTS_CREATE)"
                     *ngIf="settingsService.appService.isAdmin()">
                 <ion-icon name="people-outline" slot="start"></ion-icon>
                 <ion-label>Crear usuario</ion-label>
@@ -80,21 +80,21 @@
                 </ion-item-divider>
 
                 <ion-item
-                        (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_TRANSFER_CREATE)">
+                        (click)="settingsService.appService.navigateToUrl(appRoutes.APP_TRANSFER_CREATE)">
                     <ion-icon name="cash-outline" slot="start"></ion-icon>
                     <ion-label>Transferir crédito</ion-label>
                     <ion-icon name="send-outline" slot="end"></ion-icon>
                 </ion-item>
 
                 <ion-item
-                        (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_TRANSFER_LIST)">
+                        (click)="settingsService.appService.navigateToUrl(appRoutes.APP_TRANSFER_LIST)">
                     <ion-icon name="list-circle-outline" slot="start"></ion-icon>
                     <ion-label>Historial de transferencias</ion-label>
                     <ion-icon name="eye-outline" slot="end"></ion-icon>
                 </ion-item>
 
                 <ion-item
-                        (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_CREDIT_CARD_DETAIL)">
+                        (click)="settingsService.appService.navigateToUrl(appRoutes.APP_CREDIT_CARD_DETAIL)">
                     <ion-icon name="list-circle-outline" slot="start"></ion-icon>
                     <ion-label>Historial crédito comprado</ion-label>
                     <ion-icon name="eye-outline" slot="end"></ion-icon>
@@ -107,14 +107,14 @@
             </ion-item-divider>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_RECHARGE_HISTORY)">
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_RECHARGE_HISTORY)">
                 <ion-icon name="list-circle-outline" slot="start"></ion-icon>
                 <ion-label>Historial de recargas</ion-label>
                 <ion-icon name="eye-outline" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item
-                    (click)="settingsService.appService.navigateToUrl(settingsService.appService.appRoutes.APP_RECHARGE_PROCESSING_PENDING)">
+                    (click)="settingsService.appService.navigateToUrl(appRoutes.APP_RECHARGE_PROCESSING_PENDING)">
                 <ion-icon name="timer-outline" slot="start"></ion-icon>
                 <ion-label>Recargas pendientes</ion-label>
                 <ion-icon name="eye-outline" slot="end"></ion-icon>

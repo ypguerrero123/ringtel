@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Charge, Method} from '../../shared/model/stripe';
 import {CreditCardService} from '../service/credit-card.service';
+import {AppRoutes} from '../../shared/config/routes';
 
 @Component({
     selector: 'app-cards',
@@ -9,6 +10,8 @@ import {CreditCardService} from '../service/credit-card.service';
     styleUrls: ['./cards.page.scss'],
 })
 export class CardsPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var bool

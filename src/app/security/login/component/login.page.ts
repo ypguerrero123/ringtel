@@ -4,6 +4,7 @@ import {Messages} from '../../../shared/config/messages';
 import {LoginService} from '../service/login.service';
 import {FingerPrintService} from '../../../fingerprint/service/finger-print.service';
 import {Constants} from '../../../shared/config/constants';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-login',
@@ -11,6 +12,8 @@ import {Constants} from '../../../shared/config/constants';
     styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

@@ -2,7 +2,7 @@
 
 <ion-content scroll-y="true">
     <app-refresh
-            routePage="{{processingPendingService.appService.appRoutes.APP_RECHARGE_PROCESSING_PENDING}}"></app-refresh>
+            routePage="{{appRoutes.APP_RECHARGE_PROCESSING_PENDING}}"></app-refresh>
     <app-empty empty="{{ dataSourcePending.data.length == 0 && dataSourceProcessing.data.length == 0 }}"
                loading="{{ loadingData ? '' : loadingData }}"></app-empty>
 

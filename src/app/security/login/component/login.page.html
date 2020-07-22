@@ -46,7 +46,7 @@
                                        placeholder="Entre su contraseña" type="password"></ion-input>
                         </div>
                         <ion-text class="ion-text-left">
-                            <p (click)="loginService.appService.navigateToUrl(loginService.appService.appRoutes.APP_RECOVERY)"
+                            <p (click)="loginService.appService.navigateToUrl(appRoutes.APP_RECOVERY)"
                                class="underline mt-2">
                                 <small>¿Olvidó su contraseña?</small>
                             </p>
@@ -61,7 +61,7 @@
 
                     <ion-text class="ion-text-center">
                         <p>¿Aún no tiene cuenta creada?
-                            <small (click)="loginService.appService.navigateToUrl(loginService.appService.appRoutes.APP_REGISTER)"
+                            <small (click)="loginService.appService.navigateToUrl(appRoutes.APP_REGISTER)"
                                    class="underline underline-small">
                                 Registrarse
                             </small>

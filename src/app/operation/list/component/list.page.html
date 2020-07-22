@@ -1,7 +1,7 @@
 <app-toolbar active="recharges" title="Historial de recargas"></app-toolbar>
 
 <ion-content scroll-y="true">
-    <app-refresh routePage="{{operationListService.appService.appRoutes.APP_RECHARGE_HISTORY}}"></app-refresh>
+    <app-refresh routePage="{{appRoutes.APP_RECHARGE_HISTORY}}"></app-refresh>
     <app-empty empty="{{ dataSource.data.length == 0 }}"
                loading="{{ loadingData ? '' : loadingData }}"></app-empty>
 

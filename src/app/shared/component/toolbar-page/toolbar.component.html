@@ -2,18 +2,16 @@
     <ion-toolbar>
         <ion-buttons slot="start">
 
-            <ion-menu-button (click)="shoppingService.appService.navigateToUrl(shoppingService.appService.appRoutes.APP_SETTINGS)"
+            <ion-menu-button (click)="shoppingService.appService.navigateToUrl(appRoutes.APP_SETTINGS)"
                              *ngIf="visible(['home'])"
                              auto-hide="false"></ion-menu-button>
-
-            <ion-back-button
+            <ion-button
                     *ngIf="visible(['finger-print', 'transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"
-                    class="ml-3"
-                    defaultHref="{{ visible(['operation-show']) ? shoppingService.appService.appRoutes.APP_RECHARGE_HISTORY : (visible(['agent-show', 'agent-edit']) ? shoppingService.appService.appRoutes.APP_AGENTS_LIST : shoppingService.appService.appRoutes.APP_SETTINGS) }}"
-                    icon="arrow-back-outline"
-                    text=""></ion-back-button>
+                    (click)="shoppingService.appService.navigateToUrl(navigateToUrl())">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
 
-            <ion-button (click)="shoppingService.appService.navigateToUrl(shoppingService.appService.appRoutes.APP_HOME_PAGE)"
+            <ion-button (click)="shoppingService.appService.navigateToUrl(appRoutes.APP_HOME_PAGE)"
                         *ngIf="visible(['shopping', 'settings', 'stripe'])">
                 <ion-icon name="home-outline" slot="icon-only"></ion-icon>
             </ion-button>
@@ -33,7 +31,7 @@
 
         <ion-buttons slot="primary">
 
-            <ion-button (click)="shoppingService.appService.navigateToUrl(shoppingService.appService.appRoutes.APP_SHOPPING_CART)"
+            <ion-button (click)="shoppingService.appService.navigateToUrl(appRoutes.APP_SHOPPING_CART)"
                         *ngIf="!visible(['shopping'])">
                 <div *ngIf="!readingShooping">
                     <ion-icon *ngIf="totalShoppingItems > 0" name="cart" slot="icon-only"></ion-icon>

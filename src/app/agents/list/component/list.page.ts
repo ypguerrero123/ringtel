@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../../shared/model/user';
 import {AgentListService} from '../service/agent-list.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-list',
@@ -8,6 +9,8 @@ import {AgentListService} from '../service/agent-list.service';
     styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     public agents: User[] = [];
 

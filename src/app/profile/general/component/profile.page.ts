@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../../shared/utils/utils';
 import {Messages} from '../../../shared/config/messages';
 import {ProfileGeneralService} from '../service/profile-general.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-profile',
@@ -10,6 +11,8 @@ import {ProfileGeneralService} from '../service/profile-general.service';
     styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

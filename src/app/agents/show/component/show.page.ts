@@ -4,6 +4,7 @@ import {UserDataResponse} from '../../../shared/model/user';
 import {AgentShowService} from '../service/agent-show.service';
 import {Operation} from '../../../shared/model/operation';
 import {MatTableDataSource} from '@angular/material/table';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-show',
@@ -11,6 +12,8 @@ import {MatTableDataSource} from '@angular/material/table';
     styleUrls: ['./show.page.scss'],
 })
 export class ShowPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var string[]

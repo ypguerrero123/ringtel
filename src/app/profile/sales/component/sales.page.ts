@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../../shared/utils/utils';
 import {Messages} from '../../../shared/config/messages';
 import {ProfileSalesService} from '../service/profile-sales.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-sales',
@@ -10,6 +11,8 @@ import {ProfileSalesService} from '../service/profile-sales.service';
     styleUrls: ['./sales.page.scss'],
 })
 export class SalesPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

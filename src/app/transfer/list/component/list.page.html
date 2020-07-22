@@ -1,7 +1,7 @@
 <app-toolbar active="transfer" title="Historial de tranferencias"></app-toolbar>
 
 <ion-content>
-    <app-refresh routePage="{{transferListService.appService.appRoutes.APP_RECHARGE_HISTORY}}"></app-refresh>
+    <app-refresh routePage="{{appRoutes.APP_RECHARGE_HISTORY}}"></app-refresh>
     <app-empty empty="{{ dataSource.data.length == 0 }}"
                loading="{{ loadingData ? '' : loadingData }}"></app-empty>
     <div *ngIf="dataSource.data.length > 0 && !loadingData">

@@ -1,7 +1,7 @@
 <app-toolbar active="cards" title="Transacciones y tarjetas utilizadas"></app-toolbar>
 
 <ion-content scroll-y="true">
-    <app-refresh routePage="{{creditCardService.appService.appRoutes.APP_CREDIT_CARD_DETAIL}}"></app-refresh>
+    <app-refresh routePage="{{appRoutes.APP_CREDIT_CARD_DETAIL}}"></app-refresh>
     <app-empty empty="{{ chargesTableDataSource.data.length == 0 }}"
                loading="{{ (loadingMethods || loadingCharges) ? '' : false }}"></app-empty>
 

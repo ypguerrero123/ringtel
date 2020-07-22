@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../shared/service/app.service';
 import {SettingsService} from '../service/settings.service';
+import {AppRoutes} from '../../shared/config/routes';
 
 @Component({
     selector: 'app-settings',
@@ -8,6 +9,8 @@ import {SettingsService} from '../service/settings.service';
     styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * Constructor

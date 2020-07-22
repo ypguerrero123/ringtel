@@ -1,7 +1,7 @@
 <app-toolbar active="shopping" title="Mi carrito"></app-toolbar>
 
 <ion-content [class.content]="tableDataSource.data.length == 0 && !loadingData">
-    <app-refresh routePage="{{shoppingService.appService.appRoutes.APP_SHOPPING_CART}}"></app-refresh>
+    <app-refresh routePage="{{appRoutes.APP_SHOPPING_CART}}"></app-refresh>
     <app-empty empty="{{ tableDataSource.data.length == 0 }}"
                loading="{{ loadingData ? '' : loadingData }}"></app-empty>
 

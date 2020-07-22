@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Transfer} from '../../../shared/model/transfer';
 import {TransferListService} from '../service/transfer-list.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-list',
@@ -9,6 +10,8 @@ import {TransferListService} from '../service/transfer-list.service';
     styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var string[]

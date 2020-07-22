@@ -4,6 +4,7 @@ import {AlertController} from '@ionic/angular';
 import {Messages} from '../../shared/config/messages';
 import {MatTableDataSource} from '@angular/material/table';
 import {ShoppingService} from '../service/shopping.service';
+import {AppRoutes} from '../../shared/config/routes';
 
 @Component({
     selector: 'app-shopping',
@@ -11,6 +12,8 @@ import {ShoppingService} from '../service/shopping.service';
     styleUrls: ['./shopping.page.scss'],
 })
 export class ShoppingPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var string[]

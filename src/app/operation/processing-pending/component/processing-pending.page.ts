@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProcessingPendingService} from '../service/processing-pending.service';
 import {Operation} from '../../../shared/model/operation';
 import {MatTableDataSource} from '@angular/material/table';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-processing-pending',
@@ -9,6 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
     styleUrls: ['./processing-pending.page.scss'],
 })
 export class ProcessingPendingPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var string[]

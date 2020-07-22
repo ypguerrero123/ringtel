@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {OperationShowService} from '../service/operation-show.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-recharge-detail',
@@ -8,6 +9,8 @@ import {OperationShowService} from '../service/operation-show.service';
     styleUrls: ['./show.page.scss'],
 })
 export class ShowPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * Constructor

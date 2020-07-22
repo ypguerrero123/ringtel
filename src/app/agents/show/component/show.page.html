@@ -1,7 +1,7 @@
 <app-toolbar active="agent-show" title="Detalles del usuario"></app-toolbar>
 
 <ion-content scroll-y="true">
-    <app-refresh routePage="{{agentShowService.appService.appRoutes.APP_AGENTS_SHOW}}"></app-refresh>
+    <app-refresh routePage="{{appRoutes.APP_AGENTS_SHOW}}"></app-refresh>
     <div *ngIf="agentToShow">
 
         <mat-tab-group dynamicHeight selectedIndex="0">

@@ -4,6 +4,7 @@ import {Utils} from '../../../shared/utils/utils';
 import {Validations} from '../../../shared/config/validations';
 import {Messages} from '../../../shared/config/messages';
 import {ProfilePasswordService} from '../service/profile-password.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-password',
@@ -11,6 +12,8 @@ import {ProfilePasswordService} from '../service/profile-password.service';
     styleUrls: ['./password.page.scss'],
 })
 export class PasswordPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../../shared/utils/utils';
 import {Messages} from '../../../shared/config/messages';
 import {AgentCreateService} from '../service/agent-create.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-create',
@@ -10,6 +11,8 @@ import {AgentCreateService} from '../service/agent-create.service';
     styleUrls: ['./create.page.scss'],
 })
 export class CreatePage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

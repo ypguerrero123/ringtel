@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Shopping} from '../../model/shopping';
 import {ShoppingService} from '../../../shopping/service/shopping.service';
+import {AppRoutes} from '../../config/routes';
 
 @Component({
     selector: 'app-toolbar',
@@ -11,6 +12,8 @@ export class ToolbarComponent implements OnInit {
 
     @Input() title: string;
     @Input() active: string;
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var number
@@ -44,6 +47,13 @@ export class ToolbarComponent implements OnInit {
      */
     public visible(valid: string[]) {
         return valid.includes(this.active);
+    }
+
+    /**
+     * @method navigateToUrl
+     */
+    public navigateToUrl() {
+        return this.visible(['operation-show']) ? this.appRoutes.APP_RECHARGE_HISTORY : (this.visible(['agent-show', 'agent-edit']) ? this.appRoutes.APP_AGENTS_LIST : this.appRoutes.APP_SETTINGS);
     }
 
 }

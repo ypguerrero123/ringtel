@@ -4,6 +4,7 @@ import {Utils} from '../../../shared/utils/utils';
 import {MatTableDataSource} from '@angular/material/table';
 import {Messages} from '../../../shared/config/messages';
 import {OperationListService} from '../service/operation-list.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-history',
@@ -11,6 +12,8 @@ import {OperationListService} from '../service/operation-list.service';
     styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var string[]

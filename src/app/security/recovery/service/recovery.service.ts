@@ -36,13 +36,15 @@ export class RecoveryService {
                         if (err.status == 400) {
                             this.setErrorVars(err.error.path, err.error.error);
                         } else {
-                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
+                            this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                         }
                     });
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.setErrorVars(null, null);
+                        this.appService.presentToast(Messages.RECOVERY_SUCCESS).then(() => {
+                            this.setErrorVars(null, null);
+                        });
                     });
                 });
         });

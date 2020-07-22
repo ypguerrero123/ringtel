@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../../shared/utils/utils';
 import {Messages} from '../../../shared/config/messages';
 import {RegisterService} from '../service/register.service';
+import {AppRoutes} from '../../../shared/config/routes';
 
 @Component({
     selector: 'app-register',
@@ -10,6 +11,8 @@ import {RegisterService} from '../service/register.service';
     styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+
+    public appRoutes = AppRoutes;
 
     /**
      * @var FormGroup

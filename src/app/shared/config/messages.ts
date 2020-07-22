@@ -11,6 +11,8 @@ export class Messages {
     public static readonly DONE = 'Aceptar';
     public static readonly UPDATE = 'Actualizar';
 
+    public static readonly RECOVERY_SUCCESS = 'Proceso ejecutado correctamente. Un mensaje ha sido enviado vía sms y por correo.';
+
     public static readonly CUBACEl_LOWER = 'cubacel';
     public static readonly NAUTA_LOWER = 'nauta';
     public static readonly LONG_DISTANCE_LOWER = 'long-distance';
