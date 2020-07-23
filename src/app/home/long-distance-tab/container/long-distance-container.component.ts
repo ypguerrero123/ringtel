@@ -8,6 +8,7 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
 import {Constants} from '../../../shared/config/constants';
 import {ContactInterface} from '../../../shared/model/contact';
 import {RechargeService} from '../../service/recharge.service';
+import {AppRoutes} from "../../../shared/config/routes";
 
 @Component({
     selector: 'app-long-distance-container',
@@ -83,6 +84,13 @@ export class LongDistanceContainerComponent implements OnInit {
      * @method onSubmitVerifyOTP
      */
     public async onSubmit() {
+
+        const userLoggedIn = this.rechargeService.appService.user;
+
+        if (userLoggedIn.broker_post_sale && (!userLoggedIn.selling_cost_cubacel || !userLoggedIn.selling_cost_nauta)) {
+            return this.rechargeService.appService.navigateToUrl(AppRoutes.APP_EDIT_SALES);
+        }
+
         if (this.longForm.valid) {
             return this.rechargeService.confirmShoppingData(this.longForm, this.action, Messages.LONG_DISTANCE_LOWER).then();
         }

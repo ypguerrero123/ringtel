@@ -8,6 +8,7 @@ import {Validations} from '../../../shared/config/validations';
 import {RechargeService} from '../../service/recharge.service';
 import {Constants} from '../../../shared/config/constants';
 import {IonInput, IonTextarea} from '@ionic/angular';
+import {AppRoutes} from "../../../shared/config/routes";
 
 @Component({
     selector: 'app-cubacel-container',
@@ -100,6 +101,13 @@ export class CubacelContainerComponent implements OnInit {
      * @method onSubmit
      */
     public async onSubmit() {
+
+        const userLoggedIn = this.rechargeService.appService.user;
+
+        if (userLoggedIn.broker_post_sale && (!userLoggedIn.selling_cost_cubacel || !userLoggedIn.selling_cost_nauta)) {
+            return this.rechargeService.appService.navigateToUrl(AppRoutes.APP_EDIT_SALES);
+        }
+
         if (this.cubacelForm.valid) {
             return this.rechargeService.confirmShoppingData(this.cubacelForm, this.action, Messages.CUBACEl_LOWER).then();
         }
@@ -110,6 +118,13 @@ export class CubacelContainerComponent implements OnInit {
      * @method onSubmitFile
      */
     public async onSubmitFile() {
+
+        const userLoggedIn = this.rechargeService.appService.user;
+
+        if (userLoggedIn.broker_post_sale && (!userLoggedIn.selling_cost_cubacel || !userLoggedIn.selling_cost_nauta)) {
+            return this.rechargeService.appService.navigateToUrl(AppRoutes.APP_EDIT_SALES);
+        }
+
         if (this.cubacelFormFile.valid) {
             return this.rechargeService.proccessLote(this.cubacelFormFile.value.textAreaNumbers.split(/\r\n|\n/), this.cubacelFormFile.value.recharge, this.action, Messages.CUBACEl_LOWER).then();
         }

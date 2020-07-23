@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {ContactInterface} from '../../../shared/model/contact';
 import {RechargeService} from '../../service/recharge.service';
 import {Constants} from '../../../shared/config/constants';
+import {AppRoutes} from "../../../shared/config/routes";
 
 @Component({
     selector: 'app-nauta-container',
@@ -74,6 +75,13 @@ export class NautaContainerComponent implements OnInit {
      * @method onSubmitVerifyOTP
      */
     public async onSubmit() {
+
+        const userLoggedIn = this.rechargeService.appService.user;
+
+        if (userLoggedIn.broker_post_sale && (!userLoggedIn.selling_cost_cubacel || !userLoggedIn.selling_cost_nauta)) {
+            return this.rechargeService.appService.navigateToUrl(AppRoutes.APP_EDIT_SALES);
+        }
+
         if (this.nautaForm.valid) {
             return this.rechargeService.confirmShoppingData(this.nautaForm, this.action, Messages.NAUTA_LOWER).then();
         }

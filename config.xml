@@ -3,7 +3,7 @@
     <name>Cuba Horizontes</name>
     <description>Aplicación de recargas</description>
     <author email="ypguerrero123@gmail.com" href="#">Yunior Pantoja Guerrero</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
