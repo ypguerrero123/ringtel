@@ -33,15 +33,14 @@ export class ShoppingService {
                 `es/api/v1/shopping/${this.appService.userType()}/${user.id}/index`
             ).pipe(map((resp: Shopping[]) => resp.map(shoppingData => new ShoppingResponseEntity(shoppingData, user)))
             ).subscribe((resp: Shopping[]) => {
-                    this.allShoppings.next(resp);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.allShoppings.next(resp);
+                    });
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }
@@ -57,17 +56,21 @@ export class ShoppingService {
             ).pipe(map((resp: SendShoppingResponse) => new SendShoppingResponseEntity(resp, user)))
                 .subscribe(
                     (resp: SendShoppingResponse) => {
-                        this.appService.setUser(resp.agent, true).then(() => {
+                        this.appService.dismissLoading(loading).then(() => {
 
-                            setTimeout(() => {
+                            this.appService.setUser(resp.agent, true).then(() => {
 
-                                this.allShoppings.next(resp.shoppings);
+                                setTimeout(() => {
 
-                            }, 1000);
+                                    this.allShoppings.next(resp.shoppings);
 
-                            if (resp.shoppings.length == 0) {
-                                this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
-                            }
+                                }, 1000);
+
+                                if (resp.shoppings.length == 0) {
+                                    this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
+                                }
+
+                            });
 
                         });
                     },
@@ -75,9 +78,6 @@ export class ShoppingService {
                         this.appService.dismissLoading(loading).then(() => {
                             this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                         });
-                    },
-                    () => {
-                        this.appService.dismissLoading(loading).then();
                     });
         });
     }
@@ -92,7 +92,9 @@ export class ShoppingService {
                 `es/api/v1/shopping/${this.appService.userType()}/${this.appService.user.id}/shopping/${shopping.id}/delete`
             ).subscribe(
                 (resp: Shopping[]) => {
-                    this.allShoppings.next(resp);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.allShoppings.next(resp);
+                    });
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -100,9 +102,7 @@ export class ShoppingService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                 });
         });
     }

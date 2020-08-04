@@ -29,16 +29,16 @@ export class OperationListService {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             this.appService.post(
                 `es/api/v1/operation/${this.appService.userType()}/${this.appService.user.id}/date/${start}/to/${end}/filter/${page}`
-            ).subscribe((resp: Operation[]) => {
-                    this.allOperations.next(resp);
+            ).subscribe(
+                (resp: Operation[]) => {
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.allOperations.next(resp);
+                    });
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }

@@ -27,7 +27,7 @@
     "@angular/router": "~9.1.11",
     "@ionic-native/aes-256": "^5.27.0",
     "@ionic-native/call-number": "^5.25.0",
-    "@ionic-native/contacts": "^5.24.0",
+    "@ionic-native/contacts": "^5.27.0",
     "@ionic-native/core": "^5.24.0",
     "@ionic-native/fingerprint-aio": "^5.27.0",
     "@ionic-native/firebase-x": "^5.26.0",

@@ -55,8 +55,10 @@ export class SettingsService {
                 `es/api/v1/profile/${this.appService.userType()}/${this.appService.user.id}/disable-account`)
                 .subscribe(
                     () => {
-                        this.appService.clearStorage().then(() => {
-                            this.appService.router.navigate(['/login']).then();
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.appService.clearStorage().then(() => {
+                                this.appService.router.navigate(['/login']).then();
+                            });
                         });
                     },
                     (err) => {
@@ -65,9 +67,7 @@ export class SettingsService {
                         });
                     },
                     () => {
-                        this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                        });
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                     });
         });
     }

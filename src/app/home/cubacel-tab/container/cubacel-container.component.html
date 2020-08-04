@@ -54,7 +54,8 @@
                         </div>
                         <div class="form-group">
                             <ion-label class="required">Recargas disponibles:</ion-label>
-                            <ion-select (keyup.enter)="onSubmit()" aria-describedby="priceHelp" okText="Seleccionar"
+                            <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet"
+                                        (keyup.enter)="onSubmit()" okText="Seleccionar"
                                         cancelText="Cancelar"
                                         formControlName="recharge"
                                         placeholder="Seleccione un valor">
@@ -143,7 +144,8 @@
                         </div>
                         <div class="form-group">
                             <ion-label class="required">Recargas disponibles:</ion-label>
-                            <ion-select (keyup.enter)="onSubmit()" aria-describedby="priceHelp" okText="Seleccionar"
+                            <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet"
+                                        (keyup.enter)="onSubmit()" aria-describedby="priceHelp" okText="Seleccionar"
                                         cancelText="Cancelar"
                                         formControlName="recharge"
                                         placeholder="Seleccione un valor">

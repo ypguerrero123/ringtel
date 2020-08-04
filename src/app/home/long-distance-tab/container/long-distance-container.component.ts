@@ -42,6 +42,10 @@ export class LongDistanceContainerComponent implements OnInit {
      */
     public action: number = 1;
 
+    customActionSheetOptions: any = {
+        header: 'Seleccione una opción',
+    };
+
     /**
      * Constructor LongDistanceContainerComponent
      * @param platform

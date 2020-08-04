@@ -41,13 +41,12 @@ export class CreditCardService {
                 `es/api/v1/stripe/${this.appService.userType()}/${this.appService.user.id}/customer-charges-transactions`
             ).subscribe(
                 (resp: any) => {
-                    this.customerCharges.next(resp.transactions);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.customerCharges.next(resp.transactions);
+                    });
                 },
                 () => {
                     this.customerCharges.next([]);
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }
@@ -62,15 +61,14 @@ export class CreditCardService {
                 `es/api/v1/stripe/${this.appService.userType()}/${this.appService.user.id}/detach/${paymentId}/payment-method`
             ).subscribe(
                 (resp: any) => {
-                    this.savedPaymentMethods.next(Utils.parseMethods(resp.methods));
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.savedPaymentMethods.next(Utils.parseMethods(resp.methods));
+                    });
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }

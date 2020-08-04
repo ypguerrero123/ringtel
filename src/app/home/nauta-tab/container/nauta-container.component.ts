@@ -38,6 +38,10 @@ export class NautaContainerComponent implements OnInit {
      */
     public action: number = 1;
 
+    customActionSheetOptions: any = {
+        header: 'Seleccione una opción',
+    };
+
     /**
      * Constructor NautaContainerComponent
      * @param formBuilder

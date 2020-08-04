@@ -31,7 +31,9 @@ export class OtpService {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             this.appService.post(`es/api/v1/security/${user.id}/repeat-otp`, data).subscribe(
                 (resp: User) => {
-                    this.appService.setUser(resp);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp);
+                    });
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -44,9 +46,7 @@ export class OtpService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION);
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION);
                 });
         });
     }
@@ -63,9 +63,11 @@ export class OtpService {
                     `es/api/v1/security/${user.id}/verify-otp-code`, Utils.getFormData({'otp': otp})
                 ).subscribe(
                     (resp: User) => {
-                        this.appService.setUser(resp).then(() => {
-                            this.appService.deleteStorage(Constants.REGISTER_OTP_PROCCESS).then(() => {
-                                this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.appService.setUser(resp).then(() => {
+                                this.appService.deleteStorage(Constants.REGISTER_OTP_PROCCESS).then(() => {
+                                    this.appService.navigateToUrl(AppRoutes.APP_SUCCESS);
+                                });
                             });
                         });
                     },
@@ -75,9 +77,6 @@ export class OtpService {
                                 err.status == 400 ? err.error.error : Messages.ERROR_PLEASE_TRY_LATER
                             );
                         });
-                    },
-                    () => {
-                        this.appService.dismissLoading(loading).then();
                     });
             });
         }

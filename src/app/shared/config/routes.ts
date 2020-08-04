@@ -45,6 +45,7 @@ export class AppRoutes {
     public static readonly APP_AGENTS_SHOW = 'agent/show/:id';
     public static readonly APP_AGENTS_EDIT = 'agent/edit/:id';
     public static readonly APP_AGENTS_CREATE = 'agent/create';
+    public static readonly APP_AGENTS_TRANSFER = 'agent/transfer';
 
     /**
      * Profile routes

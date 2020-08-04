@@ -131,15 +131,14 @@ export class StripeService {
             this.appService.post(`es/api/v1/stripe/${this.appService.userType()}/${this.appService.user.id}/payment-intent-status`
             ).subscribe(
                 (resp: User) => {
-                    this.appService.setUser(resp).then();
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp).then();
+                    });
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
 

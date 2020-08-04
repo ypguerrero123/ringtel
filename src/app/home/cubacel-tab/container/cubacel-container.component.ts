@@ -52,6 +52,10 @@ export class CubacelContainerComponent implements OnInit {
      */
     public file: File;
 
+    customActionSheetOptions: any = {
+        header: 'Seleccione una opción',
+    };
+
     /**
      * Constructor
      * @param formBuilder

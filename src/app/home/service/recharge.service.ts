@@ -124,12 +124,15 @@ export class RechargeService {
         const recharge: Recharge = await this.getRecharge(form.value.recharge, service, user);
         const shopping: Shopping = new ShoppingFormEntity(form.value, recharge, service, ccodPhoneValue);
 
-        if (parseInt(user.balance) == 0 || parseInt(user.balance) < recharge.amount) {
+        if (parseInt(user.balance) == 0) {
 
             if (!this.appService.isPostSale()) {
                 return this.appService.navigateToUrl(this.appService.appRoutes.APP_STRIPE);
             } else {
-                return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseInt(user.balance).toFixed(2)} < $${(recharge.amount)}`);
+
+                let message = `${Messages.CREDIT_NOT_VALID} $${user.balance} < $${(service == Messages.CUBACEl_LOWER ? user.sale_price_cubacel : user.sale_price_nauta)}`;
+
+                return this.appService.presentToast(message);
             }
 
         }
@@ -185,24 +188,27 @@ export class RechargeService {
                 `es/api/v1/recharge/${this.appService.userType()}/${this.appService.user.id}/code/${shopping.recharge.id}/index`, data
             ).subscribe(
                 (resp: SendShoppingResponse) => {
-                    this.appService.setUser(resp.agent, true).then(() => {
 
-                        const message = resp.success == true
-                            ? Messages.SUCCESS_ACTION
-                            : (resp.errorMessage == Messages.PLEASE_WAIT_TWO_MINUTES
-                                ? Messages.PLEASE_WAIT_TWO_MINUTES
-                                : Messages.ERROR_PLEASE_TRY_LATER);
+                    this.appService.dismissLoading(loading).then(() => {
 
-                        this.appService.presentToast(message).then();
+                        this.appService.setUser(resp.agent, true).then(() => {
+
+                            const message = resp.success == true
+                                ? Messages.SUCCESS_ACTION
+                                : (resp.errorMessage == Messages.PLEASE_WAIT_TWO_MINUTES
+                                    ? Messages.PLEASE_WAIT_TWO_MINUTES
+                                    : Messages.ERROR_PLEASE_TRY_LATER);
+
+                            this.appService.presentToast(message).then();
+                        });
+
                     });
+
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }
@@ -224,7 +230,9 @@ export class RechargeService {
                 `es/api/v1/shopping/${this.appService.userType()}/${this.appService.user.id}/recharge/${shopping.recharge.id}/create`, data
             ).subscribe(
                 (resp: Shopping[]) => {
-                    this.shoppingService.allShoppings.next(resp);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.shoppingService.allShoppings.next(resp);
+                    });
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -232,9 +240,7 @@ export class RechargeService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                 });
         });
     }
@@ -255,7 +261,9 @@ export class RechargeService {
                 `es/api/v1/recharge/${this.appService.userType()}/${this.appService.user.id}/code/${shopping.recharge.id}/pre/sale`, data
             ).subscribe(
                 (resp: SendShoppingResponse) => {
-                    this.appService.setUser(resp.agent, true).then();
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp.agent, true).then();
+                    });
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -263,9 +271,7 @@ export class RechargeService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                 });
         });
     }
@@ -303,7 +309,7 @@ export class RechargeService {
                 const salePriceCubacel = parseFloat(user.sale_price_cubacel);
 
                 if (parseInt(user.balance) == 0 || parseInt(user.balance) < (finalLote.length * salePriceCubacel)) {
-                    return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${parseFloat(user.balance).toFixed(2)} < $${(finalLote.length * salePriceCubacel).toFixed(2)}`);
+                    return this.appService.presentToast(`${Messages.CREDIT_NOT_VALID} $${user.balance} < $${(finalLote.length * salePriceCubacel).toFixed(2)}`);
                 }
 
                 const alert = await this.appService.alertController.create({
@@ -356,7 +362,9 @@ export class RechargeService {
                 `es/api/v1/recharge-file/${this.appService.userType()}/${this.appService.user.id}/code/${recharge.id}/pre/sale`, data
             ).subscribe(
                 (resp: SendShoppingResponse) => {
-                    this.appService.setUser(resp.agent, true).then();
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp.agent, true).then();
+                    });
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -364,9 +372,7 @@ export class RechargeService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                 });
         });
     }
@@ -389,7 +395,9 @@ export class RechargeService {
                 `es/api/v1/recharge-file/${this.appService.userType()}/${this.appService.user.id}/code-recharge/${recharge.id}/send-to-shopping`, data
             ).subscribe(
                 (resp: Shopping[]) => {
-                    this.shoppingService.allShoppings.next(resp);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.shoppingService.allShoppings.next(resp);
+                    });
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -397,9 +405,7 @@ export class RechargeService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                 });
         });
     }
@@ -419,22 +425,23 @@ export class RechargeService {
                 `es/api/v1/recharge-file/${this.appService.userType()}/${this.appService.user.id}/code/${recharge.id}/index`, data
             ).subscribe(
                 (resp: SendShoppingResponse) => {
-                    this.appService.setUser(resp.agent, true).then(() => {
+                    this.appService.dismissLoading(loading).then(() => {
 
-                        const message = resp.success == true
-                            ? Messages.SUCCESS_ACTION
-                            : Messages.ERROR_PLEASE_TRY_LATER;
+                        this.appService.setUser(resp.agent, true).then(() => {
 
-                        this.appService.presentToast(message).then();
+                            const message = resp.success == true
+                                ? Messages.SUCCESS_ACTION
+                                : Messages.ERROR_PLEASE_TRY_LATER;
+
+                            this.appService.presentToast(message).then();
+                        });
+
                     });
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
 
         });

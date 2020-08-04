@@ -27,16 +27,16 @@ export class ProcessingPendingService {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
             this.appService.post(
                 `es/api/v1/operation/${this.appService.userType()}/${this.appService.user.id}/list/processing-pending/index`
-            ).subscribe((resp: Operation[]) => {
-                    this.allOperations.next(resp);
+            ).subscribe(
+                (resp: Operation[]) => {
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.allOperations.next(resp);
+                    });
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }
@@ -53,8 +53,10 @@ export class ProcessingPendingService {
             this.appService.post(
                 `es/api/v1/operation/${this.appService.userType()}/${this.appService.user.id}/delete/one-pending/ops`, data
             ).subscribe((resp: any) => {
-                    this.appService.setUser(resp.user, true).then(() => {
-                        this.allOperations.next(resp.result);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp.user, true).then(() => {
+                            this.allOperations.next(resp.result);
+                        });
                     });
                 },
                 err => {
@@ -63,9 +65,7 @@ export class ProcessingPendingService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                 });
         });
     }

@@ -1,17 +1,22 @@
 import {Injectable} from '@angular/core';
 import {AppService} from '../../../shared/service/app.service';
-import {User} from '../../../shared/model/user';
 import {Messages} from '../../../shared/config/messages';
+import {User} from '../../../shared/model/user';
+import {Subject} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ProfileSalesService {
+export class AgentTransferService {
 
-    //-------------PROFILE SALES ERROR VARS------------------//
+    //-------------AGENT TRANSFER ERROR VARS------------------//
     public errorPath: string = null;
     public errorMessage: string = null;
 
+    /**
+     * @var Subject
+     */
+    public allAgents: Subject<User[]> = new Subject<User[]>();
 
     /**
      * Constructor
@@ -21,29 +26,45 @@ export class ProfileSalesService {
     }
 
     /**
-     * @method updateSalesProfile
-     * @param pathParameter
-     * @param newData
+     * @method getAllAgentsToSelect
      */
-    public async updateSalesProfile(pathParameter: string, newData: {}) {
+    public async getAllAgentsToSelect() {
+        this.appService.post(
+            `es/api/v1/administrator/${this.appService.user.id}/agents/all`
+        ).subscribe(
+            (resp: User[]) => {
+                this.allAgents.next(resp);
+            },
+            () => {
+                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
+            });
+    }
+
+    /**
+     * @method editAgentBalance
+     * @param data
+     */
+    public async editAgentBalance(data) {
         this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
 
             this.setErrorVars(null, null);
 
             this.appService.post(
-                `es/api/v1/profile/${this.appService.userType()}/${this.appService.user.id}/${pathParameter}`, newData)
+                `es/api/v1/administrator/${this.appService.user.id}/transfer/agent/balance`, data)
                 .subscribe(
-                    (resp: User) => {
+                    (resp: any) => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.setUser(resp);
+                            this.appService.setUser(resp.user).then(() => {
+                                this.allAgents.next(resp.agents);
+                            });
                         });
                     },
-                    err => {
+                    (err) => {
                         this.appService.dismissLoading(loading).then(() => {
                             if (err.status == 400) {
                                 this.setErrorVars(err.error.path, err.error.error);
                             } else {
-                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
+                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                             }
                         });
                     },
@@ -53,6 +74,7 @@ export class ProfileSalesService {
                         });
                     });
         });
+
     }
 
     /**

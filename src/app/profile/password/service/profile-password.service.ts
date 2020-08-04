@@ -34,10 +34,15 @@ export class ProfilePasswordService {
                 `es/api/v1/profile/${this.appService.userType()}/${this.appService.user.id}/${pathParameter}`, newData
             ).subscribe(
                 (resp: User) => {
-                    this.appService.setUser(resp).then(() => {
-                        if (resp.enabledFingerPrint) {
-                            this.appService.setStorage(Constants.DATA_FINGER_PRINT, {'username': this.appService.user.email, 'password': newData.get('newPassword')});
-                        }
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp).then(() => {
+                            if (resp.enabledFingerPrint) {
+                                this.appService.setStorage(Constants.DATA_FINGER_PRINT, {
+                                    'username': this.appService.user.email,
+                                    'password': newData.get('newPassword')
+                                });
+                            }
+                        });
                     });
                 },
                 err => {
@@ -50,10 +55,8 @@ export class ProfilePasswordService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
-                            this.setErrorVars(null, null);
-                        });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
+                        this.setErrorVars(null, null);
                     });
                 });
         });

@@ -34,16 +34,15 @@ export class AgentShowService {
                 `es/api/v1/administrator/${this.appService.user.id}/get/${agentId}/agent/data`
             ).subscribe(
                 (resp: any) => {
-                    this.agentOperationData.next(resp.user_data);
-                    this.allOperations.next(resp.user_recharges);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.agentOperationData.next(resp.user_data);
+                        this.allOperations.next(resp.user_recharges);
+                    });
                 },
                 () => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }

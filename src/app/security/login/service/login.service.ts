@@ -25,10 +25,12 @@ export class LoginService {
 
             this.appService.post('es/api/v1/security/login', data, headers).subscribe(
                 (resp: User) => {
-                    this.appService.setUser(resp).then(() => {
-                        return resp.broker_post_sale && (!resp.selling_cost_cubacel || !resp.selling_cost_nauta)
-                            ? this.appService.navigateToUrl(AppRoutes.APP_EDIT_SALES)
-                            : this.appService.navigateToUrl(AppRoutes.APP_HOME_PAGE);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp).then(() => {
+                            return resp.broker_post_sale && (!resp.selling_cost_cubacel || !resp.selling_cost_nauta)
+                                ? this.appService.navigateToUrl(AppRoutes.APP_EDIT_SALES)
+                                : this.appService.navigateToUrl(AppRoutes.APP_HOME_PAGE);
+                        });
                     });
                 },
                 err => {
@@ -40,9 +42,6 @@ export class LoginService {
                         });
                     });
 
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }

@@ -31,17 +31,15 @@ export class TransferCreateService {
             this.appService.post(`es/api/v1/transfer/${this.appService.user.id}/search/agent`, data
             ).subscribe(
                 (resp: User[]) => {
-                    this.agentsFounds.next(resp);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.agentsFounds.next(resp);
+                    });
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
-                }
-            );
+                });
         });
     }
 
@@ -56,8 +54,10 @@ export class TransferCreateService {
                 `es/api/v1/transfer/agent-from/${this.appService.user.id}/agent-to/${agentTo}/send`, data
             ).subscribe(
                 (resp: TransferResponse) => {
-                    this.appService.setUser(resp.agent).then(() => {
-                        this.allTransfers.next(resp.transfers);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp.agent).then(() => {
+                            this.allTransfers.next(resp.transfers);
+                        });
                     });
                 },
                 (err) => {
@@ -66,9 +66,7 @@ export class TransferCreateService {
                     });
                 },
                 () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.SUCCESS_ACTION).then();
-                    });
+                    this.appService.presentToast(Messages.SUCCESS_ACTION).then();
                 }
             );
         });

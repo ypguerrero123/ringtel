@@ -124,6 +124,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: AppRoutes.APP_AGENTS_TRANSFER,
+        loadChildren: () => import('./agents/transfer/transfer.module').then( m => m.TransferPageModule),
+        canActivate: [AuthGuard]
+    },
+    {
         path: AppRoutes.APP_EDIT_SALES,
         loadChildren: () => import('./profile/sales/sales.module').then(m => m.SalesPageModule),
         canActivate: [AuthGuard]

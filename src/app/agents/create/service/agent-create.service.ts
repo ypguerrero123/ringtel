@@ -32,8 +32,10 @@ export class AgentCreateService {
                 `es/api/v1/administrator/${this.appService.user.id}/create/agent`, data)
                 .subscribe(
                     (resp: any) => {
-                        this.appService.setUser(resp.admin).then(() => {
-                            this.appService.navigateToUrl(AppRoutes.APP_AGENTS_LIST);
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.appService.setUser(resp.admin).then(() => {
+                                this.appService.navigateToUrl(AppRoutes.APP_AGENTS_LIST);
+                            });
                         });
                     },
                     (err) => {
@@ -46,10 +48,8 @@ export class AgentCreateService {
                         });
                     },
                     () => {
-                        this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
-                                this.setErrorVars(null, null);
-                            });
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
+                            this.setErrorVars(null, null);
                         });
                     });
         });

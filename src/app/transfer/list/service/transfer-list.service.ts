@@ -31,19 +31,18 @@ export class TransferListService {
                 `es/api/v1/transfer/${this.appService.userType()}/${this.appService.user.id}/index/${page}`
             ).subscribe(
                 (resp: TransferResponse) => {
-                    if (concat) {
-                        this.concatTransfers.next(resp.transfers);
-                    } else {
-                        this.allTransfers.next(resp.transfers);
-                    }
+                    this.appService.dismissLoading(loading).then(() => {
+                        if (concat) {
+                            this.concatTransfers.next(resp.transfers);
+                        } else {
+                            this.allTransfers.next(resp.transfers);
+                        }
+                    });
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
                         this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
                     });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then();
                 });
         });
     }

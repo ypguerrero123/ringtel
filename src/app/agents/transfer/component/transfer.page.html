@@ -1,0 +1,90 @@
+<app-toolbar active="agent-transfer" title="Transferir crédito"></app-toolbar>
+
+<ion-content scroll-y="true">
+    <app-refresh routePage=""></app-refresh>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+            <ion-item class="ion-no-padding z-index-0" lines="none">
+                <ion-avatar slot="start">
+                    <ion-img src="../../assets/images/services/info.svg"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                    <h2>Info</h2>
+                    <h3>Transferir crédito</h3>
+                    <p>Mover crédito entre sus usuarios <br/> o de sus usuarios hacia la tienda.</p>
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="shadow-lg" mode="md">
+        <ion-card-content>
+
+            <form [formGroup]="agentForm">
+
+                <div class="form-group">
+                    <ion-label class="required">Dirección de la transferencia:</ion-label>
+                    <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet"
+                                value="transfer_2" okText="Seleccionar" cancelText="Cancelar"
+                                (ionChange)="changeTransfer($event)" formControlName="transferChoice">
+                        <ion-select-option value="transfer_2">Tienda -> Usuario</ion-select-option>
+                        <ion-select-option value="transfer_1">Usuario -> Usuario</ion-select-option>
+                        <ion-select-option value="transfer_3">Usuario -> Tienda</ion-select-option>
+                    </ion-select>
+                </div>
+
+                <div class="form-group" *ngIf="showUserFrom">
+                    <ion-label class="required">Quitar del usuario:</ion-label>
+                    <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet"
+                                okText="Seleccionar" cancelText="Cancelar" placeholder="...[Seleccione un usuario]..."
+                                (ionChange)="changeAgentFrom($event)" formControlName="agentFrom">
+                        <ion-select-option *ngFor="let item of agentsFrom;"
+                                           [value]="item.id">{{item.name|titlecase}}</ion-select-option>
+                    </ion-select>
+                </div>
+
+                <div class="form-group">
+                    <ion-label class="required">
+                        {{showUserFrom ? 'Crédito actual del usuario seleccionado' : 'Crédito actual de la tienda'}}:
+                    </ion-label>
+                    <ion-input
+                            [class.error-input]="(!formControl.newBalance.valid && (formControl.newBalance.dirty || formControl.newBalance.touched)) || agentTransferService.errorPath == 'newBalance'"
+                            formControlName="newBalance" autocomplete="off" type="text"></ion-input>
+                    <!-- Error messages -->
+                    <span *ngIf="formControl.newBalance.errors?.required && (formControl.newBalance.dirty || formControl.newBalance.touched)"
+                          class="error">
+                            Crédito obligatorio.
+                        </span>
+                    <span *ngIf="formControl.newBalance.errors?.pattern && (formControl.newBalance.dirty || formControl.newBalance.touched)"
+                          class="error">
+                            Sólo números.
+                        </span>
+                    <span *ngIf="formControl.newBalance.errors?.max && (formControl.newBalance.dirty || formControl.newBalance.touched)"
+                          class="error">
+                            Crédito máximo {{max}}
+                        </span>
+                    <span *ngIf="agentTransferService.errorMessage && agentTransferService.errorPath == 'newBalance'"
+                          class="error">
+                            {{agentTransferService.errorMessage}}
+                        </span>
+                </div>
+
+                <div class="form-group" *ngIf="showUserTo">
+                    <ion-label class="required">Transferir al usuario:</ion-label>
+                    <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet"
+                                okText="Seleccionar" cancelText="Cancelar" placeholder="...[Seleccione un usuario]..."
+                                formControlName="agentTo">
+                        <ion-select-option *ngFor="let item of agentsTo;"
+                                           [value]="item.id">{{item.name|titlecase}}</ion-select-option>
+                    </ion-select>
+                </div>
+
+                <div class="form-group mb-0">
+                    <ion-button color="primary" expand="block" (click)="onSubmit()">Transferir</ion-button>
+                </div>
+
+            </form>
+
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

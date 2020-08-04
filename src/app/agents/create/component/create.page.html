@@ -71,25 +71,6 @@
                         </span>
                 </div>
                 <div class="form-group">
-                    <ion-label class="required">Balance: </ion-label>
-                    <ion-input [class.error-input]="(!formControl.balance.valid && (formControl.balance.dirty || formControl.balance.touched)) || agentCreateService.errorPath == 'balance'" aria-describedby="balanceHelp" autocomplete="off" formControlName="balance"
-                               placeholder="Ingrese el balance" required
-                               type="text"></ion-input>
-                    <!-- Error messages -->
-                    <span *ngIf="formControl.balance.errors?.required && (formControl.balance.dirty || formControl.balance.touched)"
-                          class="error">
-                            Balance obligatorio.
-                        </span>
-                    <span *ngIf="formControl.balance.errors?.pattern && (formControl.balance.dirty || formControl.balance.touched)"
-                          class="error">
-                            Sólo números.
-                        </span>
-                    <span *ngIf="agentCreateService.errorMessage && agentCreateService.errorPath == 'balance'"
-                          class="error">
-                            {{agentCreateService.errorMessage}}
-                        </span>
-                </div>
-                <div class="form-group">
                     <ion-label class="required">Costo cubacel: </ion-label>
                     <ion-input [class.error-input]="(!formControl.salePriceCubacel.valid && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)) || agentCreateService.errorPath == 'salePriceCubacel'" aria-describedby="balanceHelp" autocomplete="off"
                                formControlName="salePriceCubacel"

@@ -28,11 +28,14 @@ export class RegisterService {
 
             this.appService.post(`es/api/v1/security/register`, data).subscribe(
                 (resp: User) => {
-                    this.appService.setUser(resp).then(() => {
-                        this.appService.setStorage(Constants.REGISTER_OTP_PROCCESS, true, false).then(() => {
-                            this.appService.navigateToUrl(AppRoutes.APP_OTP);
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.setUser(resp).then(() => {
+                            this.appService.setStorage(Constants.REGISTER_OTP_PROCCESS, true, false).then(() => {
+                                this.appService.navigateToUrl(AppRoutes.APP_OTP);
+                            });
                         });
                     });
+
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -41,11 +44,6 @@ export class RegisterService {
                         } else {
                             this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                         }
-                    });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.setErrorVars(null, null);
                     });
                 });
         });

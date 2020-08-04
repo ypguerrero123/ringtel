@@ -6,7 +6,7 @@
                              *ngIf="visible(['home'])"
                              auto-hide="false"></ion-menu-button>
             <ion-button
-                    *ngIf="visible(['finger-print', 'transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-show', 'agent-edit'])"
+                    *ngIf="visible(['finger-print', 'transfer', 'sales', 'profile', 'password', 'recharges', 'operation-show', 'cards', 'agents', 'agent-transfer', 'agent-show', 'agent-edit'])"
                     (click)="shoppingService.appService.navigateToUrl(navigateToUrl())">
                 <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
             </ion-button>

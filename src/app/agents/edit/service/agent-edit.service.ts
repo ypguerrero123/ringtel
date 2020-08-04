@@ -39,8 +39,10 @@ export class AgentEditService {
                 `es/api/v1/administrator/${this.appService.user.id}/edit/${agentId}/agent/profile`, data)
                 .subscribe(
                     (resp: any) => {
-                        this.appService.setUser(resp.admin).then();
-                        this.agent.next(resp.agent);
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.appService.setUser(resp.admin).then();
+                            this.agent.next(resp.agent);
+                        });
                     },
                     (err) => {
                         this.appService.dismissLoading(loading).then(() => {
@@ -52,10 +54,8 @@ export class AgentEditService {
                         });
                     },
                     () => {
-                        this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
-                                this.setErrorVars(null, null);
-                            });
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
+                            this.setErrorVars(null, null);
                         });
                     });
         });

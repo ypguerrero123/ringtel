@@ -42,13 +42,15 @@ export class FingerPrintService {
                 `es/api/v1/profile/${this.appService.userType()}/${this.appService.user.id}/configure-finger-print`, data)
                 .subscribe(
                     (resp: User) => {
-                        this.appService.setUser(resp).then(() => {
-                            this.setUserConfiguration(resp.enabledFingerPrint).then();
-                            this.appService.setStorage(Constants.DATA_FINGER_PRINT, {
-                                'username': this.appService.user.email,
-                                'password': data.get('password')
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.appService.setUser(resp).then(() => {
+                                this.setUserConfiguration(resp.enabledFingerPrint).then();
+                                this.appService.setStorage(Constants.DATA_FINGER_PRINT, {
+                                    'username': this.appService.user.email,
+                                    'password': data.get('password')
+                                });
+                                this.userConfigurated = resp.enabledFingerPrint;
                             });
-                            this.userConfigurated = resp.enabledFingerPrint;
                         });
                     },
                     err => {
@@ -61,10 +63,8 @@ export class FingerPrintService {
                         });
                     },
                     () => {
-                        this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
-                                this.setErrorVars(null, null);
-                            });
+                        this.appService.presentToast(Messages.SUCCESS_ACTION).then(() => {
+                            this.setErrorVars(null, null);
                         });
                     });
 

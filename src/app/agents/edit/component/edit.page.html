@@ -78,27 +78,6 @@
                         </span>
                 </div>
                 <div class="form-group">
-                    <ion-label class="required">Balance:</ion-label>
-                    <ion-input (keyup.enter)="onSubmit()"
-                               [class.error-input]="(!formControl.balance.valid && (formControl.balance.dirty || formControl.balance.touched)) || agentEditService.errorPath == 'balance'"
-                               autocomplete="off"
-                               formControlName="balance" placeholder="Ingrese el balance" required
-                               type="text"></ion-input>
-                    <!-- Error messages -->
-                    <span *ngIf="formControl.balance.errors?.required && (formControl.balance.dirty || formControl.balance.touched)"
-                          class="error">
-                            Balance obligatorio.
-                        </span>
-                    <span *ngIf="formControl.balance.errors?.pattern && (formControl.balance.dirty || formControl.balance.touched)"
-                          class="error">
-                            Sólo números.
-                        </span>
-                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'balance'"
-                          class="error">
-                            {{agentEditService.errorMessage}}
-                        </span>
-                </div>
-                <div class="form-group">
                     <ion-label class="required">Costo cubacel:</ion-label>
                     <ion-input
                             [class.error-input]="(!formControl.salePriceCubacel.valid && (formControl.salePriceCubacel.dirty || formControl.salePriceCubacel.touched)) || agentEditService.errorPath == 'salePriceCubacel'"

@@ -30,6 +30,11 @@ export class RecoveryService {
 
             this.appService.post(`es/api/v1/security/recovery`, Utils.getFormData(data)).subscribe(
                 () => {
+                    this.appService.dismissLoading(loading).then(() => {
+                        this.appService.presentToast(Messages.RECOVERY_SUCCESS).then(() => {
+                            this.setErrorVars(null, null);
+                        });
+                    });
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
@@ -38,13 +43,6 @@ export class RecoveryService {
                         } else {
                             this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                         }
-                    });
-                },
-                () => {
-                    this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(Messages.RECOVERY_SUCCESS).then(() => {
-                            this.setErrorVars(null, null);
-                        });
                     });
                 });
         });
