@@ -52,7 +52,8 @@
                                     type="button">
                                 {{agentCreateService.appService.ccodePhoneValue}}</button>
                         </div>
-                        <ion-input [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || agentCreateService.errorPath == 'phone'" autocomplete="off" formControlName="phone"
+                        <ion-input [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || agentCreateService.errorPath == 'phone' || agentCreateService.errorPath == 'phoneCodeNumber'"
+                                   autocomplete="off" formControlName="phone"
                                    maxlength="13" placeholder="Ingrese número de celular" required
                                    type="tel"></ion-input>
                     </div>
@@ -65,7 +66,7 @@
                           class="error">
                             Sólo números.
                         </span>
-                    <span *ngIf="agentCreateService.errorMessage && agentCreateService.errorPath == 'phone'"
+                    <span *ngIf="agentCreateService.errorMessage && (agentCreateService.errorPath == 'phone' || agentCreateService.errorPath == 'phoneCodeNumber')"
                           class="error">
                             {{agentCreateService.errorMessage}}
                         </span>

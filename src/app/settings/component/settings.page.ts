@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from '../../shared/service/app.service';
 import {SettingsService} from '../service/settings.service';
 import {AppRoutes} from '../../shared/config/routes';
 

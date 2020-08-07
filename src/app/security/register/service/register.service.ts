@@ -14,6 +14,8 @@ export class RegisterService {
     public errorPath: string = null;
     public errorMessage: string = null;
 
+    private validErrors: string[] = ['fullName', 'email', 'phoneCodeNumber', 'phone', 'password'];
+
     constructor(public appService: AppService) {
     }
 
@@ -55,7 +57,15 @@ export class RegisterService {
      * @param message
      */
     private setErrorVars(path, message) {
-        this.errorPath = path;
-        this.errorMessage = message;
+
+        if (!path || (path && this.validErrors.includes(path)) ) {
+
+            this.errorPath = path;
+            this.errorMessage = message;
+
+            return;
+        }
+
+        return this.appService.presentToast(`${Messages.ERROR_PLEASE_TRY_LATER}. ${path} ${message}`);
     }
 }

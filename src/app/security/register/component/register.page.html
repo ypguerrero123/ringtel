@@ -6,10 +6,12 @@
                 <form [formGroup]="registerForm">
 
                     <div class="form-group">
-                        <ion-label class="required">Nombre: </ion-label>
-                        <ion-input [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || registerService.errorPath == 'fullName'" autocomplete="off" formControlName="name"
-                                   maxlength="50" placeholder="Entre su nombre" required
-                                   type="text"></ion-input>
+                        <ion-label class="required">Nombre:</ion-label>
+                        <ion-input
+                                [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || registerService.errorPath == 'fullName'"
+                                autocomplete="off" formControlName="name"
+                                maxlength="50" placeholder="Entre su nombre" required
+                                type="text"></ion-input>
                         <!-- Error messages -->
                         <span *ngIf="formControl.name.errors?.required && (formControl.name.dirty || formControl.name.touched)"
                               class="error">
@@ -56,7 +58,7 @@
                                     {{registerService.appService.ccodePhoneValue}}</button>
                             </div>
                             <ion-input (keyup.enter)="onSubmit()"
-                                       [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || registerService.errorPath == 'phone'"
+                                       [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || registerService.errorPath == 'phone' || registerService.errorPath == 'phoneCodeNumber'"
                                        autocomplete="off"
                                        formControlName="phone" maxlength="13" placeholder="Entre su número de celular"
                                        type="tel"></ion-input>
@@ -70,7 +72,7 @@
                               class="error">
                             Sólo números.
                         </span>
-                        <span *ngIf="registerService.errorMessage && registerService.errorPath == 'phone'"
+                        <span *ngIf="registerService.errorMessage && (registerService.errorPath == 'phone' || registerService.errorPath == 'phoneCodeNumber')"
                               class="error">
                             {{registerService.errorMessage}}
                         </span>
@@ -78,7 +80,7 @@
                     <div class="form-group">
                         <ion-label class="required">Contraseña:</ion-label>
                         <ion-input (keyup.enter)="onSubmit()"
-                                   [class.error-input]="!formControl.password.valid && (formControl.password.dirty || formControl.password.touched)"
+                                   [class.error-input]="(!formControl.password.valid && (formControl.password.dirty || formControl.password.touched)) || registerService.errorPath == 'password'"
                                    autocomplete="off" formControlName="password"
                                    maxlength="20" placeholder="Entre su contraseña"
                                    type="password"></ion-input>
@@ -90,6 +92,10 @@
                         <span *ngIf="formControl.password.errors?.minlength && (formControl.password.dirty || formControl.password.touched)"
                               class="error">
                             Contrseña de 8 caracteres mínimo.
+                        </span>
+                        <span *ngIf="registerService.errorMessage && registerService.errorPath == 'password'"
+                              class="error">
+                            {{registerService.errorMessage}}
                         </span>
                     </div>
                     <div class="form-group mt-4 mb-4">

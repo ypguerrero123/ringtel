@@ -125,7 +125,7 @@ const routes: Routes = [
     },
     {
         path: AppRoutes.APP_AGENTS_TRANSFER,
-        loadChildren: () => import('./agents/transfer/transfer.module').then( m => m.TransferPageModule),
+        loadChildren: () => import('./agents/transfer/transfer.module').then(m => m.TransferPageModule),
         canActivate: [AuthGuard]
     },
     {
@@ -136,6 +136,11 @@ const routes: Routes = [
     {
         path: AppRoutes.APP_FINGER_ORINT_SETTINGS,
         loadChildren: () => import('./fingerprint/fingerprint.module').then(m => m.FingerprintPageModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: AppRoutes.APP_CONTACT,
+        loadChildren: () => import('./contact/contact.module').then(m => m.ContactPageModule),
         canActivate: [AuthGuard]
     }
 

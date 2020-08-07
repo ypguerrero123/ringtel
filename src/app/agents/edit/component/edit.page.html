@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <ion-label class="required">Nombre:</ion-label>
                     <ion-input
-                            [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || agentEditService.errorPath == 'name'"
+                            [class.error-input]="(!formControl.name.valid && (formControl.name.dirty || formControl.name.touched)) || agentEditService.errorPath == 'fullName'"
                             autocomplete="off" formControlName="name"
                             maxlength="50" placeholder="Entre su nombre" required
                             type="text"></ion-input>
@@ -22,7 +22,7 @@
                           class="error">
                             Nombre de 2 caracteres mínimo.
                         </span>
-                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'name'"
+                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'fullName'"
                           class="error">
                             {{agentEditService.errorMessage}}
                         </span>
@@ -58,7 +58,7 @@
                                 {{agentEditService.appService.ccodePhoneValue}}</button>
                         </div>
                         <ion-input
-                                [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || agentEditService.errorPath == 'phone'"
+                                [class.error-input]="(!formControl.phone.valid && (formControl.phone.dirty || formControl.phone.touched)) || agentEditService.errorPath == 'phone' || agentEditService.errorPath == 'phoneCodeNumber'"
                                 autocomplete="off" formControlName="phone"
                                 maxlength="13" placeholder="Ingrese el número de celular" required
                                 type="tel"></ion-input>
@@ -72,7 +72,7 @@
                           class="error">
                             Sólo números.
                         </span>
-                    <span *ngIf="agentEditService.errorMessage && agentEditService.errorPath == 'phone'"
+                    <span *ngIf="agentEditService.errorMessage && (agentEditService.errorPath == 'phone' || agentEditService.errorPath == 'phoneCodeNumber')"
                           class="error">
                             {{agentEditService.errorMessage}}
                         </span>

@@ -13,19 +13,23 @@
 
                         <ion-row>
                             <ion-col>
-                                <ion-input (ionInput)="goToNexInput(two)" class="otp-form" formControlName="one" max="9" min="0"
+                                <ion-input (ionInput)="goToNexInput(two)" class="otp-form" formControlName="one" max="9"
+                                           min="0"
                                            size="1" type="number"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-input #two (ionInput)="goToNexInput(three)" class="otp-form" formControlName="two" max="9"
+                                <ion-input #two (ionInput)="goToNexInput(three)" class="otp-form" formControlName="two"
+                                           max="9"
                                            min="0" size="1" type="number"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-input #three (ionInput)="goToNexInput(four)" class="otp-form" formControlName="three" max="9"
+                                <ion-input #three (ionInput)="goToNexInput(four)" class="otp-form"
+                                           formControlName="three" max="9"
                                            min="0" size="1" type="number"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-input #four (ionInput)="onSubmitVerifyOTP(100)" (keyup.enter)="onSubmitVerifyOTP()" class="otp-form" formControlName="four"
+                                <ion-input #four (ionInput)="onSubmitVerifyOTP(100)" (keyup.enter)="onSubmitVerifyOTP()"
+                                           class="otp-form" formControlName="four"
                                            max="9" min="0" pattern="[0-9]{1}"
                                            size="1"
                                            style="margin-right: 0!important;" type="number"></ion-input>
@@ -53,14 +57,17 @@
 
                 <form *ngIf="changePhoneNumber" [formGroup]="phoneForm">
                     <div class="form-group">
-                        <ion-label class="required">Teléfono: </ion-label>
+                        <ion-label class="required">Teléfono:</ion-label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <button (click)="otpService.appService.choicePhoneCode()" class="btn btn-outline-secondary"
+                                <button (click)="otpService.appService.choicePhoneCode()"
+                                        class="btn btn-outline-secondary"
                                         type="button">
                                     {{otpService.appService.ccodePhoneValue}}</button>
                             </div>
-                            <ion-input (keyup.enter)="repeatOTP(true)" [class.error-input]="(!phoneFormControl.phone.valid && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)) || otpService.errorPath == 'phone'" autocomplete="off"
+                            <ion-input (keyup.enter)="repeatOTP(true)"
+                                       [class.error-input]="(!phoneFormControl.phone.valid && (phoneFormControl.phone.dirty || phoneFormControl.phone.touched)) || otpService.errorPath == 'phone' || otpService.errorPath == 'phoneCodeNumber'"
+                                       autocomplete="off"
                                        formControlName="phone" maxlength="13" placeholder="Entre su número de celular"
                                        required
                                        type="tel"></ion-input>
@@ -74,7 +81,7 @@
                               class="error">
                             Sólo números.
                         </span>
-                        <span *ngIf="otpService.errorMessage && otpService.errorPath == 'phone'"
+                        <span *ngIf="otpService.errorMessage && (otpService.errorPath == 'phone' || otpService.errorPath == 'phoneCodeNumber')"
                               class="error">
                             {{otpService.errorMessage}}
                         </span>

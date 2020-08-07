@@ -15,6 +15,8 @@ export class OtpService {
     public errorPath: string = null;
     public errorMessage: string = null;
 
+    private validErrors: string[] = ['phoneCodeNumber', 'phone'];
+
     constructor(public appService: AppService) {
     }
 
@@ -38,8 +40,7 @@ export class OtpService {
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
                         if (err.status == 400) {
-                            this.errorPath = err.error.path;
-                            this.errorMessage = err.error.error;
+                            this.setErrorVars(err.error.path, err.error.error);
                         } else {
                             this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
                         }
@@ -81,5 +82,23 @@ export class OtpService {
             });
         }
 
+    }
+
+    /**
+     * @method setErrorVars
+     * @param path
+     * @param message
+     */
+    private setErrorVars(path, message) {
+
+        if (!path || (path && this.validErrors.includes(path)) ) {
+
+            this.errorPath = path;
+            this.errorMessage = message;
+
+            return;
+        }
+
+        return this.appService.presentToast(`${Messages.ERROR_PLEASE_TRY_LATER}. ${path} ${message}`);
     }
 }

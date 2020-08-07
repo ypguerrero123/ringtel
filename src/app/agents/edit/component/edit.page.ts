@@ -52,7 +52,6 @@ export class EditPage implements OnInit {
                 name: agentToEdit.name,
                 email: agentToEdit.email,
                 phone: Utils.strFixPhoneNumber(agentToEdit.phone),
-                balance: agentToEdit.balance,
                 salePriceCubacel: agentToEdit.sale_price_cubacel,
                 salePriceNauta: agentToEdit.sale_price_nauta,
                 password: '',

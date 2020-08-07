@@ -12,6 +12,8 @@ export class AgentCreateService {
     public errorPath: string = null;
     public errorMessage: string = null;
 
+    private validErrors: string[] = ['fullName', 'email', 'phoneCodeNumber', 'phone', 'salePriceCubacel', 'salePriceNauta'];
+
     /**
      * Constructor
      * @param appService
@@ -61,8 +63,17 @@ export class AgentCreateService {
      * @param message
      */
     private setErrorVars(path, message) {
-        this.errorPath = path;
-        this.errorMessage = message;
+
+        if (!path || (path && this.validErrors.includes(path)) ) {
+
+            this.errorPath = path;
+            this.errorMessage = message;
+
+            return;
+        }
+
+        return this.appService.presentToast(`${Messages.ERROR_PLEASE_TRY_LATER}. ${path} ${message}`);
+
     }
 
 }

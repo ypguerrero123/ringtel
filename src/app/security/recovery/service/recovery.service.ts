@@ -12,6 +12,8 @@ export class RecoveryService {
     public errorPath: string = null;
     public errorMessage: string = null;
 
+    private validErrors: string[] = ['email'];
+
     /**
      * Constructor
      * @param appService
@@ -54,7 +56,15 @@ export class RecoveryService {
      * @param message
      */
     private setErrorVars(path, message) {
-        this.errorPath = path;
-        this.errorMessage = message;
+
+        if (!path || (path && this.validErrors.includes(path)) ) {
+
+            this.errorPath = path;
+            this.errorMessage = message;
+
+            return;
+        }
+
+        return this.appService.presentToast(`${Messages.ERROR_PLEASE_TRY_LATER}. ${path} ${message}`);
     }
 }

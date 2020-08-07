@@ -31,6 +31,7 @@ export class AppRoutes {
     public static readonly APP_ERROR_DUPLICATED = 'result/error-duplicated';
     public static readonly APP_CREDIT_CARD_DETAIL = 'credit-cards';
     public static readonly APP_FINGER_ORINT_SETTINGS = 'finger-print-settings';
+    public static readonly APP_CONTACT = 'contact';
 
     /**
      * Transfer routes

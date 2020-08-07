@@ -21,6 +21,8 @@ export class FingerPrintService {
     public userConfigurated = false;
     public isFingerAvailable = false;
 
+    private validErrors: string[] = ['password'];
+
     /**
      * Constructor
      * @param faio
@@ -126,7 +128,15 @@ export class FingerPrintService {
      * @param message
      */
     private setErrorVars(path, message) {
-        this.errorPath = path;
-        this.errorMessage = message;
+
+        if (!path || (path && this.validErrors.includes(path)) ) {
+
+            this.errorPath = path;
+            this.errorMessage = message;
+
+            return;
+        }
+
+        return this.appService.presentToast(`${Messages.ERROR_PLEASE_TRY_LATER}. ${path} ${message}`);
     }
 }
