@@ -81,17 +81,21 @@ export class AppService {
      * @method getProfile
      */
     public async getProfile() {
-        this.post(
-            `es/api/v1/profile/${this.userType()}/${this.user.id}/get-profile`
-        ).subscribe(
-            (resp: UserDataResponse) => {
-                this.setUser(resp.agent, false).then(() => {
-                    this.userOperationData.next(resp);
+
+        if(this.user){
+            this.post(
+                `es/api/v1/profile/${this.userType()}/${this.user.id}/get-profile`
+            ).subscribe(
+                (resp: UserDataResponse) => {
+                    this.setUser(resp.agent, false).then(() => {
+                        this.userOperationData.next(resp);
+                    });
+                },
+                () => {
+                    this.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
                 });
-            },
-            () => {
-                this.presentToast(Messages.ERROR_PLEASE_TRY_LATER).then();
-            });
+        }
+
     }
 
     /**

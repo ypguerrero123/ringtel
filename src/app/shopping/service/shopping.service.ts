@@ -5,6 +5,7 @@ import {SendShoppingResponse, SendShoppingResponseEntity, Shopping, ShoppingResp
 import {map} from 'rxjs/operators';
 import {Messages} from '../../shared/config/messages';
 import {AppRoutes} from '../../shared/config/routes';
+import {Utils} from '../../shared/utils/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -39,7 +40,7 @@ export class ShoppingService {
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
+                        this.appService.presentToast(Utils.pareseError(err)).then();
                     });
                 });
         });
@@ -76,7 +77,7 @@ export class ShoppingService {
                     },
                     (err) => {
                         this.appService.dismissLoading(loading).then(() => {
-                            this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
+                            this.appService.presentToast(Utils.pareseError(err)).then();
                         });
                     });
         });
@@ -98,7 +99,7 @@ export class ShoppingService {
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
+                        this.appService.presentToast(Utils.pareseError(err)).then();
                     });
                 },
                 () => {

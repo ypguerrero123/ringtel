@@ -2,8 +2,21 @@
  * Utils
  */
 import {Method} from '../model/stripe';
+import {Messages} from '../config/messages';
 
 export class Utils {
+
+    /**
+     * @method pareseError
+     * @param err
+     */
+    public static pareseError(err: any) {
+        if (err && err.error && err.error.detail && err.error.detail != Messages.INTERNAL_SERVER_ERROR) {
+            return err.error.detail;
+        }
+        return Messages.ERROR_PLEASE_TRY_LATER;
+    }
+
 
     /**
      * @method validLote

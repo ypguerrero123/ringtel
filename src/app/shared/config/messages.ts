@@ -9,7 +9,7 @@ export class Messages {
     public static readonly CLOSE = 'Cerrar';
     public static readonly CANCEL = 'Cancelar';
     public static readonly DONE = 'Aceptar';
-    public static readonly UPDATE = 'Actualizar';
+    public static readonly INTERNAL_SERVER_ERROR = 'Internal Server Error';
 
     public static readonly RECOVERY_SUCCESS = 'Proceso ejecutado correctamente. Un mensaje ha sido enviado vía sms y por correo.';
 

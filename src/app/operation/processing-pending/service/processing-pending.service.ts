@@ -35,7 +35,7 @@ export class ProcessingPendingService {
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
+                        this.appService.presentToast(Utils.pareseError(err)).then();
                     });
                 });
         });
@@ -61,7 +61,7 @@ export class ProcessingPendingService {
                 },
                 err => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
+                        this.appService.presentToast(Utils.pareseError(err)).then();
                     });
                 },
                 () => {

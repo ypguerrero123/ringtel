@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AppService} from '../../../shared/service/app.service';
 import {Operation} from '../../../shared/model/operation';
 import {Messages} from '../../../shared/config/messages';
+import {Utils} from '../../../shared/utils/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +36,7 @@ export class OperationShowService {
                 },
                 (err) => {
                     this.appService.dismissLoading(loading).then(() => {
-                        this.appService.presentToast(err.error.detail ? err.error.detail : Messages.ERROR_PLEASE_TRY_LATER).then();
+                        this.appService.presentToast(Utils.pareseError(err)).then();
                     });
                 });
         });
