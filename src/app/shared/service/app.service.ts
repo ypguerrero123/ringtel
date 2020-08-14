@@ -82,7 +82,7 @@ export class AppService {
      */
     public async getProfile() {
 
-        if(this.user){
+        if (this.user) {
             this.post(
                 `es/api/v1/profile/${this.userType()}/${this.user.id}/get-profile`
             ).subscribe(
@@ -193,9 +193,20 @@ export class AppService {
      * @param endpoint
      * @param data
      * @param headers
+     * @param apiChatURL
      */
-    public post(endpoint: string, data: any = {}, headers: any = {}) {
-        return this.http.post(environment.apiURL + endpoint, data, {headers: headers});
+    public post(endpoint: string, data: any = {}, headers: any = {}, apiChatURL = null) {
+        return this.http.post(apiChatURL == null ? `${environment.apiURL}${endpoint}` : `${environment.chatApiUrl}${endpoint}`,
+            data, {headers: headers});
+    }
+
+    /**
+     * @method get
+     * @param endpoint
+     * @param data
+     */
+    public get(endpoint: string, data: any = {}) {
+        return this.http.get(environment.chatApiUrl + endpoint, data);
     }
 
     /**
