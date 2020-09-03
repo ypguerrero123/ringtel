@@ -12,8 +12,8 @@ import {IonContent, IonInput} from '@ionic/angular';
 })
 export class ContactPage implements OnInit {
 
-    @ViewChild('content') private content: IonContent;
-    @ViewChild('inputChat') private inputChat: IonInput;
+    @ViewChild('content',{static:false}) private content: IonContent;
+    @ViewChild('inputChat',{static:false}) private inputChat: IonInput;
 
     public appRoutes = AppRoutes;
 
