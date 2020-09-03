@@ -3,7 +3,8 @@ ion-icon {
 }
 
 .form-control {
-  height: calc(1.5em + 0.75rem + 20px)!important;
+  height: calc(1.5em + 0.75rem + 10px)!important;
+  border: transparent!important;
 }
 
 .card-footer{
@@ -15,6 +16,7 @@ ion-icon {
 }
 
 .chat-room.small-chat {
+  width: 100%;
   position: fixed;
   bottom: 0;
   border-bottom-right-radius: 0;
@@ -52,6 +54,20 @@ ion-icon {
   height: .65rem;
   margin-left: 1.35rem;
   background-color: #007e33;
+  border: .1rem solid #fff;
+  border-radius: 50%
+}
+
+.chat-room.small-chat .profile-photo .state-offline {
+  position: relative;
+  top: -.5rem;
+  left: auto;
+  z-index: 2;
+  display: block;
+  width: .65rem;
+  height: .65rem;
+  margin-left: 1.35rem;
+  background-color: #b10542;
   border: .1rem solid #fff;
   border-radius: 50%
 }

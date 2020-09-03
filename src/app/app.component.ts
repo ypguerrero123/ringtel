@@ -34,6 +34,7 @@ export class AppComponent {
      * @method initializeApp
      */
     private initializeApp() {
+
         this.appService.verifyInitRedirect().then();
 
         this.platform.ready().then(() => {

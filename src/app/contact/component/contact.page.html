@@ -5,70 +5,62 @@
                 <div class="profile-photo">
                     <ion-img src="../../assets/images/security/icon_logo.png" alt="avatar"
                              class="avatar rounded-circle mr-2 ml-0"></ion-img>
-                    <span class="state"></span>
+                    <span class="{{isOnline ? 'state' : 'state-offline'}}"></span>
                 </div>
                 <div class="data">
                     <p class="name mb-0"><strong>Contacto</strong></p>
-                    <p class="activity text-muted mb-0">Activo ahora</p>
+                    <p class="activity text-muted mb-0">{{isOnline ? 'Conectado' : 'Desconectado'}}</p>
                 </div>
             </div>
             <div class="icons grey-text">
-                <ion-icon name="call-outline" class="mr-3"></ion-icon>
-                <ion-icon name="close-circle-outline"
+                <ion-icon name="return-up-back-outline"
                           (click)="contactService.appService.navigateToUrl(appRoutes.APP_SETTINGS)"></ion-icon>
+                <ion-icon name="home-outline" class="ml-4"></ion-icon>
             </div>
         </div>
     </div>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
 
-    <!-- Grid row -->
-    <div class="row d-flex flex-row-reverse">
+    <div class="card-body p-3">
+        <div class="chat-message">
 
-        <!-- Grid column -->
-        <div class="col-md-6 mb-4 d-flex flex-row-reverse">
+            <div *ngFor="let message of messages">
 
-            <div class="card chat-room small-chat wide" id="myForm2">
-
-                <div class="my-custom-scrollbar" id="message">
-                    <div class="card-body p-3">
-                        <div class="chat-message" #content>
-
-                            <div class="d-flex justify-content-start last">
-                                <div class="profile-photo message-photo">
-                                    <ion-img src="../../assets/images/security/icon_logo.png" alt="avatar"
-                                             class="avatar rounded-circle mr-2 ml-0"></ion-img>
-                                    <span class="state"></span>
-                                </div>
-                                <div class="card bg-light rounded w-75 z-depth-0 mb-2">
-                                    <div class="card-body p-2">
-                                        <p class="card-text black-text">
-                                            Hola {{user.name|titlecase}},
-                                            este servicio estará disponible próximamente.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card bg-primary rounded w-75 float-right z-depth-0 mb-1 ">
-                                <div class="card-body p-2">
-                                    <p class="card-text text-white">Contacto: {{user.name}}, Correo: {{user.email}},
-                                        Crédito actual: {{user.balance}}</p>
-                                </div>
-                            </div>
-
-                        </div>
+                <div class="card z-depth-0 mb-2" *ngIf="message.owner == 'ADMIN'">
+                    <div class="card-body p-2 rounded bg-light"
+                         style="{{message.body.length >= 30 ? 'width:100%' :(message.body.length <= 10 ? 'width:31%' : (message.body.length > 10 && message.body.length <= 29 ? 'width:50%' : 'width:70%'))}}">
+                        <p class="card-text black-text">
+                            {{message.body}} {{message.body.length}}
+                        </p>
                     </div>
                 </div>
-                <div class="card-footer text-muted white pt-1 pb-2 px-3">
-                    <ion-input aria-label="" type="text" id="input-chat" #txtChat class="form-control"
-                               placeholder="Escriba un mensaje" (keyup.enter)="sendMessage()"></ion-input>
-                    <div>
-                        <ion-icon name="image-outline" class="mr-3"></ion-icon>
-                        <ion-icon name="happy-outline" class="mr-3"></ion-icon>
-                        <ion-icon name="clipboard-outline" class="mr-3"></ion-icon>
-                        <ion-icon name="camera-outline" class="mr-3"></ion-icon>
-                        <ion-icon name="arrow-redo-outline" class="float-right"></ion-icon>
+                <div class="card z-depth-0 mb-2" *ngIf="message.owner != 'ADMIN'">
+                    <div class="card-body p-2 rounded bg-primary"
+                         style="{{message.body.length >= 30 ? 'margin-left:25%' :(message.body.length <= 5 ? 'margin-left:70%' : (message.body.length > 5 && message.body.length <= 10 ? 'margin-left:50%' : 'margin-left:45%'))}}">
+                        <p class="card-text text-white">
+                            {{message.body}}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="!isOnline">
+                <hr *ngIf="messages.length > 0"/>
+                <div class="d-flex justify-content-start">
+                    <div class="profile-photo message-photo" style="width: 15%">
+                        <ion-img src="../../assets/images/security/icon_logo.png" alt="avatar"
+                                 class="avatar rounded-circle mr-2 ml-0"></ion-img>
+                        <span class="{{isOnline ? 'state' : 'state-offline'}}"></span>
+                    </div>
+                    <div class="card bg-light rounded w-75 z-depth-0 mb-2">
+                        <div class="card-body p-2">
+                            <p class="card-text black-text">
+                                EL servicio de contacto no está disponible.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,5 +68,16 @@
         </div>
     </div>
 
-
 </ion-content>
+<ion-footer>
+    <div class="card-footer text-muted white pt-1 pb-2 px-3">
+        <ion-input aria-label="" type="text" id="input-chat" class="form-control" #inputChat
+                   placeholder="Escriba un mensaje" (keyup.enter)="sendMessage()"></ion-input>
+        <div>
+            <ion-icon name="image-outline" class="mr-3"></ion-icon>
+            <ion-icon name="happy-outline" class="mr-3"></ion-icon>
+            <ion-icon name="clipboard-outline"></ion-icon>
+            <ion-icon name="arrow-redo-outline" class="float-right" (click)="sendMessage()"></ion-icon>
+        </div>
+    </div>
+</ion-footer>

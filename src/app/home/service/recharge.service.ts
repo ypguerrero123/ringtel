@@ -87,19 +87,19 @@ export class RechargeService {
         let price: Recharge = null;
 
         if (service == 'nauta') {
-            await this.nautaRecharges.forEach((p) => {
+            await this.nautaRecharges.forEach((p: Recharge) => {
                 if (p.id == priceId) {
                     price = new RechargeEntity(p, service, user);
                 }
             });
         } else if (service == 'long-distance') {
-            await this.longDistanceRecharges.forEach((p) => {
+            await this.longDistanceRecharges.forEach((p: Recharge) => {
                 if (p.id == priceId) {
                     price = p;
                 }
             });
         } else {
-            await this.cubacelRecharges.forEach((p) => {
+            await this.cubacelRecharges.forEach((p: Recharge) => {
                 if (p.id == priceId) {
                     price = new RechargeEntity(p, service, user);
                 }

@@ -3,6 +3,7 @@ import {AppService} from '../../../shared/service/app.service';
 import {Messages} from '../../../shared/config/messages';
 import {User} from '../../../shared/model/user';
 import {Subject} from 'rxjs';
+import {Utils} from '../../../shared/utils/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -66,7 +67,7 @@ export class AgentTransferService {
                             if (err.status == 400) {
                                 this.setErrorVars(err.error.path, err.error.error);
                             } else {
-                                this.appService.presentToast(Messages.ERROR_PLEASE_TRY_LATER);
+                                this.appService.presentToast(Utils.pareseError(err));
                             }
                         });
                     },

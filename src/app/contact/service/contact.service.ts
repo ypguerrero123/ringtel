@@ -1,15 +1,51 @@
 import {AppService} from '../../shared/service/app.service';
 import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {ChatMessage} from '../../shared/model/chatmessage';
+import {Utils} from '../../shared/utils/utils';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ContactService {
 
-    constructor(public appService: AppService) {
+    /**
+     * @var EventSource
+     * @private
+     */
+    private eventSource: EventSource;
 
+    public openService: Subject<boolean> = new Subject<boolean>();
+    public chatMessages: Subject<ChatMessage[]> = new Subject<ChatMessage[]>();
+
+    constructor(public appService: AppService) {
     }
 
+    /**
+     * @method getMessageAPI
+     * @param topic
+     */
+    public async getMessageAPI(topic) {
+        this.appService.presentLoading().then((loading: HTMLIonLoadingElement) => {
+
+            this.appService.post(`discover/${topic}/api/messages`, {}, {}, true)
+                .subscribe(
+                    (resp: ChatMessage[]) => {
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.chatMessages.next(resp);
+                        });
+                    }, (err) => {
+                        this.appService.dismissLoading(loading).then(() => {
+                            this.appService.presentToast(Utils.pareseError(err));
+                        });
+                    });
+        });
+    }
+
+    /**
+     * @method connect
+     * @param topic
+     */
     public connect(topic) {
 
         this.appService.get(`discover/${topic}/invoke`, {observe: 'response'})
@@ -23,23 +59,42 @@ export class ContactService {
                 hub.searchParams.append('topic', topic);
 
                 // Subscribe to updates
-                const eventSource = new EventSource(hub.toString(), {
+                this.eventSource = new EventSource(hub.toString(), {
                     withCredentials: false
                 });
-                eventSource.onmessage = (event: MessageEvent) => {
+
+                this.eventSource.onopen = () => {
+                    this.openService.next(true);
+                };
+
+                this.eventSource.onerror = () => {
+                    this.openService.next(false);
+                };
+
+                this.eventSource.onmessage = (event: MessageEvent) => {
                     console.log(event.data);
                 };
 
-            }, err => {
-
+            }, () => {
+                this.openService.next(false);
             });
 
     }
 
+    /**
+     * @method disconnect
+     */
     public disconnect() {
-
+        if (this.eventSource) {
+            this.eventSource.close();
+        }
     }
 
+    /**
+     * @method sendMessage
+     * @param topic
+     * @param data
+     */
     public sendMessage(topic, data) {
         this.appService.post(`publish/${topic}/invoke`, data, {}, true)
             .subscribe((response) => {
